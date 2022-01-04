@@ -9,12 +9,12 @@
                         Utilisateurs
                     </a>
                     <?php if(isset($_SESSION['login'])) : ?>
-                        <a href="/logout" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded">
+                        <a class="font-semibold text-xl tracking-tight text-blue-100 ml-24">
+                            Connecté en tant que : <?= $_SESSION['prénom']?>
+                        </a>
+                        <a href="/logout" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded ml-10">
                             Se déconnecter
                         </a>
-                        <div class="font-semibold text-xl tracking-tight text-blue-100">
-                            Connecté en tant que : <?= $_SESSION['nom'] . ' ' . $_SESSION['prénom']?>
-                        </div>
                         <?php else : ?>
                         <a href="/login" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded ml-6">
                             Se connecter
