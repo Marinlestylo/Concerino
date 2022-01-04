@@ -18,7 +18,7 @@ class UsersController{
             'login' => $_POST['email'],
             'nom' => $_POST['name'],
             'prénom' => $_POST['fname'],
-            'motdepasse' => $_POST['password'],
+            'motdepasse' => password_hash($_POST["password"], PASSWORD_BCRYPT),
             'estmodérateur' => 'FALSE'
         ]);
         
