@@ -8,11 +8,11 @@ class PagesController{
         return view('index');
     }
 
-    public function about(){
-        return view('about');
+    public function login(){
+        return view('login');
     }
 
-    public function contact(){
-        return view('contact');
+    public function createAccount(){
+        return view('createAccount');
     }
 }

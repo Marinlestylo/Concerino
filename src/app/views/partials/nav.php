@@ -8,12 +8,6 @@
                     <a href="/users" class="hover:text-indigo-200 text-indigo-100 text-xl">
                         Utilisateurs
                     </a>
-                    <a href="/about" class="hover:text-indigo-200 text-indigo-100 text-xl ml-4">
-                        About
-                    </a>
-                    <a href="/contact" class="hover:text-indigo-200 text-indigo-100 text-xl ml-4">
-                        Contact
-                    </a>
                     <a href="/login" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded ml-6">
                         Se connecter
                     </a>
