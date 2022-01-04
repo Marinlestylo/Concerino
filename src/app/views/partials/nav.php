@@ -8,12 +8,21 @@
                     <a href="/users" class="hover:text-indigo-200 text-indigo-100 text-xl">
                         Utilisateurs
                     </a>
-                    <a href="/login" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded ml-6">
-                        Se connecter
-                    </a>
-                    <a href="/createAccount" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded">
-                        Créer un compte
-                    </a>
+                    <?php if(isset($_SESSION['login'])) : ?>
+                        <a href="/logout" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded">
+                            Se déconnecter
+                        </a>
+                        <div class="font-semibold text-xl tracking-tight text-blue-100">
+                            Connecté en tant que : <?= $_SESSION['nom'] . ' ' . $_SESSION['prénom']?>
+                        </div>
+                        <?php else : ?>
+                        <a href="/login" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded ml-6">
+                            Se connecter
+                        </a>
+                        <a href="/createAccount" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded">
+                            Créer un compte
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
         </nav>

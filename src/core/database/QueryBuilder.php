@@ -10,14 +10,22 @@ class QueryBuilder
         $this->pdo = $pdo;
     }
 
+    // Select * from table (sans condition)
     public function selectAll($table){
-        $stat = $this->pdo->prepare("Select * from {$table}");
+        $stat = $this->pdo->prepare("SELECT * FROM {$table}");
 
         $stat->execute();
 
         return $stat->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function SelectWhereCondition($table, $col, $val){
+        $statement = $this->pdo->prepare("SELECT * FROM {$table} WHERE {$col} = '{$val}'");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    // Insert des données dans la db
     public function insert($table, $params){
         $placeholder = '?';
         $nb = count($params);

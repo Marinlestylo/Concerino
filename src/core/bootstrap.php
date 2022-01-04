@@ -14,3 +14,7 @@ function view($name, $data = []){
 function redirect($path){
     header("Location: /{$path}");
 }
+
+function dd($val){
+    die(var_dump($val));
+}
