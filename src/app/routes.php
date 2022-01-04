@@ -4,5 +4,8 @@ $router->get('', 'PagesController@home');
 $router->get('about', 'PagesController@about');
 $router->get('contact', 'PagesController@contact');
 
-$router->get('villes', 'VillesControllers@index');
-$router->post('villes', 'VillesControllers@store');
+$router->get('users', 'UsersController@index');
+$router->post('users', 'UsersController@store');
+
+$router->get('villes', 'VillesController@index');
+$router->post('villes', 'VillesController@store');

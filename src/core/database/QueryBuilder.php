@@ -19,19 +19,25 @@ class QueryBuilder
     }
 
     public function insert($table, $params){
+        $placeholder = '?';
+        $nb = count($params);
+        for($i = 1; $i < $nb; $i++){
+            $placeholder = $placeholder . ", ?";
+        }
+        
         $sql = sprintf(
             'insert into %s (%s) values (%s)',
             $table,
             implode(', ', array_keys($params)),
-            ':' .implode(', :', array_keys($params))
+            $placeholder
         );
 
         try{
             $statement = $this->pdo->prepare($sql);
 
-            $statement->execute($params);
+            $statement->execute(array_values($params));
         }catch (Exception $e){
-            die('oupsy');
+            die($e->getMessage());
         }
     }
 }

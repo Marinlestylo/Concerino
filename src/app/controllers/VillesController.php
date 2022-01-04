@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Core\App;
 
-class VillesControllers{
+class VillesController{
 
     public function index(){
         $villes = App::get('database')->selectAll('ville');

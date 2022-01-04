@@ -2,7 +2,7 @@
 
 return [
     'database' => [
-        'name' => 'lab02',
+        'name' => 'Concerino',
         'username' => 'postgres',
         'password' => 'admin',
         'connection' => 'pgsql:host=localhost',
