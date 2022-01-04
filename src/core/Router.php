@@ -32,7 +32,7 @@ class Router{
             );
         }
 
-        throw new Exception('No route defined for this URI');
+        return view('error404');
     }
 
     protected function callAction($controller, $action){
