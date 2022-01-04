@@ -13,14 +13,15 @@ class UsersController{
     }
 
     public function store(){
+        // todo : faire les checks (pas sur qu'on en ait besoin vu que c'est un projet de bdr)
         App::get('database')->insert('utilisateur', [
-            'login' => 'g@gmail.com',
+            'login' => $_POST['email'],
             'nom' => $_POST['name'],
-            'prénom' => 'Doe',
-            'motdepasse' => 'randomshit4',
+            'prénom' => $_POST['fname'],
+            'motdepasse' => $_POST['password'],
             'estmodérateur' => 'FALSE'
         ]);
         
-        return redirect('');
+        return redirect('users');
     }
 }
