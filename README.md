@@ -3,7 +3,7 @@ Le but du projet Concer'ino est de réaliser une application complète de base d
 concerts dans toute la Suisse avec la possibilité d’indiquer sa présence
 
 ## Comment run ce projet:
-* Installez la denière version de [php](https://www.sitepoint.com/how-to-install-php-on-windows/) dans **C:/.../php** (Il est important que le dossier s'appelle php et pas php-8.1 par exemple)
+* Installez la denière version de [php](https://www.sitepoint.com/how-to-install-php-on-windows/) dans **C:/.../php** (Il est important que le dossier s'appelle php et pas php-8.1 par exemple).
 * Dans **C:/.../php/php.ini**, décommenter les lignes :
     * extension=pdo_pgsql
     * extension=pgsql

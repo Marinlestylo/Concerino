@@ -1,7 +1,8 @@
 <header class="bg-blue-600">
-        <nav class="container py-6 mx-auto sm:flex flex-wrap items-center w-full">
+        <nav class="container py-4 mx-auto sm:flex flex-wrap items-center w-full">
             <a href="/" class="flex justify-center items-center">
                 <span class="font-semibold text-3xl tracking-tight text-blue-100">Concer'ino</span>
+                <img src="https://i.pinimg.com/originals/86/32/ae/8632aeda3e648ffe76c02bd7e9457f79.jpg" alt="Le logo" width=100>
             </a>
             <div class="flex flex-grow justify-center items-center">
                 <div class="text-sm sm:ml-6">
