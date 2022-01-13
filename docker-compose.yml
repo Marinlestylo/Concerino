@@ -4,7 +4,7 @@ services:
   web:
     build: ./web/.
     ports:
-      - "8080:80" # Page web
+      - "9090:80" # Page web
     volumes:
       - ./web/src:/var/www/html
     depends_on:

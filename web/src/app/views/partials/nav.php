@@ -1,26 +1,29 @@
-<header class="bg-blue-600 flex justify-center">
-        <nav class="container py-4 mx-auto sm:flex flex-wrap items-center w-full justify-center">
-            <a href="/" class="flex pl-48 justify-center items-center">
-                <span class="font-semibold text-3xl tracking-tight text-blue-100">Concer'ino</span>
+<header class="flex justify-center bg-blue-600">
+        <nav class="container flex-wrap items-center justify-center w-full py-4 mx-auto sm:flex">
+            <a href="/" class="flex items-center justify-center pl-48">
+                <span class="text-3xl font-semibold tracking-tight text-blue-100">Concer'ino</span>
                 <img src="../../../public/images/ino.jfif" alt="logo" width=100>
             </a>
-            <div class="flex flex-grow justify-center items-center">
+            <div class="flex items-center justify-center flex-grow">
                 <div class="text-sm sm:ml-6">
-                    <a href="/users" class="hover:text-indigo-200 text-indigo-100 text-xl">
+                    <a href="/users" class="text-xl text-indigo-100 hover:text-indigo-200">
                         Utilisateurs
                     </a>
+                    <a href="/concerts" class="ml-6 text-xl text-indigo-100 hover:text-indigo-200">
+                        Concerts
+                    </a>
                     <?php if(isset($_SESSION['login'])) : ?>
-                        <a class="font-semibold text-xl tracking-tight text-blue-100 ml-24">
+                        <a class="ml-24 text-xl font-semibold tracking-tight text-blue-100">
                             Connecté en tant que : <?= $_SESSION['prénom']?>
                         </a>
-                        <a href="/logout" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded ml-10">
+                        <a href="/logout" class="px-4 py-2 ml-10 mr-6 font-bold text-blue-500 bg-white border border-blue-700 rounded hover:bg-blue-700">
                             Se déconnecter
                         </a>
                         <?php else : ?>
-                        <a href="/login" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded ml-6">
+                        <a href="/login" class="px-4 py-2 ml-6 mr-6 font-bold text-blue-500 bg-white border border-blue-700 rounded hover:bg-blue-700">
                             Se connecter
                         </a>
-                        <a href="/createAccount" class="mr-6 bg-white hover:bg-blue-700 text-blue-500 font-bold py-2 px-4 border border-blue-700 rounded">
+                        <a href="/createAccount" class="px-4 py-2 mr-6 font-bold text-blue-500 bg-white border border-blue-700 rounded hover:bg-blue-700">
                             Créer un compte
                         </a>
                     <?php endif; ?>

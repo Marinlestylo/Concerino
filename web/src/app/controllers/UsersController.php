@@ -11,11 +11,13 @@ class UsersController{
     public function index(){
         $users = App::get('database')->selectAll('utilisateur');
 
-        return view('users', compact('users'));// on peut utiliser ['villes' => $villes] pour remplacer compact('villes')
+        return view('users', compact('users'));// on peut utiliser ['users' => $users] pour remplacer compact('users')
     }
 
+    /**
+     * Ajouter un utilisateur dans la db
+     */
     public function store(){
-        // todo : faire les checks (pas sur qu'on en ait besoin vu que c'est un projet de bdr)
         App::get('database')->insert('utilisateur', [
             'login' => $_POST['email'],
             'nom' => $_POST['name'],
@@ -27,6 +29,9 @@ class UsersController{
         return redirect('users');
     }
 
+    /**
+     * Permet de se connecter
+     */
     public function login() {
         $acc = App::get('database')->selectWhereCondition('utilisateur', 'login', $_POST['email']);
 
@@ -44,14 +49,25 @@ class UsersController{
         }
     }
 
+    /**
+     * Afficher les détails d'un utilisateur
+     */
     public function detail(){
-        if(!isset($_GET['id'])){
-            redirect('');
+        if(!isset($_GET['id']) || !is_numeric($_GET['id']) || $_GET['id'] > 32767){
+            redirect('users');
         }
+        // Select l'utilisateur ayant l'id passé en paramètre
         $user = App::get('database')->selectWhereCondition('utilisateur', 'id', $_GET['id']);
+        // Si on en trouve aucun, redirect
+        if(count($user) == 0){
+            redirect('users');
+        }
         return view('userDetails', compact('user'));
     }
 
+    /**
+     * Permet de se déconnecter
+     */
     public function logout(){
         session_destroy();
         redirect('');
