@@ -1,17 +1,18 @@
-set client_encoding to 'UTF8';
+set
+client_encoding to 'UTF8';
 
 DROP TYPE IF EXISTS TypeLieu CASCADE;
-CREATE TYPE TypeLieu AS ENUM ('Intérieur', 'Extérieur');
+CREATE TYPE TypeLieu AS ENUM ('IntÃ©rieur', 'ExtÃ©rieur');
 
 DROP TABLE IF EXISTS Lieu CASCADE;
 CREATE TABLE Lieu
 (
     nom      VARCHAR(50),
-    capacité INTEGER     NOT NULL,
+    capacitÃ© INTEGER     NOT NULL,
     nomRue   VARCHAR(50) NOT NULL,
     noRue    VARCHAR(10) NOT NULL,
     npa      SMALLINT    NOT NULL,
-    localité VARCHAR(50) NOT NULL,
+    localitÃ© VARCHAR(50) NOT NULL,
     typeLieu TypeLieu    NOT NULL,
     CONSTRAINT PK_Lieu PRIMARY KEY (nom)
 );
@@ -21,10 +22,10 @@ CREATE TABLE Concert
 (
     id         SMALLSERIAL,
     nom        VARCHAR(50)  NOT NULL,
-    début      TIMESTAMP(0) NOT NULL,
-    durée      SMALLINT     NOT NULL,
+    dÃ©but      TIMESTAMP(0) NOT NULL,
+    durÃ©e      SMALLINT     NOT NULL,
     nomLieu    VARCHAR(50)  NOT NULL,
-    idCréateur SMALLINT     NOT NULL,
+    idCrÃ©ateur SMALLINT     NOT NULL,
     CONSTRAINT PK_Concert PRIMARY KEY (id)
 );
 
@@ -34,9 +35,9 @@ CREATE TABLE Utilisateur
     id            SMALLSERIAL,
     login         VARCHAR(50) NOT NULL,
     nom           VARCHAR(50) NOT NULL,
-    prénom        VARCHAR(50) NOT NULL,
+    prÃ©nom        VARCHAR(50) NOT NULL,
     motDePasse    CHAR(60)    NOT NULL,
-    estModérateur BOOLEAN     NOT NULL,
+    estModÃ©rateur BOOLEAN     NOT NULL,
     CONSTRAINT PK_Utilisateur PRIMARY KEY (id)
 );
 
@@ -52,7 +53,7 @@ DROP TABLE IF EXISTS Artiste CASCADE;
 CREATE TABLE Artiste
 (
     id       SMALLSERIAL,
-    nomScène VARCHAR(50) NOT NULL,
+    nomScÃ¨ne VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Artiste PRIMARY KEY (id)
 );
 
@@ -76,7 +77,7 @@ CREATE TABLE Concert_Artiste
 (
     idConcert     SMALLINT,
     idArtiste     SMALLINT,
-    numéroPassage SMALLINT NOT NULL,
+    numÃ©roPassage SMALLINT NOT NULL,
     CONSTRAINT PK_Concert_Artiste PRIMARY KEY (idConcert, idArtiste)
 );
 
@@ -85,7 +86,7 @@ CREATE TABLE ArtisteSolo
 (
     id     SMALLINT,
     nom    VARCHAR(50) NOT NULL,
-    prénom VARCHAR(50) NOT NULL,
+    prÃ©nom VARCHAR(50) NOT NULL,
     CONSTRAINT PK_ArtisteSolo PRIMARY KEY (id)
 );
 
@@ -101,9 +102,9 @@ CREATE TABLE Membre
 (
     idArtisteSolo SMALLINT,
     idGroupe      SMALLINT,
-    dateDébut     DATE,
+    dateDÃ©but     DATE,
     dateFin       DATE NULL,
-    CONSTRAINT PK_Membre PRIMARY KEY (idArtisteSolo, idGroupe, dateDébut)
+    CONSTRAINT PK_Membre PRIMARY KEY (idArtisteSolo, idGroupe, dateDÃ©but)
 );
 
 DROP TABLE IF EXISTS NoteLieu CASCADE;
@@ -141,14 +142,15 @@ ALTER TABLE Concert
         FOREIGN KEY (nomLieu)
             REFERENCES Lieu (nom)
             ON UPDATE CASCADE,
-    ADD CONSTRAINT FK_Concert_idCréateur
-        FOREIGN KEY (idCréateur)
+    ADD CONSTRAINT FK_Concert_idCrÃ©ateur
+        FOREIGN KEY (idCrÃ©ateur)
             REFERENCES Utilisateur (id)
-            ON UPDATE CASCADE,
-    ADD CONSTRAINT CK_Concert_début
-        CHECK (début > NOW()),
-    ADD CONSTRAINT CK_Concert_durée
-        CHECK (durée > 0);
+            ON
+UPDATE CASCADE,
+    ADD CONSTRAINT CK_Concert_dÃ©but
+    CHECK (dÃ©but > NOW()),
+    ADD CONSTRAINT CK_Concert_durÃ©e
+    CHECK (durÃ©e > 0);
 
 ALTER TABLE Utilisateur
     ADD CONSTRAINT UC_Utilisateur_login
@@ -187,14 +189,17 @@ ALTER TABLE Concert_Artiste
     ADD CONSTRAINT FK_Concert_Artiste_idArtiste
         FOREIGN KEY (idArtiste)
             REFERENCES Artiste (id)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE,
-    ADD CONSTRAINT CK_Concert_Artiste_numéroPassage
-        CHECK (numéroPassage > 0);
+            ON
+DELETE
+CASCADE
+            ON
+UPDATE CASCADE,
+    ADD CONSTRAINT CK_Concert_Artiste_numÃ©roPassage
+    CHECK (numÃ©roPassage > 0);
 
 ALTER TABLE Lieu
-    ADD CONSTRAINT CK_Lieu_capacité
-        CHECK (capacité > 0),
+    ADD CONSTRAINT CK_Lieu_capacitÃ©
+        CHECK (capacitÃ© > 0),
     ADD CONSTRAINT CK_Lieu_npa
         CHECK (npa > 0);
 
@@ -221,10 +226,13 @@ ALTER TABLE Membre
     ADD CONSTRAINT FK_Membre_idGroupe
         FOREIGN KEY (idGroupe)
             REFERENCES Groupe (id)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE,
+            ON
+DELETE
+CASCADE
+            ON
+UPDATE CASCADE,
     ADD CONSTRAINT CK_Membre_dateFin
-        CHECK (dateFin >= dateDébut);
+    CHECK (dateFin >= dateDÃ©but);
 
 ALTER TABLE NoteLieu
     ADD CONSTRAINT FK_NoteLieu_nom
@@ -267,15 +275,18 @@ ALTER TABLE NoteArtiste
     ADD CONSTRAINT FK_NoteArtiste_idUtilisateur
         FOREIGN KEY (idUtilisateur)
             REFERENCES Utilisateur (id)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE,
+            ON
+DELETE
+CASCADE
+            ON
+UPDATE CASCADE,
     ADD CONSTRAINT CK_NoteArtiste_note
-        CHECK (note BETWEEN 1 AND 5),
+    CHECK (note BETWEEN 1 AND 5),
     ADD CONSTRAINT CK_NoteArtiste_date
-        CHECK (date = CURRENT_DATE);
+    CHECK (date = CURRENT_DATE);
 
 CREATE INDEX IDX_FK_Concert_nomLieu ON Concert (nomLieu ASC);
-CREATE INDEX IDX_FK_Concert_idCréateur ON Concert (idCréateur ASC);
+CREATE INDEX IDX_FK_Concert_idCrÃ©ateur ON Concert (idCrÃ©ateur ASC);
 CREATE INDEX IDX_FK_Utilisateur_Concert_idConcert ON Utilisateur_Concert (idConcert ASC);
 CREATE INDEX IDX_FK_Utilisateur_Concert_idUtilisateur ON Utilisateur_Concert (idUtilisateur ASC);
 CREATE INDEX IDX_FK_Style_Artiste_idArtiste ON Style_Artiste (idArtiste ASC);
