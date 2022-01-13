@@ -44,6 +44,14 @@ class UsersController{
         }
     }
 
+    public function detail(){
+        if(!isset($_GET['id'])){
+            redirect('');
+        }
+        $user = App::get('database')->selectWhereCondition('utilisateur', 'id', $_GET['id']);
+        return view('userDetails', compact('user'));
+    }
+
     public function logout(){
         session_destroy();
         redirect('');

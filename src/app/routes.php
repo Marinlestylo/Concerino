@@ -5,6 +5,7 @@ $router->get('login', 'PagesController@login');
 $router->get('createAccount', 'PagesController@createAccount');
 
 $router->get('users', 'UsersController@index');// Afficher tous les users
+$router->get('user', 'UsersController@detail');// Page pour 1 user
 $router->post('users', 'UsersController@store');// Créer un utilisateur
 $router->post('login', 'UsersController@login');// S'identifier
 $router->get('logout', 'UsersController@logout');// Se logout
