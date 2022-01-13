@@ -9,5 +9,7 @@ $router->post('users', 'UsersController@store');// Créer un utilisateur
 $router->post('login', 'UsersController@login');// S'identifier
 $router->get('logout', 'UsersController@logout');// Se logout
 
+$router->get('concerts', 'ConcertsController@index'); // Afficher tous les concerts
+
 $router->get('villes', 'VillesController@index');
 $router->post('villes', 'VillesController@store');
