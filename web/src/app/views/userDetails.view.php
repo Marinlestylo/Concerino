@@ -13,32 +13,32 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-blue-600">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-blue-100 uppercase">
+                            <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
                                 Prénom
                             </th>
-                            <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-blue-100 uppercase">
+                            <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
                                 Nom
                             </th>
-                            <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-blue-100 uppercase">
+                            <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
                                 Email
                             </th>
-                            <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-blue-100 uppercase">
+                            <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
                                 Rôle
                             </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         <tr>
-                            <td class="px-6 py-4 text-gray-500 whitespace-nowrap">
+                            <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                 <?= $user[0]->prénom; ?>
                             </td>
-                            <td class="px-6 py-4 text-gray-500 whitespace-nowrap">
+                            <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                 <?= $user[0]->nom; ?>
                             </td>
-                            <td class="px-6 py-4 text-gray-500 whitespace-nowrap">
+                            <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                 <?= $user[0]->login; ?>
                             </td>
-                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                            <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
                                 <?php if ($user[0]->estmodérateur) : ?>
                                     Modérateur
                                 <?php else : ?>

@@ -37,26 +37,26 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             <?php foreach ($concerts as $concert) : ?>
                                 <tr class="hover:bg-gray-100">
-                                    <td class="px-6 py-4 text-center text-gray-500 hover:text-black whitespace-nowrap">
-                                        <?= $concert->nom; ?>
+                                    <td class="px-6 py-4 text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
+                                        <a href="/concert?id=<?= $concert->id ?>"><?= $concert->nom; ?></a>
                                     </td>
-                                    <td class="px-6 py-4 text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                    <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                         <?php
                                         $date = explode(' ', $concert->début);
                                         $date = explode('-', $date[0]);
                                         echo ($date[2] . '.' . $date[1] . '.' . $date[0]);
                                         ?>
                                     </td>
-                                    <td class="px-6 py-4 text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                    <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                         <?= $concert->durée . ' minutes'; ?>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-center text-gray-500 hover:text-black whitespace-nowrap">
-                                        <?= $concert->nomlieu; ?>
+                                    <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
+                                        <a href="/room?nom=<?= $concert->nomlieu ?>"><?= $concert->nomlieu; ?></a>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
                                         <a href="/user?id=<?= $concert->id ?>"><?= $concert->login; ?></a>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
                                         <a href="/user?id=<?= $concert->id ?>"><?= $concert->prénom . " " . $concert->nomUser; ?></a>
                                     </td>
                                 </tr>

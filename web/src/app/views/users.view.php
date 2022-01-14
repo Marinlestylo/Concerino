@@ -27,16 +27,16 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         <?php foreach ($users as $user) : ?>
                             <tr class="hover:bg-gray-100">
-                                <td class="px-6 py-4 text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                <td class="px-6 py-4 text-center text-gray-500 hover:text-black hover:underline whitespace-nowrap">
                                     <a href="/user?id=<?= $user->id ?>"><?= $user->prénom; ?></a>
                                 </td>
-                                <td class="px-6 py-4 text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                <td class="px-6 py-4 text-center text-gray-500 hover:text-black hover:underline whitespace-nowrap">
                                     <a href="/user?id=<?= $user->id ?>"><?= $user->nom; ?></a>
                                 </td>
-                                <td class="px-6 py-4 text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                <td class="px-6 py-4 text-center text-gray-500 hover:text-black hover:underline whitespace-nowrap">
                                     <a href="/user?id=<?= $user->id ?>"><?= $user->login; ?></a>
                                 </td>
-                                <td class="px-6 py-4 text-sm text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
                                     <?php if ($user->estmodérateur) : ?>
                                         Modérateur
                                     <?php else : ?>

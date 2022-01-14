@@ -30,19 +30,19 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         <?php foreach ($rooms as $room) : ?>
                             <tr class="hover:bg-gray-100">
-                                <td class="px-6 py-4 text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                     <?= $room->nom ?>
                                 </td>
-                                <td class="px-6 py-4 text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                     <?= $room->capacité ?>
                                 </td>
-                                <td class="px-6 py-4 text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                     <?= $room->nomrue . ' ' . $room->norue ?>
                                 </td>
-                                <td class="px-6 py-4 text-sm text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
                                     <?= $room->localité . ' ' . $room->npa ?>
                                 </td>
-                                <td class="px-6 py-4 text-sm text-center text-gray-500 hover:text-black whitespace-nowrap">
+                                <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
                                     <?= $room->typelieu ?>
                                 </td>
                             </tr>

@@ -11,8 +11,10 @@ $router->post('login', 'UsersController@login');// S'identifier
 $router->get('logout', 'UsersController@logout');// Se logout
 
 $router->get('concerts', 'ConcertsController@index'); // Afficher tous les concerts
+$router->get('concert', 'ConcertsController@detail');// Page pour 1 concert
 
 $router->get('rooms', 'RoomsController@index'); // Afficher toutes les salles
+$router->get('room', 'RoomsController@detail');// Page pour 1 salle
 
 $router->get('villes', 'VillesController@index');
 $router->post('villes', 'VillesController@store');
