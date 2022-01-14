@@ -26,7 +26,7 @@ class UsersController{
             'estmodérateur' => 'FALSE'
         ]);
         
-        return redirect('users');
+        return redirect('login');
     }
 
     /**
