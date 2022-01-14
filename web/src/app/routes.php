@@ -12,5 +12,7 @@ $router->get('logout', 'UsersController@logout');// Se logout
 
 $router->get('concerts', 'ConcertsController@index'); // Afficher tous les concerts
 
+$router->get('rooms', 'RoomsController@index'); // Afficher toutes les salles
+
 $router->get('villes', 'VillesController@index');
 $router->post('villes', 'VillesController@store');
