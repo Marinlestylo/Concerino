@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Ce fichier est la classe controller des concerts.
+ * Il permet de faire des requêtes à propos des concerts à la db et renvoie les views concernant les concerts.
+ * Ce projet a été réalisé par Stéphane Marengo, Loris Marzullo et Jonathan Friedli.
+ */
+
 namespace App\Controllers;
 
 session_start();
@@ -8,7 +14,9 @@ use App\Core\App;
 
 class ConcertsController
 {
-    // Affiche toutes les infos du concert et quelques infos de son créateur
+    /**  
+     * Affiche toutes les infos du concert et quelques infos de son créateur
+     */
     public function index()
     {
         $concerts = App::get('database')->selectConcertsAndUser();

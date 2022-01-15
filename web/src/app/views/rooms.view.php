@@ -20,7 +20,7 @@
                                 Adresse
                             </th>
                             <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
-                                 NPA et localité
+                                NPA et localité
                             </th>
                             <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
                                 type
@@ -31,7 +31,7 @@
                         <?php foreach ($rooms as $room) : ?>
                             <tr class="hover:bg-gray-100">
                                 <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap hover:underline hover:text-black">
-                                <a href="/room?nom=<?= $room->nom ?>"><?= $room->nom; ?></a>
+                                    <a href="/room?nom=<?= $room->nom ?>"><?= $room->nom; ?></a>
                                 </td>
                                 <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                     <?= $room->capacité ?> personnes
