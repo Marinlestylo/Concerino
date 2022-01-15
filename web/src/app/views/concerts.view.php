@@ -46,6 +46,7 @@
                                         $date = explode('-', $date[0]);
                                         echo ($date[2] . '.' . $date[1] . '.' . $date[0]);
                                         ?>
+                                        à xxhxx
                                     </td>
                                     <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                         <?= $concert->durée . ' minutes'; ?>
@@ -54,10 +55,10 @@
                                         <a href="/room?nom=<?= $concert->nomlieu ?>"><?= $concert->nomlieu; ?></a>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
-                                        <a href="/user?id=<?= $concert->id ?>"><?= $concert->login; ?></a>
+                                        <a href="/user?id=<?= $concert->idcréateur ?>"><?= $concert->login; ?></a>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
-                                        <a href="/user?id=<?= $concert->id ?>"><?= $concert->prénom . " " . $concert->nomUser; ?></a>
+                                        <a href="/user?id=<?= $concert->idcréateur ?>"><?= $concert->prénom . " " . $concert->nomUser; ?></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
