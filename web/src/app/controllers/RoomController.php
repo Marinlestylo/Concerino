@@ -41,4 +41,15 @@ class RoomsController
         }
         return view('roomDetails', compact('room'));
     }
+
+    /**
+     * Affiche le formulaire de création de salle
+     */
+    public function createRoom(){
+        if(!isset($_SESSION["login"])){
+            return view('notLogged');
+        }
+        $typeLieu = App::get('database')->getTypeLieu();
+        return view('createRoom', compact('typeLieu'));
+    }
 }

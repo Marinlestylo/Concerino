@@ -41,6 +41,9 @@ class ConcertsController
         return view('concertDetails', compact('concert'));
     }
 
+    /**
+     * Affiche le formulaire de création de concert
+     */
     public function createConcert(){
         if(!isset($_SESSION["login"])){
             return view('notLogged');

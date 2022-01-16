@@ -100,4 +100,11 @@ class QueryBuilder
 
         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function getTypeLieu(){
+        $statement = $this->pdo->prepare("SELECT unnest(enum_range(NULL::TypeLieu));");
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
 }

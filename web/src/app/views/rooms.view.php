@@ -54,5 +54,6 @@
     </div>
 </div>
 
+<a href="/createRoom"><h1 class="mt-10 text-xl text-center text-blue-400">Cliquez pour créer une salle de concert</h1></a>
 
 <?php require('app/views/partials/footer.php'); ?>
