@@ -27,9 +27,6 @@
                                     Lieu
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
-                                    Email du créateur
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
                                     Info du créateur
                                 </th>
                             </tr>
@@ -42,20 +39,18 @@
                                     </td>
                                     <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                         <?php
-                                        $date = explode(' ', $concert->début);
-                                        $date = explode('-', $date[0]);
+                                        $array = explode(' ', $concert->début);
+                                        $date = explode('-', $array[0]);
                                         echo ($date[2] . '.' . $date[1] . '.' . $date[0]);
+                                        $hour = explode(':', $array[1]);
+                                        echo(" à " . $hour[0] . "h" . $hour[1]);
                                         ?>
-                                        à xxhxx
                                     </td>
                                     <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                         <?= $concert->durée . ' minutes'; ?>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
                                         <a href="/room?nom=<?= $concert->nomlieu ?>"><?= $concert->nomlieu; ?></a>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
-                                        <a href="/user?id=<?= $concert->idcréateur ?>"><?= $concert->login; ?></a>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
                                         <a href="/user?id=<?= $concert->idcréateur ?>"><?= $concert->prénom . " " . $concert->nomUser; ?></a>
