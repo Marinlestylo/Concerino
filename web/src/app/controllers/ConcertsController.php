@@ -65,7 +65,10 @@ class ConcertsController
             'nomlieu' => $_POST["place"],
             'idcréateur' => $_SESSION['id']
         ];
-        App::get('database')->insert('concert', $concert);
+        $error = App::get('database')->insert('concert', $concert);
+        if($error){
+            return view('error');
+        }
 
         return redirect('concerts');
     }
