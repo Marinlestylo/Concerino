@@ -30,7 +30,7 @@ class ConcertsController
     public function detail()
     {
         if (!isset($_GET['id']) || !is_numeric($_GET['id']) || $_GET['id'] > 32767) {
-            redirect('users');
+            redirect('concerts');
         }
         // Select l'utilisateur ayant l'id passé en paramètre
         $concert = App::get('database')->selectOneConcertAndUser($_GET['id']);
@@ -39,5 +39,34 @@ class ConcertsController
             redirect('concerts');
         }
         return view('concertDetails', compact('concert'));
+    }
+
+    public function createConcert(){
+        if(!isset($_SESSION["login"])){
+            return view('notLogged');
+        }
+        $lieux = App::get('database')->selectNomFromLieu();
+        return view('createConcert', compact('lieux'));
+    }
+
+    /**
+     * Ajoute un concert dans la DB
+     */
+    public function store(){
+        // Si un des champs est vide, on renvoie à la view de création
+        if(!isset($_POST['name']) || !isset($_POST['date']) || !isset($_POST['hour']) || !isset($_POST['duration']) || !isset($_POST['place'])){
+            return $this->createConcert();
+        }
+
+        $concert = [
+            'nom' => $_POST['name'],
+            'début' => $_POST['date'] . ' ' . $_POST['hour'],
+            'durée' => $_POST['duration'],
+            'nomlieu' => $_POST["place"],
+            'idcréateur' => $_SESSION['id']
+        ];
+        App::get('database')->insert('concert', $concert);
+
+        return redirect('concerts');
     }
 }

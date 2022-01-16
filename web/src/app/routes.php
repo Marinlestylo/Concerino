@@ -19,6 +19,8 @@ $router->get('logout', 'UsersController@logout'); // Se logout
 
 $router->get('concerts', 'ConcertsController@index'); // Afficher tous les concerts
 $router->get('concert', 'ConcertsController@detail'); // Page pour 1 concert
+$router->get('createConcert', 'ConcertsController@createConcert'); // Page de création d'un concert (view)
+$router->post('createConcert', 'ConcertsController@store'); // Page de création d'un concert (creation)
 
 $router->get('rooms', 'RoomsController@index'); // Afficher toutes les salles
 $router->get('room', 'RoomsController@detail');// Page pour 1 salle

@@ -5,7 +5,7 @@
 
 
 <?php if (count($concerts) == 0) : ?>
-    <h1 class="mt-24 text-xl text-center text-blue-400">Il n'y a pas encore de concert</h1>
+    <h1 class="mt-6 text-xl text-center text-blue-400">Il n'y a pas encore de concert</h1>
 <?php else : ?>
     <div class="flex flex-col items-center mt-12">
         <div class="max-w-5xl -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -64,5 +64,7 @@
         </div>
     </div>
 <?php endif; ?>
+
+<a href="/createConcert"><h1 class="mt-24 text-xl text-center text-blue-400">Cliquez ici pour créer un concert</h1></a>
 
 <?php require('app/views/partials/footer.php'); ?>

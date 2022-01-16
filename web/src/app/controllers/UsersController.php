@@ -50,6 +50,7 @@ class UsersController
             redirect('login');
         }
         if (password_verify($_POST['password'], $acc[0]->motdepasse)) {
+            $_SESSION['id'] = $acc[0]->id;
             $_SESSION['login'] = $acc[0]->login;
             $_SESSION['nom'] = $acc[0]->nom;
             $_SESSION['prénom'] = $acc[0]->prénom;

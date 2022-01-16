@@ -39,9 +39,11 @@
                             </td>
                             <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                 <?php
-                                $date = explode(' ', $concert[0]->début);
-                                $date = explode('-', $date[0]);
+                                $array = explode(' ', $concert[0]->début);
+                                $date = explode('-', $array[0]);
                                 echo ($date[2] . '.' . $date[1] . '.' . $date[0]);
+                                $hour = explode(':', $array[1]);
+                                echo (" à " . $hour[0] . "h" . $hour[1]);
                                 ?>
                             </td>
                             <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">

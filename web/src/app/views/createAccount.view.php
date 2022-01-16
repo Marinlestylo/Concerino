@@ -56,6 +56,5 @@
         </form>
     </div>
 </div>
-</div>
 
 <?php require('app/views/partials/footer.php'); ?>
