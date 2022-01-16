@@ -67,6 +67,6 @@
 </div>
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Le créateur du concert est <?= $concert[0]->prénom . ' ' . $concert[0]->nomUser ?></h1>
-<h1 class="mt-6 text-xl text-center text-blue-800 hover:underline"><a href="/user?id=<?= $concert[0]->id ?>">Cliquez ici pour voir son profil</a></h1>
+<h1 class="mt-6 text-xl text-center text-blue-800 hover:underline"><a href="/user?id=<?= $concert[0]->idcréateur ?>">Cliquez ici pour voir son profil</a></h1>
 
 <?php require('app/views/partials/footer.php'); ?>

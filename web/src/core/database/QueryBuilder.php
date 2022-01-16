@@ -91,6 +91,9 @@ class QueryBuilder
         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * Prend tous les noms de lieux (utile pour la création de concert)
+     */
     public function selectNomFromLieu(){
         $statement = $this->pdo->prepare("SELECT nom FROM lieu;");
         $statement->execute();

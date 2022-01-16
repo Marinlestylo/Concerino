@@ -2,7 +2,7 @@
 <?php require('app/views/partials/nav.php'); ?>
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Détails de l'utilisateur
-    <?= $user[0]->prénom . ' ' . $user[0]->nom; ?>
+    <?= $data[0]->prénom . ' ' . $data[0]->nom; ?>
 </h1>
 
 
@@ -30,16 +30,16 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         <tr>
                             <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
-                                <?= $user[0]->prénom; ?>
+                                <?= $data[0]->prénom; ?>
                             </td>
                             <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
-                                <?= $user[0]->nom; ?>
+                                <?= $data[0]->nom; ?>
                             </td>
                             <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
-                                <?= $user[0]->login; ?>
+                                <?= $data[0]->login; ?>
                             </td>
                             <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
-                                <?php if ($user[0]->estmodérateur) : ?>
+                                <?php if ($data[0]->estmodérateur) : ?>
                                     Modérateur
                                 <?php else : ?>
                                     Utilisateur
@@ -54,15 +54,68 @@
 </div>
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Voici les concerts auxquels
-    <?= $user[0]->prénom . ' ' . $user[0]->nom; ?> a participé
+    <?= $data[0]->prénom . ' ' . $data[0]->nom; ?> a participé
 </h1>
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Voici les concerts créé par
-    <?= $user[0]->prénom . ' ' . $user[0]->nom; ?>
+    <?= $data[0]->prénom . ' ' . $data[0]->nom; ?>
 </h1>
-
+<?php if (count($data) < 2) : ?>
+    <h1 class="mt-6 text-xl text-center text-blue-400"><?= $data[0]->prénom . ' ' . $data[0]->nom; ?> n'a pas encore créé de concert</h1>
+<?php else : ?>
+    <div class="flex flex-col items-center mt-12">
+        <div class="max-w-5xl -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-blue-600">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                    Nom du concert
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                    Début du concert
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                    Durée
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                    Lieu
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <?php for ($i = 1; $i < count($data); $i++) : ?>
+                                <tr class="hover:bg-gray-100">
+                                    <td class="px-6 py-4 text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
+                                        <a href="/concert?id=<?= $data[$i]->id ?>"><?= $data[$i]->nom; ?></a>
+                                    </td>
+                                    <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
+                                        <?php
+                                        $array = explode(' ', $data[$i]->début);
+                                        $date = explode('-', $array[0]);
+                                        echo ($date[2] . '.' . $date[1] . '.' . $date[0]);
+                                        $hour = explode(':', $array[1]);
+                                        echo (" à " . $hour[0] . "h" . $hour[1]);
+                                        ?>
+                                    </td>
+                                    <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
+                                        <?= $data[$i]->durée . ' minutes'; ?>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
+                                        <a href="/room?nom=<?= $data[$i]->nomlieu ?>"><?= $data[$i]->nomlieu; ?></a>
+                                    </td>
+                                </tr>
+                            <?php endfor; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 <h1 class="mt-24 text-5xl text-center text-blue-400">Voici les votes émis par
-    <?= $user[0]->prénom . ' ' . $user[0]->nom; ?>
+    <?= $data[0]->prénom . ' ' . $data[0]->nom; ?>
 </h1>
 
 

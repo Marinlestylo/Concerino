@@ -75,7 +75,11 @@ class UsersController
         if (count($user) == 0) {
             redirect('users');
         }
-        return view('userDetails', compact('user'));
+
+        $concerts =  App::get('database')->selectWhereCondition('concert', 'idcréateur', $_GET['id']);
+        $data = array_merge($user, $concerts);
+
+        return view('userDetails', compact('data'));
     }
 
     /**
