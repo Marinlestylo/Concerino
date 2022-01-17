@@ -3,13 +3,13 @@
 
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Créer un concert</h1>
-<div class="mt-6 text-xl text-center text-blue-400">N'oubliez pas de créer la <a href="/createRoom" class="hover:underline hover:text-blue-800">salle du concert</a>  avant de créer ledit concert<br>
+<div class="mt-6 text-xl text-center text-blue-400">N'oubliez pas de <a href="/createRoom" class="hover:underline hover:text-blue-800">créer la salle du concert</a>  avant de créer ledit concert<br>
     
 </div>
 <?php if (count($lieux) == 0) : ?>
     <div class="mt-6 text-xl text-center text-red-400"><?= "Vous devez d'abord créer une salle de concert !" ?></div>
 <?php else : ?>
-    <div class="w-full max-w-lg mx-auto mt-16">
+    <div class="w-full max-w-lg mx-auto mt-16 mb-16">
         <div class="px-20 py-8 bg-blue-700 rounded-lg card md:pr-16 md:pl-2">
             <form class="add-meal" method="POST" action="/createConcert" autocomplete="off">
                 <div class="mb-6 md:flex md:items-center">

@@ -52,4 +52,27 @@ class RoomsController
         $typeLieu = App::get('database')->getTypeLieu();
         return view('createRoom', compact('typeLieu'));
     }
+
+    public function store(){
+        // Si un des champs est vide, on renvoie à la view de création
+        if(!isset($_POST['name']) || !isset($_POST['capacity']) || !isset($_POST['streetName']) || !isset($_POST['streetNumber']) || !isset($_POST['npa']) || !isset($_POST['city'])|| !isset($_POST['type'])){
+            return $this->createRoom();
+        }
+
+        $lieu = [
+            'nom' => $_POST['name'],
+            'capacité' => $_POST['capacity'],
+            'nomrue' => $_POST['streetName'],
+            'norue' => $_POST["streetNumber"],
+            'npa' => $_POST['npa'],
+            'localité' => $_POST['city'],
+            'typelieu' => $_POST['type']
+        ];
+        $error = App::get('database')->insert('lieu', $lieu);
+        if($error){
+            return view('error');
+        }
+
+        return redirect('rooms');
+    }
 }

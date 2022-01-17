@@ -2,9 +2,9 @@
 <?php require('app/views/partials/nav.php'); ?>
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Créer une salle de concert</h1>
-<div class="w-full max-w-lg mx-auto mt-16">
+<div class="w-full max-w-lg mx-auto mt-16 mb-16">
     <div class="px-20 py-8 bg-blue-700 rounded-lg card md:pr-16 md:pl-2">
-        <form class="add-meal" method="POST" action="/createConcert" autocomplete="off">
+        <form class="add-meal" method="POST" action="/createRoom" autocomplete="off">
             <div class="mb-6 md:flex md:items-center">
                 <div class="md:w-1/3">
                     <label class="block pr-4 mb-1 font-bold text-center text-indigo-100 md:text-right md:mb-0" for="name">
@@ -62,7 +62,7 @@
                     </label>
                 </div>
                 <div class="md:w-2/3">
-                    <input class="w-full px-4 py-2 leading-tight text-gray-900 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-blue-800" type="number" id="city" name="city" required autocomplete="off" placeholder="Lausanne">
+                    <input class="w-full px-4 py-2 leading-tight text-gray-900 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-blue-800" type="text" id="city" name="city" required autocomplete="off" placeholder="Lausanne">
                 </div>
             </div>
             <div class="mb-6 md:flex md:items-center">
