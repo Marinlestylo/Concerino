@@ -2,7 +2,7 @@
 <?php require('app/views/partials/nav.php'); ?>
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Créer une salle de concert</h1>
-<div class="w-full max-w-lg mx-auto mt-16 mb-16">
+<div class="w-full max-w-lg mx-auto mt-16">
     <div class="px-20 py-8 bg-blue-700 rounded-lg card md:pr-16 md:pl-2">
         <form class="add-meal" method="POST" action="/createRoom" autocomplete="off">
             <div class="mb-6 md:flex md:items-center">
