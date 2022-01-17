@@ -21,7 +21,7 @@ php -S localhost:8888 // ouvre un server local sur le port 8888
 ## Question à poser :
 * Si l'utilisateur rentre de mauvaise donnée, doit-on mettre un message d'erreur ou juste rediriger sur la page de création ?
 * Est-ce grave de select tout les champs si l'on utilise que un dans le html ? (ex: Lieu pour la création de concert).
+* https://stackoverflow.com/questions/1616123/sql-query-to-get-all-values-a-enum-can-have comment avoir toutes les valeurs d'une enum.
 
 ### Bugs connus :
-* Quand on a rempli le formulaire de création d'un concert, on est redirigé vers le tableau de tous les concerts mais l'url n'est pas update.
 * On peut se logout quand on est pas login et on peut se relogin si on est login
