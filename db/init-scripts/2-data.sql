@@ -19,11 +19,11 @@ INSERT INTO lieu (nom, capacité, nomrue, norue, npa, localité, typelieu) VALUE
 INSERT INTO lieu (nom, capacité, nomrue, norue, npa, localité, typelieu) VALUES ('Salle Métropole', 120000, 'Rue de Genève', 12, 1003, 'Lausanne', 'Intérieur');
 INSERT INTO lieu (nom, capacité, nomrue, norue, npa, localité, typelieu) VALUES ('Stade de France', 81000, 'Saint-Denis', 7, 9300, 'Paris', 'Extérieur');
 
-INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES ('ConcertA', '2022-10-11', 130, 'Paleo', 1);
-INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES ('ConcertB', '2022-11-24', 140, 'Paleo', 1);
-INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES ('ConcertC', '2022-03-20', 120, 'Amalgame', 2);
-INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES ('ConcertD', '2022-03-23', 60, 'Salle Métropole', 4);
-INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES ('ConcertE', '2022-04-09', 180, 'Stade de France', 4);
+INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES ('ConcertA', '2022-10-11 22:30', 130, 'Paleo', 1);
+INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES ('ConcertB', '2022-11-24 21:30', 140, 'Paleo', 1);
+INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES ('ConcertC', '2022-03-20 20:30', 120, 'Amalgame', 2);
+INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES ('ConcertD', '2022-03-23 19:00', 60, 'Salle Métropole', 4);
+INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES ('ConcertE', '2022-04-09 20:00', 180, 'Stade de France', 4);
 
 INSERT INTO utilisateur_concert (idconcert, idutilisateur) VALUES (3, 3);
 INSERT INTO utilisateur_concert (idconcert, idutilisateur) VALUES (3, 4);
