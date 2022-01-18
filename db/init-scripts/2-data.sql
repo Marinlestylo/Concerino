@@ -39,3 +39,28 @@ INSERT INTO style (nom) VALUES ('rock');
 INSERT INTO style (nom) VALUES ('pop');
 INSERT INTO style (nom) VALUES ('métal');
 INSERT INTO style (nom) VALUES ('rap');
+
+/* On crée tous les artistes (solo et groupe) */
+INSERT INTO artiste (nomscène) VALUES ('John Lennon');
+INSERT INTO artiste (nomscène) VALUES ('Ringo Star');
+INSERT INTO artiste (nomscène) VALUES ('Paul McCartney');
+INSERT INTO artiste (nomscène) VALUES ('George Harrisson');
+INSERT INTO artiste (nomscène) VALUES ('Les Beatles');
+
+/* On crée tous les artistes solo et on les binds sur un artiste*/
+INSERT INTO artistesolo (id, nom, prénom) VALUES (1,'Lennon', 'John');
+INSERT INTO artistesolo (id, nom, prénom) VALUES (2, 'Ringo', 'Star');
+INSERT INTO artistesolo (id, nom, prénom) VALUES (3,'McCartney', 'Paulo');
+INSERT INTO artistesolo (id, nom, prénom) VALUES (4, 'Stéphane', 'Margengo');
+
+/* On crée tous le groupe et on le bind sur l'artiste*/
+INSERT INTO groupe (id) VALUES (5);
+
+/* On ajoute les artistes dans le groupe*/
+INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (1, 5, '2020-07-20');
+INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (2, 5, '2020-07-20');
+INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (3, 5, '2020-07-20');
+INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (4, 5, '2020-07-20');
+
+
+
