@@ -36,6 +36,7 @@ INSERT INTO utilisateur_concert (idconcert, idutilisateur) VALUES (5, 4);
 INSERT INTO style (nom) VALUES ('classique');
 INSERT INTO style (nom) VALUES ('jazz');
 INSERT INTO style (nom) VALUES ('rock');
+INSERT INTO STYLE (nom) VALUES ('blues');
 INSERT INTO style (nom) VALUES ('pop');
 INSERT INTO style (nom) VALUES ('métal');
 INSERT INTO style (nom) VALUES ('rap');
@@ -62,5 +63,15 @@ INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (2, 5, '2020-07-
 INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (3, 5, '2020-07-20');
 INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (4, 5, '2020-07-20');
 
-
+/* style des artistes */
+INSERT INTO style_artiste (idartiste, nomstyle) VALUES (1, 'rock');
+INSERT INTO style_artiste (idartiste, nomstyle) VALUES (2, 'rock');
+INSERT INTO style_artiste (idartiste, nomstyle) VALUES (3, 'rock');
+INSERT INTO style_artiste (idartiste, nomstyle) VALUES (4, 'rock');
+INSERT INTO style_artiste (idartiste, nomstyle) VALUES (5, 'rock');
+INSERT INTO style_artiste (idartiste, nomstyle) VALUES (1, 'blues');
+INSERT INTO style_artiste (idartiste, nomstyle) VALUES (2, 'blues');
+INSERT INTO style_artiste (idartiste, nomstyle) VALUES (3, 'blues');
+INSERT INTO style_artiste (idartiste, nomstyle) VALUES (4, 'blues');
+INSERT INTO style_artiste (idartiste, nomstyle) VALUES (5, 'blues');
 
