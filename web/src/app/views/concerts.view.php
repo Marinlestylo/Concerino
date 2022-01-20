@@ -65,6 +65,6 @@
     </div>
 <?php endif; ?>
 
-<a href="/createConcert"><h1 class="mt-10 text-xl text-center text-blue-400">Cliquez ici pour créer un concert</h1></a>
+<a href="/createConcert"><h1 class="mt-10 text-xl text-center text-blue-400 hover:underline hover:text-blue-800">Cliquez ici pour créer un concert</h1></a>
 
 <?php require('app/views/partials/footer.php'); ?>

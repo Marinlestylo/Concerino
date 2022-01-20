@@ -9,7 +9,7 @@ class ComposerStaticInitafa0a75ebc38e7cac4cbad93c086f970
     public static $classMap = array (
         'App\\Controllers\\ConcertsController' => __DIR__ . '/../..' . '/app/controllers/ConcertsController.php',
         'App\\Controllers\\PagesController' => __DIR__ . '/../..' . '/app/controllers/PagesController.php',
-        'App\\Controllers\\RoomsController' => __DIR__ . '/../..' . '/app/controllers/RoomController.php',
+        'App\\Controllers\\RoomsController' => __DIR__ . '/../..' . '/app/controllers/RoomsController.php',
         'App\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/controllers/UsersController.php',
         'App\\Core\\App' => __DIR__ . '/../..' . '/core/App.php',
         'App\\Core\\Request' => __DIR__ . '/../..' . '/core/Request.php',
