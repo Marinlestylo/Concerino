@@ -2,8 +2,9 @@
 <?php require('app/views/partials/nav.php'); ?>
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Voici la liste des artistes</h1>
-<div class="flex justify-center">
-    <div class="flex flex-col items-center mt-12 mr-48"><div class="mt-10 text-2xl text-center text-blue-400 mb-4">Artistes</div>
+<div class="flex justify-center mb-12">
+    <div class="flex flex-col items-center mr-48">
+        <div class="mt-10 text-2xl text-center text-blue-400 mb-4">Artistes</div>
         <div class="max-w-2xl -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                 <div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
@@ -25,13 +26,13 @@
                             <?php foreach ($data['artists'] as $artist) : ?>
                                 <tr class="hover:bg-gray-100">
                                     <td class="px-6 py-4 text-center text-gray-500 hover:text-black hover:underline whitespace-nowrap">
-                                        <?= $artist->nomscène; ?>
+                                        <a href="/artist?id=<?= $artist->id ?>"><?= $artist->nomscène; ?></a>
                                     </td>
                                     <td class="px-6 py-4 text-center text-gray-500 hover:text-black hover:underline whitespace-nowrap">
-                                        <?= $artist->prénom; ?>
+                                        <a href="/artist?id=<?= $artist->id ?>"><?= $artist->prénom; ?></a>
                                     </td>
                                     <td class="px-6 py-4 text-center text-gray-500 hover:text-black hover:underline whitespace-nowrap">
-                                        <?= $artist->nom; ?>
+                                        <a href="/artist?id=<?= $artist->id ?>"><?= $artist->nom; ?></a>
                                     </td>
                                 <?php endforeach; ?>
                         </tbody>
@@ -41,7 +42,8 @@
         </div>
     </div>
 
-    <div class="flex flex-col items-center mt-12 ml-48"><div class="mt-10 text-2xl text-center text-blue-400 mb-4">Groupes</div>
+    <div class="flex flex-col items-center ml-48">
+        <div class="mt-10 text-2xl text-center text-blue-400 mb-4">Groupes</div>
         <div class="max-w-2xl -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                 <div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
@@ -57,7 +59,7 @@
                             <?php foreach ($data['groups'] as $group) : ?>
                                 <tr class="hover:bg-gray-100">
                                     <td class="px-6 py-4 text-center text-gray-500 hover:text-black hover:underline whitespace-nowrap">
-                                        <?= $group->nomscène; ?>
+                                    <a href="/artist?id=<?= $group->id ?>"><?= $group->nomscène; ?></a>
                                     </td>
                                 <?php endforeach; ?>
                         </tbody>

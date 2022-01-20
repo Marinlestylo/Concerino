@@ -28,4 +28,33 @@ class ArtistsController
         ];
         return view('artists', compact('data'));
     }
+
+    public function detailArtist(){
+        if (!isset($_GET['id']) || !is_numeric($_GET['id']) || $_GET['id'] > 32767) {
+            redirect('artists');
+        }
+
+        $artist = App::get('database')->getInfoArtistSolo($_GET['id']);
+        if(count($artist) == 0){
+            redirect('artists');
+        }
+        
+        // Select l'utilisateur ayant l'id passé en paramètre
+        $groups = App::get('database')->getAllGroupsWhereId($_GET['id']);
+        $data = [
+            'artist' => $artist,
+            'groups' => $groups
+        ];
+        // dd($data);
+        return view('artistDetails', compact('data'));
+    }
+
+    public function detailGroup(){
+        if (!isset($_GET['id']) || !is_numeric($_GET['id']) || $_GET['id'] > 32767) {
+            redirect('artists');
+        }
+        
+        $group = [];
+        return view('artistDetails', compact('group'));
+    }
 }

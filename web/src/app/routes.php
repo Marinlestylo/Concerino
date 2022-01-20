@@ -28,3 +28,5 @@ $router->get('createRoom', 'RoomsController@createRoom');// Page pour créer une
 $router->post('createRoom', 'RoomsController@store');// Page pour créer une salle (création dans la db)
 
 $router->get('artists', 'ArtistsController@index'); // Affiche tous les artistes
+$router->get('artist', 'ArtistsController@detailArtist'); // Affiche les infos de 1 artistesolo
+$router->get('group', 'ArtistsController@detailGroup'); // Affiche les infos de 1 groupe

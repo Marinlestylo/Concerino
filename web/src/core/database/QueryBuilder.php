@@ -94,32 +94,66 @@ class QueryBuilder
     /**
      * Prend tous les noms de lieux (utile pour la création de concert)
      */
-    public function selectNomFromLieu(){
+    public function selectNomFromLieu()
+    {
         $statement = $this->pdo->prepare("SELECT nom FROM lieu;");
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getTypeLieu(){
+    public function getTypeLieu()
+    {
         $statement = $this->pdo->prepare("SELECT unnest(enum_range(NULL::TypeLieu));");
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getAllArtistsSolo(){
+    public function getAllArtistsSolo()
+    {
         $statement = $this->pdo->prepare("SELECT artistesolo.id, artistesolo.nom, artistesolo.prénom, artiste.nomscène FROM artistesolo INNER JOIN artiste ON artistesolo.id = artiste.id;");
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getAllGroups(){
+    public function getAllGroups()
+    {
         $statement = $this->pdo->prepare("SELECT groupe.id, artiste.nomscène FROM groupe INNER JOIN artiste ON groupe.id = artiste.id;");
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
 
+    public function getAllGroupsWhereId($id)
+    {
+        $statement = $this->pdo->prepare("SELECT artiste.nomscène, artiste.id, string_agg(style_artiste.nomstyle::text, ', ') AS styles, membre.dateDébut, membre.datefin 
+                FROM membre 
+                INNER JOIN artiste ON Membre.idGroupe = artiste.id 
+                INNER JOIN style_artiste ON membre.idArtisteSolo = style_artiste.idartiste
+                WHERE membre.idArtisteSolo = $id
+                GROUP BY artiste.nomscène, artiste.id, membre.dateDébut, membre.dateFin 
+                ORDER BY membre.dateDébut DESC;");
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getInfoArtistSolo($id)
+    {
+        $statement = $this->pdo->prepare("SELECT artiste.nomscène as nomScène, nom, prénom, STRING_AGG(nomstyle::TEXT, ', ') as styles, artisteGroupe.nomscène as nomGroupe, artisteGroupe.id
+                FROM artiste
+                INNER JOIN artistesolo ON artiste.id = artistesolo.id
+                LEFT JOIN style_artiste ON artiste.id = style_artiste.idartiste
+                LEFT JOIN membre ON artistesolo.id = membre.idartistesolo
+                                          AND (membre.datefin IS NULL OR membre.datefin > CURRENT_DATE)
+                LEFT JOIN artiste artisteGroupe ON artisteGroupe.id = membre.idgroupe
+                WHERE artiste.id = $id
+                GROUP BY artiste.id, artistesolo.id, artisteGroupe.id;");
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 }

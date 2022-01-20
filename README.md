@@ -17,6 +17,8 @@ composer dump-autoload // Il faut refaire ça dès qu'on crée un fichier/dossie
 php -S localhost:8888 // ouvre un server local sur le port 8888
 ```
 
+### Pour m'aider : 
+* docker volume rm concerino_pgdata pour delete les données puis docker-compose up -d pour executer le script.
 
 ## Question à poser :
 * Si l'utilisateur rentre de mauvaise donnée, doit-on mettre un message d'erreur ou juste rediriger sur la page de création ?
