@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION function_check_artiste_solo()
     RETURNS TRIGGER AS
 $$
 BEGIN
-    IF NEW.id IN (SELECT id FROM Artiste) THEN
+    IF NEW.id IN (SELECT id FROM Groupe) THEN
         RAISE EXCEPTION 'Id d''artiste solo invalide --> %', NEW.id
             USING HINT = 'L''heritage sur Artiste est disjoint. '
                 'Un artiste ne peut appartenir a plusieurs sous-types.';
@@ -30,7 +30,7 @@ CREATE OR REPLACE FUNCTION function_check_groupe()
     RETURNS TRIGGER AS
 $$
 BEGIN
-    IF NEW.id IN (SELECT id FROM Artiste) THEN
+    IF NEW.id IN (SELECT id FROM ArtisteSolo) THEN
         RAISE EXCEPTION 'Id de groupe invalide --> %', NEW.id
             USING HINT = 'L''heritage sur Artiste est disjoint. '
                 'Un artiste ne peut appartenir a plusieurs sous-types.';
