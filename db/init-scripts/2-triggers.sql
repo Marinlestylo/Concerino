@@ -55,13 +55,13 @@ CREATE OR REPLACE FUNCTION function_check_concert_simultane()
     RETURNS TRIGGER AS
 $$
 DECLARE
-    concertExistant concert%ROWTYPE;
+    concertExistant Concert%ROWTYPE;
 BEGIN
-    SELECT *
+    SELECT nom
     INTO concertExistant
-    FROM concert
-    WHERE concert.nomlieu = NEW.nomlieu
-      AND NEW.début BETWEEN concert.début AND (concert.début + INTERVAL '1' MINUTE * concert.durée);
+    FROM Concert
+    WHERE Concert.nomLieu = NEW.nomlieu
+      AND NEW.début BETWEEN Concert.début AND (Concert.début + INTERVAL '1' MINUTE * Concert.durée);
     IF FOUND THEN
         RAISE EXCEPTION 'Un concert se déroule en même temps --> %', concertExistant.nom
             USING HINT = 'Plusieurs concerts ne peuvent pas avoir lieu en même temps et au même endroit.';
@@ -76,4 +76,39 @@ CREATE TRIGGER check_concert_simultane
     ON Concert
     FOR EACH ROW
 EXECUTE FUNCTION function_check_concert_simultane();
+/* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+-- Le nombre de personne inscrite à un concert ne peut pas excéder la capacité de sa salle.
+
+CREATE OR REPLACE FUNCTION function_check_concert_capacite_salle()
+    RETURNS TRIGGER AS
+$$
+DECLARE
+    participants INT;
+    capacite     INT;
+BEGIN
+    SELECT COUNT(*), Lieu.capacité
+    INTO participants, capacite
+    FROM Utilisateur_Concert
+             INNER JOIN Concert ON Utilisateur_Concert.idConcert = Concert.id
+             INNER JOIN Lieu ON Concert.nomLieu = Lieu.nom
+    WHERE Utilisateur_Concert.idConcert = NEW.idConcert
+    GROUP BY Lieu.nom;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Aucun concert associé à l''id --> %', NEW.idConcert;
+    ELSEIF participants + 1 >= capacite THEN
+        RAISE EXCEPTION 'Le concert % a atteint sa capacité maximale --> %', NEW.idConcert, capacite;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_concert_capacite_salle
+    BEFORE INSERT
+    ON Utilisateur_Concert
+    FOR EACH ROW
+EXECUTE FUNCTION function_check_concert_capacite_salle();
 /* ------------------------------------------------------------------ */
