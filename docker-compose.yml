@@ -20,7 +20,7 @@ services:
     image: postgres:14.0
     container_name: concerino-postgres
     ports:
-      - "5432:5432" # DB
+      - "6666:5432" # DB
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./db/init-scripts:/docker-entrypoint-initdb.d
