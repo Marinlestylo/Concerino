@@ -47,21 +47,29 @@ INSERT INTO artiste (nomscène) VALUES ('Ringo Star');
 INSERT INTO artiste (nomscène) VALUES ('Paul McCartney');
 INSERT INTO artiste (nomscène) VALUES ('George Harrisson');
 INSERT INTO artiste (nomscène) VALUES ('Les Beatles');
+INSERT INTO artiste (nomscène) VALUES ('Les Beatles2');
+INSERT INTO artiste (nomscène) VALUES ('Les Beatles3');
+INSERT INTO artiste (nomscène) VALUES ('Sans groupe');
 
 /* On crée tous les artistes solo et on les binds sur un artiste*/
 INSERT INTO artistesolo (id, nom, prénom) VALUES (1,'Lennon', 'John');
 INSERT INTO artistesolo (id, nom, prénom) VALUES (2, 'Ringo', 'Star');
 INSERT INTO artistesolo (id, nom, prénom) VALUES (3,'McCartney', 'Paulo');
-INSERT INTO artistesolo (id, nom, prénom) VALUES (4, 'Stéphane', 'Margengo');
+INSERT INTO artistesolo (id, nom, prénom) VALUES (4, 'Stéphane', 'Marengo');
+INSERT INTO artistesolo (id, nom, prénom) VALUES (8, 'Sans', 'Groupe');
 
-/* On crée tous le groupe et on le bind sur l'artiste*/
+/* On crée tous les groupe et on le bind sur l'artiste*/
 INSERT INTO groupe (id) VALUES (5);
+INSERT INTO groupe (id) VALUES (6);
+INSERT INTO groupe (id) VALUES (7);
 
 /* On ajoute les artistes dans le groupe*/
 INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (1, 5, '2020-07-20');
 INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (2, 5, '2020-07-20');
 INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (3, 5, '2020-07-20');
 INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (4, 5, '2020-07-20');
+INSERT INTO membre (idartistesolo, idgroupe, datedébut, datefin) VALUES (4, 6, '2002-06-22', '2010-07-20');
+INSERT INTO membre (idartistesolo, idgroupe, datedébut, datefin) VALUES (4, 7, '2011-07-20', '2018-07-20');
 
 /* style des artistes */
 INSERT INTO style_artiste (idartiste, nomstyle) VALUES (1, 'rock');
