@@ -39,7 +39,7 @@ class ArtistsController
             redirect('artists');
         }
         
-        // Select l'utilisateur ayant l'id passé en paramètre
+        // Select tous les groupes dont l'artiste à fait partie
         $groups = App::get('database')->getAllGroupsWhereId($_GET['id']);
         $data = [
             'artist' => $artist,
@@ -53,8 +53,18 @@ class ArtistsController
         if (!isset($_GET['id']) || !is_numeric($_GET['id']) || $_GET['id'] > 32767) {
             redirect('artists');
         }
-        
-        $group = [];
-        return view('artistDetails', compact('group'));
+
+        $exist = App::get('database')->selectWhereCondition('groupe', 'id', $_GET['id']);
+        if(count($exist) == 0){
+            redirect('artists');
+        }
+
+        $members = App::get('database')->getAllMembersOfOneGroup($_GET['id']);
+        $styles = App::get('database')->getAllStylesForGroup($_GET['id']);
+        $data = [
+            'info' => $styles,
+            'members' => $members
+        ];
+        return view('groupDetails', compact('data'));
     }
 }
