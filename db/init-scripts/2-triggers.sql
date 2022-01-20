@@ -47,3 +47,33 @@ CREATE TRIGGER check_groupe
     FOR EACH ROW
 EXECUTE FUNCTION function_check_groupe();
 /* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+-- Plusieurs concerts ne peuvent pas avoir lieu en même temps et au même endroit
+
+CREATE OR REPLACE FUNCTION function_check_concert_simultane()
+    RETURNS TRIGGER AS
+$$
+DECLARE
+    concertExistant concert%ROWTYPE;
+BEGIN
+    SELECT *
+    INTO concertExistant
+    FROM concert
+    WHERE concert.nomlieu = NEW.nomlieu
+      AND NEW.début BETWEEN concert.début AND (concert.début + INTERVAL '1' MINUTE * concert.durée);
+    IF FOUND THEN
+        RAISE EXCEPTION 'Un concert se déroule en même temps --> %', concertExistant.nom
+            USING HINT = 'Plusieurs concerts ne peuvent pas avoir lieu en même temps et au même endroit.';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_concert_simultane
+    BEFORE INSERT
+    ON Concert
+    FOR EACH ROW
+EXECUTE FUNCTION function_check_concert_simultane();
+/* ------------------------------------------------------------------ */
