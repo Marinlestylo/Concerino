@@ -59,7 +59,7 @@
                             <?php foreach ($data['groups'] as $group) : ?>
                                 <tr class="hover:bg-gray-100">
                                     <td class="px-6 py-4 text-center text-gray-500 hover:text-black hover:underline whitespace-nowrap">
-                                    <a href="/artist?id=<?= $group->id ?>"><?= $group->nomscène; ?></a>
+                                    <a href="/group?id=<?= $group->id ?>"><?= $group->nomscène; ?></a>
                                     </td>
                                 <?php endforeach; ?>
                         </tbody>

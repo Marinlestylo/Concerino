@@ -156,4 +156,26 @@ class QueryBuilder
 
         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function getAllMembersOfOneGroup($id)
+    {
+        $statement = $this->pdo->prepare("SELECT membre.idartistesolo, artiste.nomscène, membre.datedébut, membre.datefin FROM membre 
+                INNER JOIN artiste ON membre.idartistesolo = artiste.id 
+                WHERE membre.idgroupe = $id;");
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getAllStylesForGroup($id)
+    {
+        $statement = $this->pdo->prepare("SELECT artiste.nomscène, STRING_AGG(style_artiste.nomstyle::TEXT, ', ') as styles FROM groupe
+                INNER JOIN artiste ON groupe.id = artiste.id
+                LEFT JOIN style_artiste ON groupe.id = style_artiste.idartiste
+                WHERE groupe.id = $id
+                GROUP BY groupe.id, artiste.nomscène;");
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
 }
