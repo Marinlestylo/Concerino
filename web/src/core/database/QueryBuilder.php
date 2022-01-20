@@ -107,4 +107,19 @@ class QueryBuilder
 
         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function getAllArtistsSolo(){
+        $statement = $this->pdo->prepare("SELECT artistesolo.id, artistesolo.nom, artistesolo.prénom, artiste.nomscène FROM artistesolo INNER JOIN artiste ON artistesolo.id = artiste.id;");
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getAllGroups(){
+        $statement = $this->pdo->prepare("SELECT groupe.id, artiste.nomscène FROM groupe INNER JOIN artiste ON groupe.id = artiste.id;");
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+
+    }
 }

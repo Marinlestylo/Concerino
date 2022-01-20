@@ -15,6 +15,9 @@
                 <a href="/rooms" class="ml-6 text-xl text-indigo-100 hover:text-indigo-200">
                     Salles
                 </a>
+                <a href="/artists" class="ml-6 text-xl text-indigo-100 hover:text-indigo-200">
+                    Artistes
+                </a>
                 <?php if (isset($_SESSION['login'])) : ?>
                     <a class="ml-24 text-xl font-semibold tracking-tight text-blue-100">
                         Connecté en tant que : <?= $_SESSION['prénom'] ?>
