@@ -45,7 +45,9 @@
                         </td>
                         <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                             <?php if (isset($data['artist'][0]->nomgroupe)) : ?>
-                                <a href="" class="hover:text-black hover:underline "><?= $data['artist'][0]->nomgroupe ?></a>
+                                <a href="/group?id=<?= $data['artist'][0]->id ?>" class="hover:text-black hover:underline ">
+                                    <?= $data['artist'][0]->nomgroupe ?>
+                                </a>
                             <?php else : ?>
                                 Aucun
                             <?php endif; ?>
@@ -83,17 +85,27 @@
                         <?php foreach ($data['groups'] as $group) : ?>
                             <tr class="hover:bg-gray-100">
                                 <td scope="col" class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
-                                    <?= $group->nomscène ?>
+                                    <a href="/group?id=<?= $group->id ?>" class="hover:text-black hover:underline ">
+                                        <?= $group->nomscène ?>
+                                    </a>
                                 </td>
                                 <td scope="col" class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                     <?= $group->styles ?>
                                 </td>
                                 <td scope="col" class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
-                                    <?= $group->datedébut ?>
+                                    <?php
+                                    $array = explode(' ', $group->datedébut);
+                                    $date = explode('-', $array[0]);
+                                    echo ($date[2] . '.' . $date[1] . '.' . $date[0]);
+                                    ?>
                                 </td>
                                 <td scope="col" class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                     <?php if (isset($group->datefin)) : ?>
-                                        <a href="" class="hover:text-black hover:underline "><?= $data['artist'][0]->nomgroupe ?></a>
+                                        <?php
+                                        $array = explode(' ', $group->datefin);
+                                        $date = explode('-', $array[0]);
+                                        echo ($date[2] . '.' . $date[1] . '.' . $date[0]);
+                                        ?>
                                     <?php else : ?>
                                         ---
                                     <?php endif; ?>

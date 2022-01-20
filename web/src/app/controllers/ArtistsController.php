@@ -53,12 +53,8 @@ class ArtistsController
         if (!isset($_GET['id']) || !is_numeric($_GET['id']) || $_GET['id'] > 32767) {
             redirect('artists');
         }
-        // Select l'utilisateur ayant l'id passé en paramètre
-        $group = App::get('database')->selectOneConcertAndUser($_GET['id']);
-        // Si on en trouve aucun, redirect
-        if (count($group) == 0) {
-            redirect('artists');
-        }
+        
+        $group = [];
         return view('artistDetails', compact('group'));
     }
 }

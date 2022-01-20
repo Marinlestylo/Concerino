@@ -128,12 +128,13 @@ class QueryBuilder
 
     public function getAllGroupsWhereId($id)
     {
-        $statement = $this->pdo->prepare("SELECT artiste.nomscène, string_agg(style_artiste.nomstyle::text, ', ') AS styles, membre.dateDébut, membre.datefin 
-        FROM membre 
-        INNER JOIN artiste ON Membre.idGroupe = artiste.id 
-        INNER JOIN style_artiste ON membre.idArtisteSolo = style_artiste.idartiste
-        WHERE membre.idArtisteSolo = $id
-        GROUP BY artiste.nomscène, membre.dateDébut, membre.dateFin ORDER BY membre.dateDébut DESC;");
+        $statement = $this->pdo->prepare("SELECT artiste.nomscène, artiste.id, string_agg(style_artiste.nomstyle::text, ', ') AS styles, membre.dateDébut, membre.datefin 
+                FROM membre 
+                INNER JOIN artiste ON Membre.idGroupe = artiste.id 
+                INNER JOIN style_artiste ON membre.idArtisteSolo = style_artiste.idartiste
+                WHERE membre.idArtisteSolo = $id
+                GROUP BY artiste.nomscène, artiste.id, membre.dateDébut, membre.dateFin 
+                ORDER BY membre.dateDébut DESC;");
 
         $statement->execute();
 
@@ -142,16 +143,15 @@ class QueryBuilder
 
     public function getInfoArtistSolo($id)
     {
-        $statement = $this->pdo->prepare("SELECT artiste.nomscène AS nomScène, nom, prénom, STRING_AGG(nomstyle::TEXT, ', ') AS styles, artisteGroupe.nomscène as nomGroupe
-                        FROM artiste
-                        INNER JOIN artistesolo ON artiste.id = artistesolo.id
-                        LEFT JOIN style_artiste ON artiste.id = style_artiste.idartiste
-                        LEFT JOIN membre ON artistesolo.id = membre.idartistesolo
-                                                AND (membre.datefin IS NULL OR membre.datefin > CURRENT_DATE)
-                        LEFT JOIN groupe ON groupe.id = membre.idgroupe
-                        LEFT JOIN artiste artisteGroupe ON artisteGroupe.id = groupe.id
-                        WHERE artiste.id = $id
-                        GROUP BY artiste.id, artistesolo.id, artisteGroupe.id;");
+        $statement = $this->pdo->prepare("SELECT artiste.nomscène as nomScène, nom, prénom, STRING_AGG(nomstyle::TEXT, ', ') as styles, artisteGroupe.nomscène as nomGroupe, artisteGroupe.id
+                FROM artiste
+                INNER JOIN artistesolo ON artiste.id = artistesolo.id
+                LEFT JOIN style_artiste ON artiste.id = style_artiste.idartiste
+                LEFT JOIN membre ON artistesolo.id = membre.idartistesolo
+                                          AND (membre.datefin IS NULL OR membre.datefin > CURRENT_DATE)
+                LEFT JOIN artiste artisteGroupe ON artisteGroupe.id = membre.idgroupe
+                WHERE artiste.id = $id
+                GROUP BY artiste.id, artistesolo.id, artisteGroupe.id;");
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_OBJ);
