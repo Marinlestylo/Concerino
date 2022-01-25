@@ -1,17 +1,22 @@
-/*table.tablesorter thead tr th.tablesorter-headerAsc:after,
-table.tablesorter thead tr th.tablesorter-headerDesc:after,
-table.tablesorter thead tr th.tablesorter-header:after {
-
+.tablesorter-header {
+    background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+    background-position: center right;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    white-space: normal;
+    padding: 4px 20px 4px 4px;
 }
 
-table.tablesorter thead tr th.tablesorter-header:after {
-    content: "\f0dc";
+.tablesorter-headerAsc {
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
 }
 
-table.tablesorter thead tr th.tablesorter-headerAsc:after {
-    content: "\f0de";
+.tablesorter-headerDesc {
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
 }
 
-table.tablesorter thead tr th.tablesorter-headerDesc:after {
-    content: "\f0dd";
-}*/
+.tablesorter .sorter-false {
+    background-image: none;
+    cursor: default;
+    padding: 4px;
+}
