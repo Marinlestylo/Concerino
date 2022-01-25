@@ -1,6 +1,6 @@
 <header class="flex justify-center bg-blue-600">
     <nav class="container flex-wrap items-center justify-center w-full py-4 mx-auto sm:flex">
-        <a href="/" class="flex items-center justify-center pl-48">
+        <a href="/" class="flex items-center justify-center pl-48" title="C'EST UN JEU DE MOT ! uWu">
             <span class="text-3xl font-semibold tracking-tight text-blue-100">Concer'ino</span>
             <img src="../../../public/images/ino.jfif" alt="logo" width=100>
         </a>

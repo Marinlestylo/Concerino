@@ -77,7 +77,10 @@ class UsersController
         }
 
         $concerts =  App::get('database')->selectWhereCondition('concert', 'idcréateur', $_GET['id']);
-        $data = array_merge($user, $concerts);
+        $data = [
+            'user' => $user,
+            'concerts' => $concerts
+        ];
 
         return view('userDetails', compact('data'));
     }
