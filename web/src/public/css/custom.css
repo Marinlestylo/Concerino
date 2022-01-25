@@ -1,0 +1,17 @@
+/*table.tablesorter thead tr th.tablesorter-headerAsc:after,
+table.tablesorter thead tr th.tablesorter-headerDesc:after,
+table.tablesorter thead tr th.tablesorter-header:after {
+
+}
+
+table.tablesorter thead tr th.tablesorter-header:after {
+    content: "\f0dc";
+}
+
+table.tablesorter thead tr th.tablesorter-headerAsc:after {
+    content: "\f0de";
+}
+
+table.tablesorter thead tr th.tablesorter-headerDesc:after {
+    content: "\f0dd";
+}*/
