@@ -1,24 +1,18 @@
 # Concer'ino
 Le but du projet Concer'ino est de réaliser une application complète de base de données relationnelle. Cette application permet de lister différents
-concerts dans toute la Suisse avec la possibilité d’indiquer sa présence
+concerts dans toute la Suisse avec la possibilité d’indiquer sa présence. Ce projet a été réalisé dans le cadre du cours BDR, par Jonathan Friedli, Stéphane Marengo et Loris Marzullo.
 
 ## Comment run ce projet:
-* Installez la denière version de [php](https://www.sitepoint.com/how-to-install-php-on-windows/) dans **C:/.../php** (Il est important que le dossier s'appelle php et pas php-8.1 par exemple).
-* Dans **C:/.../php/php.ini**, décommenter les lignes :
-    * extension=pdo_pgsql
-    * extension=pgsql
-* Installez la dernière version de [postgres SQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
-* Installez [composer](https://getcomposer.org/)
-* Modifiez le fichier config.php
-* Dans le terminal: 
-```js
-cd D:\Concerino\src
-composer dump-autoload // Il faut refaire ça dès qu'on crée un fichier/dossier
-php -S localhost:8888 // ouvre un server local sur le port 8888
-```
+Ce projet utilise docker afin de faciliter l'installtion des différentes dépendance de ce projet (Postgres, Php, composer).
+* Pour installer Docker [cliquez-ici](https://docs.docker.com/get-docker/)
+* Allez à la racine du projet, au niveau du fichier docker-compose.yml et faites ```docker-compose build```
+* Ensuite faites ```docker-compose up -d```
+* Ouvrez maintenant un navigateur web et entrez l'adresse suivante : [localhost:9090](http://localhost:9090/)
+* Pour éteindre l'application web: ```docker-compose down```
 
-### Pour m'aider : 
-* docker volume rm concerino_pgdata pour delete les données puis docker-compose up -d pour executer le script.
+Le site web est déjà peuplé avec des données de base. Tous les ajouts fait via l'application web seront permanent. Si vous souhaitez revenir à l'état de base: Commencez par éteindre l'application, puis effectuez la commande suivante: ```docker volume rm concerino_pgdata```  
+Ensuite ```docker-compose build``` et enfin ```docker-compose up -d```
+
 
 ## Question à poser :
 * Si l'utilisateur rentre de mauvaise donnée, doit-on mettre un message d'erreur ou juste rediriger sur la page de création ?
@@ -26,4 +20,3 @@ php -S localhost:8888 // ouvre un server local sur le port 8888
 * https://stackoverflow.com/questions/1616123/sql-query-to-get-all-values-a-enum-can-have comment avoir toutes les valeurs d'une enum.
 
 ### Bugs connus :
-* On peut se logout quand on est pas login et on peut se relogin si on est login

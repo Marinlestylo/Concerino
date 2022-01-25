@@ -27,6 +27,9 @@ class PagesController
      */
     public function login()
     {
+        if(isset($_SESSION['id'])){
+            redirect('');
+        }
         return view('login');
     }
 
