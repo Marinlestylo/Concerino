@@ -70,7 +70,7 @@ class UsersController
             redirect('users');
         }
         // Select l'utilisateur ayant l'id passé en paramètre
-        $user = App::get('database')->selectWhereCondition('utilisateur', 'id', $_GET['id']);
+        $user = App::get('database')->selectUserInfo($_GET['id']);
         // Si on en trouve aucun, redirect
         if (count($user) == 0) {
             redirect('users');

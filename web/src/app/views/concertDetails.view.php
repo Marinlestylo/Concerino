@@ -25,7 +25,7 @@
                                 Lieu
                             </th>
                             <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
-                                Nombre de personnes ayant assisté au concert
+                                Nombre de participant au concert
                             </th>
                             <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
                                 Moyenne des notes du concert

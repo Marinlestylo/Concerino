@@ -21,7 +21,7 @@ class PagesController
      */
     public function home()
     {
-        $concerts = App::get('database')->getAllConcertToCome();
+        $concerts = App::get('database')->getFiveNextConcerts();
 
         return view('index', compact('concerts'));
     }

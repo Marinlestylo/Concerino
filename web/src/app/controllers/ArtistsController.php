@@ -40,7 +40,7 @@ class ArtistsController
         }
         
         // Select tous les groupes dont l'artiste à fait partie
-        $groups = App::get('database')->getAllGroupsWhereId($_GET['id']);
+        $groups = App::get('database')->getAllGroupsWhereIdSoloArtist($_GET['id']);
         $data = [
             'artist' => $artist,
             'groups' => $groups
