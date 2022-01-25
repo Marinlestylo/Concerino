@@ -178,4 +178,17 @@ class QueryBuilder
 
         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function getAllConcertToCome(){
+        $statement = $this->pdo->prepare("SELECT concert.id, concert.nom, concert.début, concert.durée, concert.nomlieu, concert.idcréateur, utilisateur.nom AS \"nomUser\", utilisateur.prénom 
+                FROM concert 
+                INNER JOIN utilisateur ON concert.idcréateur = utilisateur.id 
+                WHERE début > now() 
+                ORDER BY début 
+                LIMIT 5;");
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+
+    }
 }

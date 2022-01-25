@@ -13,6 +13,15 @@ Ce projet utilise docker afin de faciliter l'installtion des différentes dépen
 Le site web est déjà peuplé avec des données de base. Tous les ajouts fait via l'application web seront permanent. Si vous souhaitez revenir à l'état de base: Commencez par éteindre l'application, puis effectuez la commande suivante: ```docker volume rm concerino_pgdata```  
 Ensuite ```docker-compose build``` et enfin ```docker-compose up -d```
 
+Comptes déjà créés :
+|    login     | mot de passe |
+| -------------|-------------:|
+| a@gmail.com  |    admin     |
+| b@gmail.com  |    admin     |
+| c@gmail.com  |    admin     |
+| d@gmail.com  |    admin     |
+| e@gmail.com  |    admin     |
+
 
 ## Question à poser :
 * Si l'utilisateur rentre de mauvaise donnée, doit-on mettre un message d'erreur ou juste rediriger sur la page de création ?

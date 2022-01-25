@@ -11,6 +11,8 @@ namespace App\Controllers;
 
 session_start();
 
+use App\Core\App;
+
 class PagesController
 {
 
@@ -19,7 +21,9 @@ class PagesController
      */
     public function home()
     {
-        return view('index');
+        $concerts = App::get('database')->getAllConcertToCome();
+
+        return view('index', compact('concerts'));
     }
 
     /**
