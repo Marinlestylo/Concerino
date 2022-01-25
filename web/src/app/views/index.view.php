@@ -15,23 +15,23 @@
                         <thead class="bg-blue-600">
                         <tr>
                             <th scope="col"
-                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase hover:cursor-pointer">
                                 Nom du concert
                             </th>
                             <th scope="col"
-                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase hover:cursor-pointer">
                                 Début du concert
                             </th>
                             <th scope="col"
-                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase hover:cursor-pointer">
                                 Durée
                             </th>
                             <th scope="col"
-                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase hover:cursor-pointer">
                                 Lieu
                             </th>
                             <th scope="col"
-                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase hover:cursor-pointer">
                                 Info du créateur
                             </th>
                         </tr>
