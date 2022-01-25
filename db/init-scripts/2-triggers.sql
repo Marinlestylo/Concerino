@@ -51,11 +51,11 @@ EXECUTE FUNCTION function_check_groupe();
 /* ------------------------------------------------------------------ */
 -- Plusieurs concerts ne peuvent pas avoir lieu en même temps et au même endroit
 
-CREATE OR REPLACE FUNCTION function_check_concert_simultane()
+CREATE OR REPLACE FUNCTION function_check_concert_simultane_lieu()
     RETURNS TRIGGER AS
 $$
 DECLARE
-    concertExistant Concert%ROWTYPE;
+    concertExistant VARCHAR;
 BEGIN
     SELECT nom
     INTO concertExistant
@@ -63,7 +63,7 @@ BEGIN
     WHERE Concert.nomLieu = NEW.nomlieu
       AND NEW.début BETWEEN Concert.début AND (Concert.début + INTERVAL '1' MINUTE * Concert.durée);
     IF FOUND THEN
-        RAISE EXCEPTION 'Un concert se déroule en même temps --> %', concertExistant.nom
+        RAISE EXCEPTION 'Un concert se déroule en même temps --> %', concertExistant
             USING HINT = 'Plusieurs concerts ne peuvent pas avoir lieu en même temps et au même endroit.';
     ELSE
         RETURN NEW;
@@ -75,7 +75,7 @@ CREATE TRIGGER check_concert_simultane
     BEFORE INSERT
     ON Concert
     FOR EACH ROW
-EXECUTE FUNCTION function_check_concert_simultane();
+EXECUTE FUNCTION function_check_concert_simultane_lieu();
 /* ------------------------------------------------------------------ */
 
 /* ------------------------------------------------------------------ */
@@ -96,10 +96,8 @@ BEGIN
     WHERE Utilisateur_Concert.idConcert = NEW.idConcert
     GROUP BY Lieu.nom;
 
-    IF NOT FOUND THEN
-        RAISE EXCEPTION 'Aucun concert associé à l''id --> %', NEW.idConcert;
-    ELSEIF participants + 1 >= capacite THEN
-        RAISE EXCEPTION 'Le concert % a atteint sa capacité maximale --> %', NEW.idConcert, capacite;
+    IF FOUND AND participants + 1 >= capacite THEN
+        RAISE EXCEPTION 'Le concert % a atteint sa capacité maximale --> %', NEW.idConcert, participants;
     ELSE
         RETURN NEW;
     END IF;
@@ -111,4 +109,66 @@ CREATE TRIGGER check_concert_capacite_salle
     ON Utilisateur_Concert
     FOR EACH ROW
 EXECUTE FUNCTION function_check_concert_capacite_salle();
+/* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+-- Un artiste ne peut pas se produire lors de plusieurs concerts en même temps.
+
+CREATE OR REPLACE FUNCTION function_check_concert_simultane_artiste()
+    RETURNS TRIGGER AS
+$$
+DECLARE
+    concertExistant VARCHAR;
+BEGIN
+    SELECT nom
+    INTO concertExistant
+    FROM Concert
+             INNER JOIN Concert_Artiste ON Concert.id = Concert_Artiste.idConcert
+    WHERE id != NEW.idConcert
+      AND (SELECT début FROM Concert WHERE id = NEW.idConcert) BETWEEN début AND (début + INTERVAL '1' MINUTE * durée);
+    IF FOUND THEN
+        RAISE EXCEPTION 'L''artiste se produit déjà à ce moment --> %', concertExistant
+            USING HINT = 'Un artiste ne peut pas se produire lors de plusieurs concerts en même temps';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_concert_artiste_simultane
+    BEFORE INSERT
+    ON Concert_Artiste
+    FOR EACH ROW
+EXECUTE FUNCTION function_check_concert_simultane_artiste();
+/* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+-- Un utilisateur ne peut pas s’inscrire à différents concerts ayant lieu en même temps.
+
+CREATE OR REPLACE FUNCTION function_check_concert_simultane_utilisateur()
+    RETURNS TRIGGER AS
+$$
+DECLARE
+    concertExistant VARCHAR;
+BEGIN
+    SELECT nom
+    INTO concertExistant
+    FROM Concert
+             INNER JOIN Utilisateur_Concert ON Concert.id = Utilisateur_Concert.idConcert
+    WHERE id != NEW.idConcert
+      AND (SELECT début FROM Concert WHERE id = NEW.idConcert) BETWEEN début AND (début + INTERVAL '1' MINUTE * durée);
+    IF FOUND THEN
+        RAISE EXCEPTION 'L''utilisateur est déjà inscrit à un concert se produisant à ce moment --> %', concertExistant
+            USING HINT = 'Un utilisateur ne peut pas s’inscrire à différents concerts ayant lieu en même temps.';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_utilisateur_concert_simultane
+    BEFORE INSERT
+    ON Utilisateur_Concert
+    FOR EACH ROW
+EXECUTE FUNCTION function_check_concert_simultane_utilisateur();
 /* ------------------------------------------------------------------ */
