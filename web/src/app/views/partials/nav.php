@@ -19,7 +19,7 @@
                     Artistes
                 </a>
                 <?php if (isset($_SESSION['login'])) : ?>
-                    <a class="ml-24 text-xl font-semibold tracking-tight text-blue-100">
+                    <a href="/user?id=<?= $_SESSION['id'] ?>" class="ml-24 text-xl font-semibold tracking-tight text-blue-100">
                         Connecté en tant que : <?= $_SESSION['prénom'] ?>
                     </a>
                     <a href="/logout" class="px-4 py-2 ml-10 mr-6 font-bold text-blue-500 bg-white border border-blue-700 rounded hover:bg-blue-700">
