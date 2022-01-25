@@ -2,7 +2,7 @@
 <?php require('app/views/partials/nav.php'); ?>
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Détails de l'utilisateur
-    <?= $data[0]->prénom . ' ' . $data[0]->nom; ?>
+    <?= $data['user'][0]->prénom . ' ' . $data['user'][0]->nom; ?>
 </h1>
 
 
@@ -30,16 +30,16 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         <tr>
                             <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
-                                <?= $data[0]->prénom; ?>
+                                <?= $data['user'][0]->prénom; ?>
                             </td>
                             <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
-                                <?= $data[0]->nom; ?>
+                                <?= $data['user'][0]->nom; ?>
                             </td>
                             <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
-                                <?= $data[0]->login; ?>
+                                <?= $data['user'][0]->login; ?>
                             </td>
                             <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
-                                <?php if ($data[0]->estmodérateur) : ?>
+                                <?php if ($data['user'][0]->estmodérateur) : ?>
                                     Modérateur
                                 <?php else : ?>
                                     Utilisateur
@@ -54,14 +54,14 @@
 </div>
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Voici les concerts auxquels
-    <?= $data[0]->prénom . ' ' . $data[0]->nom; ?> a participé
+    <?= $data['user'][0]->prénom . ' ' . $data['user'][0]->nom; ?> a et va participé
 </h1>
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Voici les concerts créé par
-    <?= $data[0]->prénom . ' ' . $data[0]->nom; ?>
+    <?= $data['user'][0]->prénom . ' ' . $data['user'][0]->nom; ?>
 </h1>
 <?php if (count($data) < 2) : ?>
-    <h1 class="mt-6 text-xl text-center text-blue-400"><?= $data[0]->prénom . ' ' . $data[0]->nom; ?> n'a pas encore créé de concert</h1>
+    <h1 class="mt-6 text-xl text-center text-blue-400"><?= $data['user'][0]->prénom . ' ' . $data['user'][0]->nom; ?> n'a pas encore créé de concert</h1>
 <?php else : ?>
     <div class="flex flex-col items-center mt-12">
         <div class="max-w-5xl -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -85,14 +85,14 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <?php for ($i = 1; $i < count($data); $i++) : ?>
+                            <?php foreach($data['concerts'] as $concert) : ?>
                                 <tr class="hover:bg-gray-100">
                                     <td class="px-6 py-4 text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
-                                        <a href="/concert?id=<?= $data[$i]->id ?>"><?= $data[$i]->nom; ?></a>
+                                        <a href="/concert?id=<?= $concert->id ?>"><?= $concert->nom; ?></a>
                                     </td>
                                     <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                         <?php
-                                        $array = explode(' ', $data[$i]->début);
+                                        $array = explode(' ', $concert->début);
                                         $date = explode('-', $array[0]);
                                         echo ($date[2] . '.' . $date[1] . '.' . $date[0]);
                                         $hour = explode(':', $array[1]);
@@ -100,13 +100,13 @@
                                         ?>
                                     </td>
                                     <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
-                                        <?= $data[$i]->durée . ' minutes'; ?>
+                                        <?= $concert->durée . ' minutes'; ?>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
-                                        <a href="/room?nom=<?= $data[$i]->nomlieu ?>"><?= $data[$i]->nomlieu; ?></a>
+                                        <a href="/room?nom=<?= $concert->nomlieu ?>"><?= $concert->nomlieu; ?></a>
                                     </td>
                                 </tr>
-                            <?php endfor; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -115,7 +115,7 @@
     </div>
 <?php endif; ?>
 <h1 class="mt-24 text-5xl text-center text-blue-400">Voici les votes émis par
-    <?= $data[0]->prénom . ' ' . $data[0]->nom; ?>
+    <?= $data['user'][0]->prénom . ' ' . $data['user'][0]->nom; ?>
 </h1>
 
 

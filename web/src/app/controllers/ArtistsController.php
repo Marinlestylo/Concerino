@@ -45,7 +45,6 @@ class ArtistsController
             'artist' => $artist,
             'groups' => $groups
         ];
-        // dd($data);
         return view('artistDetails', compact('data'));
     }
 

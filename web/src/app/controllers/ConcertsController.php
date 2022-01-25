@@ -20,7 +20,6 @@ class ConcertsController
     public function index()
     {
         $concerts = App::get('database')->selectConcertsAndUser();
-        //dd($concerts);
 
         return view('concerts', compact('concerts'));
     }
