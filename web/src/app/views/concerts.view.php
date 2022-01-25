@@ -1,7 +1,7 @@
 <?php require('app/views/partials/header.php'); ?>
 <?php require('app/views/partials/nav.php'); ?>
 
-<h1 class="mt-24 text-5xl text-center text-blue-400">Voici la liste des concerts</h1>
+<h1 class="mt-24 text-5xl text-center text-blue-400">Voici la liste de tous les concerts</h1>
 
 
 <?php if (count($concerts) == 0) : ?>
@@ -25,6 +25,9 @@
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
                                     Lieu
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                    Nombre de participants
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
                                     Info du créateur
@@ -51,6 +54,9 @@
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
                                         <a href="/room?nom=<?= $concert->nomlieu ?>"><?= $concert->nomlieu; ?></a>
+                                    </td>
+                                    <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
+                                        <?= $concert->nbparticipant . '/' . $concert->nbmaxparticipant; ?>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500 hover:underline hover:text-black whitespace-nowrap">
                                         <a href="/user?id=<?= $concert->idcréateur ?>"><?= $concert->prénom . " " . $concert->nomUser; ?></a>

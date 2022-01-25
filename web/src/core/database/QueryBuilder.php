@@ -73,7 +73,14 @@ class QueryBuilder
      */
     public function selectConcertsAndUser()
     {
-        $statement = $this->pdo->prepare("SELECT concert.id, concert.nom, concert.début, concert.durée, concert.nomlieu, concert.idcréateur, utilisateur.nom AS \"nomUser\", utilisateur.prénom FROM concert INNER JOIN utilisateur ON concert.idcréateur = utilisateur.id;");
+        $statement = $this->pdo->prepare("SELECT concert.id, concert.nom, concert.début, concert.durée, concert.nomlieu, concert.idcréateur, 
+                    utilisateur.nom AS \"nomUser\", utilisateur.prénom, count(utilisateur_concert.idutilisateur) AS nbParticipant, lieu.capacité AS nbMaxParticipant
+                    FROM concert 
+                    INNER JOIN utilisateur ON concert.idcréateur = utilisateur.id
+                    INNER JOIN lieu ON concert.nomlieu = lieu.nom 
+                    LEFT JOIN utilisateur_concert ON concert.id = utilisateur_concert.idconcert
+                    GROUP BY concert.id, utilisateur.nom, utilisateur.prénom, lieu.capacité
+                    ORDER BY début;");
         $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_OBJ);
