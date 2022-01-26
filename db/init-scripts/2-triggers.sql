@@ -299,6 +299,7 @@ BEGIN
     IF NOT FOUND THEN
         RAISE EXCEPTION 'L''utilisateur n''a pas assisté à des concerts de cet artiste.';
     END IF;
+
     NEW.date = CURRENT_DATE;
     RETURN NEW;
 END;
@@ -309,4 +310,31 @@ CREATE TRIGGER check_note_artiste
     ON NoteArtiste
     FOR EACH ROW
 EXECUTE FUNCTION function_check_note_artiste();
+/* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+-- Un groupe sans membres actifs ne peut pas se produire en concert.
+
+CREATE OR REPLACE FUNCTION function_check_concert_groupe_actif()
+    RETURNS TRIGGER AS
+$$
+BEGIN
+    PERFORM
+    FROM Membre
+    WHERE idGroupe = NEW.idArtiste
+      AND dateFin IS NULL;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Aucun membre actif dans le groupe.';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_concert_groupe_actif
+    BEFORE INSERT
+    ON Concert_Artiste
+    FOR EACH ROW
+EXECUTE FUNCTION function_check_concert_groupe_actif();
 /* ------------------------------------------------------------------ */
