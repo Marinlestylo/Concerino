@@ -211,9 +211,9 @@ CREATE OR REPLACE FUNCTION function_check_concert_date_debut()
 $$
 BEGIN
     IF NEW.début > NOW() THEN
-        RAISE EXCEPTION 'La date de début est dans le passé.';
-    ELSE
         RETURN NEW;
+    ELSE
+        RAISE EXCEPTION 'La date de début est dans le passé.';
     END IF;
 END;
 $$ LANGUAGE plpgsql;
