@@ -1,5 +1,5 @@
-set
-client_encoding to 'UTF8';
+SET
+    client_encoding TO 'UTF8';
 
 DROP TYPE IF EXISTS TypeLieu CASCADE;
 CREATE TYPE TypeLieu AS ENUM ('Intérieur', 'Extérieur');
@@ -146,11 +146,9 @@ ALTER TABLE Concert
         FOREIGN KEY (idCréateur)
             REFERENCES Utilisateur (id)
             ON
-UPDATE CASCADE,
-    ADD CONSTRAINT CK_Concert_début
-    CHECK (début > NOW()),
+                UPDATE CASCADE,
     ADD CONSTRAINT CK_Concert_durée
-    CHECK (durée > 0);
+        CHECK (durée > 0);
 
 ALTER TABLE Utilisateur
     ADD CONSTRAINT UC_Utilisateur_login
@@ -189,13 +187,10 @@ ALTER TABLE Concert_Artiste
     ADD CONSTRAINT FK_Concert_Artiste_idArtiste
         FOREIGN KEY (idArtiste)
             REFERENCES Artiste (id)
-            ON
-DELETE
-CASCADE
-            ON
-UPDATE CASCADE,
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
     ADD CONSTRAINT CK_Concert_Artiste_numéroPassage
-    CHECK (numéroPassage > 0);
+        CHECK (numéroPassage > 0);
 
 ALTER TABLE Lieu
     ADD CONSTRAINT CK_Lieu_capacité
@@ -227,12 +222,12 @@ ALTER TABLE Membre
         FOREIGN KEY (idGroupe)
             REFERENCES Groupe (id)
             ON
-DELETE
-CASCADE
+                DELETE
+                CASCADE
             ON
-UPDATE CASCADE,
+                UPDATE CASCADE,
     ADD CONSTRAINT CK_Membre_dateFin
-    CHECK (dateFin >= dateDébut);
+        CHECK (dateFin >= dateDébut);
 
 ALTER TABLE NoteLieu
     ADD CONSTRAINT FK_NoteLieu_nom
@@ -246,9 +241,7 @@ ALTER TABLE NoteLieu
             ON DELETE CASCADE
             ON UPDATE CASCADE,
     ADD CONSTRAINT CK_NoteLieu_note
-        CHECK (note BETWEEN 1 AND 5),
-    ADD CONSTRAINT CK_NoteLieu_date
-        CHECK (date = CURRENT_DATE);
+        CHECK (note BETWEEN 1 AND 5);
 
 ALTER TABLE NoteConcert
     ADD CONSTRAINT FK_NoteConcert_idConcert
@@ -262,9 +255,7 @@ ALTER TABLE NoteConcert
             ON DELETE CASCADE
             ON UPDATE CASCADE,
     ADD CONSTRAINT CK_NoteConcert_note
-        CHECK (note BETWEEN 1 AND 5),
-    ADD CONSTRAINT CK_NoteConcert_date
-        CHECK (date = CURRENT_DATE);
+        CHECK (note BETWEEN 1 AND 5);
 
 ALTER TABLE NoteArtiste
     ADD CONSTRAINT FK_NoteArtiste_idArtiste
@@ -275,15 +266,10 @@ ALTER TABLE NoteArtiste
     ADD CONSTRAINT FK_NoteArtiste_idUtilisateur
         FOREIGN KEY (idUtilisateur)
             REFERENCES Utilisateur (id)
-            ON
-DELETE
-CASCADE
-            ON
-UPDATE CASCADE,
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
     ADD CONSTRAINT CK_NoteArtiste_note
-    CHECK (note BETWEEN 1 AND 5),
-    ADD CONSTRAINT CK_NoteArtiste_date
-    CHECK (date = CURRENT_DATE);
+        CHECK (note BETWEEN 1 AND 5);
 
 CREATE INDEX IDX_FK_Concert_nomLieu ON Concert (nomLieu ASC);
 CREATE INDEX IDX_FK_Concert_idCréateur ON Concert (idCréateur ASC);
