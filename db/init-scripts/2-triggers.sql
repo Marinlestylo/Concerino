@@ -252,3 +252,33 @@ CREATE TRIGGER check_note_concert
     FOR EACH ROW
 EXECUTE FUNCTION function_check_note_concert();
 /* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+-- Une salle ne peut être notée que par un utilisateur ayant assisté à au moins un concert dans cette dernière.
+
+CREATE OR REPLACE FUNCTION function_check_note_lieu()
+    RETURNS TRIGGER AS
+$$
+BEGIN
+    PERFORM
+    FROM Utilisateur_Concert
+             INNER JOIN Concert ON Utilisateur_Concert.idConcert = Concert.id
+             INNER JOIN Lieu ON Concert.nomLieu = Lieu.nom
+    WHERE Lieu.nom = NEW.nom
+      AND idUtilisateur = NEW.idUtilisateur;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'L''utilisateur n''a pas assisté à des concerts dans cette salle.';
+    END IF;
+
+    NEW.date = CURRENT_DATE;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_note_lieu
+    BEFORE INSERT
+    ON NoteLieu
+    FOR EACH ROW
+EXECUTE FUNCTION function_check_note_lieu();
+/* ------------------------------------------------------------------ */
