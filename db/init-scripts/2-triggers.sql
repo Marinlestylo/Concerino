@@ -224,3 +224,31 @@ CREATE TRIGGER check_concert_date_debut
     FOR EACH ROW
 EXECUTE FUNCTION function_check_concert_date_debut();
 /* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+-- Un concert ne peut être noté que par un utilisateur ayant assisté audit concert.
+
+CREATE OR REPLACE FUNCTION function_check_note_concert()
+    RETURNS TRIGGER AS
+$$
+BEGIN
+    PERFORM
+    FROM Utilisateur_Concert
+    WHERE idConcert = NEW.idConcert
+      AND idUtilisateur = NEW.idUtilisateur;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'L''utilisateur n''a pas assisté à ce concert --> %', NEW.idConcert;
+    END IF;
+
+    NEW.date = CURRENT_DATE;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_note_concert
+    BEFORE INSERT
+    ON NoteConcert
+    FOR EACH ROW
+EXECUTE FUNCTION function_check_note_concert();
+/* ------------------------------------------------------------------ */
