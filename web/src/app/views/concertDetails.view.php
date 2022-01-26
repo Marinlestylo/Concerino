@@ -93,7 +93,15 @@
         </form>
     </div>
 <?php elseif (!$data['signUp'] && isset($_SESSION['id'])) : ?>
-    <div class="mt-6 text-xl text-center text-blue-800">Vous êtes déjà inscrit à ce concert</div>
+    <div class="flex justify-center text-center">
+        <form action="/unsign" method="POST">
+            <input class="" value="<?= $_SESSION['id'] ?>" type="hidden" id="idUser" name="idUser" required>
+            <input class="" value="<?= $data['concert'][0]->id ?>" type="hidden" id="idConcert" name="idConcert" required>
+            <button type="submit" class="justify-center px-4 py-2 mt-6 ml-4 font-bold text-indigo-100 bg-blue-900 rounded shadow hover:shadow-xl focus:shadow-outline focus:outline-none">
+                Se désinscrire du concert
+            </button>
+        </form>
+    </div>
 <?php endif; ?>
 
 <h1 class="mt-16 text-5xl text-center text-blue-400">Le créateur du concert est <?= $data['concert'][0]->prénom . ' ' . $data['concert'][0]->nomuser ?></h1>

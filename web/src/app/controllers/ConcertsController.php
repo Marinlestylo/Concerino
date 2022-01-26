@@ -115,6 +115,19 @@ class ConcertsController
         return redirect('');
     }
 
+    public function unsign(){
+        $ids = [
+            'idconcert' => $_POST['idConcert'],
+            'idutilisateur' => $_POST['idUser']
+        ];
+        $error = App::get('database')->unsignUserFromConcert($_POST['idUser'], $_POST['idConcert']);
+        if ($error) {
+            return view('error');
+        }
+
+        return redirect('');
+    }
+
     /**
      * Supprimer un concert
      */

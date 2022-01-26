@@ -174,8 +174,19 @@ class QueryBuilder
         return false;
     }
 
+    /**
+     * Suppression d'un concert
+     */
     public function deleteConcert($idConcert){
         $query = "DELETE FROM concert WHERE id = $idConcert;";
+        $this->prepareExecute($query);
+    }
+
+    /**
+     * Désinscription d'un utilisateur
+     */
+    public function unsignUserFromConcert($idUser, $idConcert){
+        $query = "DELETE FROM utilisateur_concert WHERE idutilisateur = $idUser AND idconcert = $idConcert;";
         $this->prepareExecute($query);
     }
 
