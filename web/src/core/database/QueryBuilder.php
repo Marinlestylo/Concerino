@@ -134,7 +134,8 @@ class QueryBuilder
     /**
      * Sélectionne tous les groupes qui font partie d'un concert en particulier
      */
-    public function SelectArtistsOfOneConcert($idConcert){
+    public function SelectArtistsOfOneConcert($idConcert)
+    {
         $query = "SELECT id, numéropassage, nomscène FROM concert_artiste INNER JOIN artiste ON concert_artiste.idartiste  = artiste.id 
                     WHERE idconcert = $idConcert ORDER BY numéropassage;";
         return $this->prepareExecute($query);
@@ -143,7 +144,8 @@ class QueryBuilder
     /**
      * Sélectionne tous les gens inscrit à un concert en particulier
      */
-    public function SelecAttendeeOfOneConcert($idConcert){
+    public function SelecAttendeeOfOneConcert($idConcert)
+    {
         $query = "SELECT id, nom, prénom FROM utilisateur_concert INNER JOIN utilisateur ON utilisateur_concert.idutilisateur = utilisateur.id WHERE idconcert = $idConcert;";
         return $this->prepareExecute($query);
     }
@@ -165,10 +167,11 @@ class QueryBuilder
     /**
      * Informe si l'utilisateur peut s'inscrire à un concert (Oui, s'il n'est pas déjà inscrit)
      */
-    public function canUserSignUpForThisConcert($idUser, $idConcert){
+    public function canUserSignUpForThisConcert($idUser, $idConcert)
+    {
         $query = "SELECT * FROM utilisateur_concert WHERE idconcert = $idConcert AND idutilisateur = $idUser;";
         $result = $this->prepareExecute($query);
-        if(count($result) == 0){
+        if (count($result) == 0) {
             return true;
         }
         return false;
@@ -177,7 +180,8 @@ class QueryBuilder
     /**
      * Suppression d'un concert
      */
-    public function deleteConcert($idConcert){
+    public function deleteConcert($idConcert)
+    {
         $query = "DELETE FROM concert WHERE id = $idConcert;";
         $this->prepareExecute($query);
     }
@@ -185,7 +189,8 @@ class QueryBuilder
     /**
      * Désinscription d'un utilisateur
      */
-    public function unsignUserFromConcert($idUser, $idConcert){
+    public function unsignUserFromConcert($idUser, $idConcert)
+    {
         $query = "DELETE FROM utilisateur_concert WHERE idutilisateur = $idUser AND idconcert = $idConcert;";
         $this->prepareExecute($query);
     }
@@ -240,7 +245,7 @@ class QueryBuilder
         $query = "SELECT artiste.nomscène, artiste.id, string_agg(style_artiste.nomstyle::text, ', ') AS styles, membre.dateDébut, membre.datefin 
                     FROM membre 
                     INNER JOIN artiste ON Membre.idGroupe = artiste.id 
-                    INNER JOIN style_artiste ON membre.idArtisteSolo = style_artiste.idartiste
+                    LEFT JOIN style_artiste ON membre.idGroupe = style_artiste.idartiste
                     WHERE membre.idArtisteSolo = $id
                     GROUP BY artiste.nomscène, artiste.id, membre.dateDébut, membre.dateFin 
                     ORDER BY membre.dateDébut DESC;";
@@ -285,5 +290,48 @@ class QueryBuilder
                     WHERE groupe.id = $id
                     GROUP BY groupe.id, artiste.nomscène;";
         return $this->prepareExecute($query);
+    }
+
+    /**
+     * Transaction pour créer un artiste
+     */
+    public function createSoloArtiste($params1, $params2, $params3 = [], $params4 = [])
+    {
+        $query = "INSERT INTO artiste (nomscène) VALUES (?) RETURNING id;";
+        try {
+            $this->pdo->beginTransaction();
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute(array_values($params1));
+            $id =  $statement->fetchAll(PDO::FETCH_OBJ);
+            $id = $id[0]->id;
+            $data = [
+                'id' => $id,
+                'nom' => $params2['nom'],
+                'prénom' => $params2['prénom']
+            ];
+            $this->insert('artistesolo', $data);
+            if (count($params3) != 0) {
+                $params3['idartistesolo'] = $id;
+                $this->insert('membre', $params3);
+            }
+            if (count($params4) != 0) {
+                $nb = count($params4);
+                $query2 = "INSERT INTO style_artiste (idartiste, nomstyle) VALUES ($id, ?)";
+                for ($i = 1; $i < $nb; $i++) {
+                    $query2 = $query2 . ", ($id, ?)";
+                }
+                $statement = $this->pdo->prepare($query2);
+                $statement->execute(array_values($params4));
+            }
+
+            $this->pdo->commit();
+        } catch (Exception $e) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollback();
+            }
+            return true;
+        }
+        return false;
     }
 }

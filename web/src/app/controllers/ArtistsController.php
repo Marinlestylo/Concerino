@@ -45,7 +45,23 @@ class ArtistsController
     }
 
     public function storeArtist(){
-        dd($_POST);
+        $params1 = ['nomscène' => $_POST['Sname']];
+        $params2 = ['id' => 0, 'nom' => $_POST['lName'], 'prénom' => $_POST['fName']];
+        $params3 = [];
+        if($_POST['group'] != "None"){
+            $params3 = ['idartistesolo' => 0, 'idgroupe' => $_POST['group'], 'datedébut' => $_POST['date']];
+        }
+        $params4 = [];
+        if(isset($_POST['styles'])){
+            $params4 = $_POST['styles'];
+        }
+        $error = App::get('database')->createSoloArtiste($params1, $params2, $params3, $params4);
+        if($error){
+            return view('error');
+        }
+
+        return $this->index();
+        
     }
 
     public function createGroup()
@@ -64,7 +80,14 @@ class ArtistsController
     }
 
     public function storeGroup(){
-        dd($_POST);
+        $members = $_POST['members'];
+        $dates = $_POST['dates'];
+        $dates = array_diff($dates, array(""));// On enlève tous les ""
+        if(count($dates) != count($members)){
+            return view('error');
+        }
+        // TODO: créer transaction
+        
     }
 
     /**

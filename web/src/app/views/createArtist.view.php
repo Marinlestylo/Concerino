@@ -1,7 +1,7 @@
 <?php require('app/views/partials/header.php'); ?>
 <?php require('app/views/partials/nav.php'); ?>
 
-<h1 class="mt-24 text-5xl text-center text-blue-400">Créer une salle de concert</h1>
+<h1 class="mt-24 text-5xl text-center text-blue-400">Ajouter un artiste</h1>
 <div class="w-full max-w-lg mx-auto mt-16">
     <div class="px-20 py-8 bg-blue-700 rounded-lg card md:pr-16 md:pl-2">
         <form method="POST" action="/createArtist" autocomplete="off">
@@ -56,7 +56,7 @@
                     <select name="group" id="group" class="w-full px-4 py-2 leading-tight text-gray-900 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-blue-800" type="number" id="time" name="time" required>
                         <option value="None">Aucun groupe </option>
                         <?php foreach ($data['groups'] as $group) : ?>
-                            <option value="<?= $group->nomscène ?>"><?= $group->nomscène ?></option>
+                            <option value="<?= $group->id ?>"><?= $group->nomscène ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

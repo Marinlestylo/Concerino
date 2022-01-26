@@ -1,10 +1,10 @@
 <?php require('app/views/partials/header.php'); ?>
 <?php require('app/views/partials/nav.php'); ?>
 
-<h1 class="mt-24 text-5xl text-center text-blue-400">Créer une salle de concert</h1>
+<h1 class="mt-24 text-5xl text-center text-blue-400">Ajouter un groupe</h1>
 <div class="w-full max-w-lg mx-auto mt-16">
     <div class="px-20 py-8 bg-blue-700 rounded-lg card md:pr-16 md:pl-2">
-        <form method="POST" action="/createArtist" autocomplete="off">
+        <form method="POST" action="/createGroup" autocomplete="off">
             <div class="mb-6 md:flex md:items-center">
                 <div class="md:w-1/3">
                     <label class="block pr-4 mb-1 font-bold text-center text-indigo-100 md:text-right md:mb-0" for="Sname">
