@@ -39,3 +39,10 @@ function dd($val)
 {
     die(var_dump($val));
 }
+
+function d($d)
+{
+    highlight_string("<?php\n " . var_export($d, true) . "?>");
+    echo '<script>document.getElementsByTagName("code")[0].getElementsByTagName("span")[1].remove() ;document.getElementsByTagName("code")[0].getElementsByTagName("span")[document.getElementsByTagName("code")[0].getElementsByTagName("span").length - 1].remove() ; </script>';
+    die();
+}
