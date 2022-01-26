@@ -23,6 +23,7 @@ VALUES ('Salle Métropole', 120000, 'Rue de Genève', 12, 1003, 'Lausanne', 'Int
 INSERT INTO lieu (nom, capacité, nomrue, norue, npa, localité, typelieu)
 VALUES ('Stade de France', 81000, 'Saint-Denis', 7, 9300, 'Paris', 'Extérieur');
 
+ALTER TABLE concert DISABLE TRIGGER ALL;
 INSERT INTO concert (nom, début, durée, nomlieu, idcréateur)
 VALUES ('ConcertA', '2021-10-11 22:30', 130, 'Paleo', 1);
 INSERT INTO concert (nom, début, durée, nomlieu, idcréateur)
@@ -33,6 +34,7 @@ INSERT INTO concert (nom, début, durée, nomlieu, idcréateur)
 VALUES ('ConcertD', '2022-03-23 19:00', 60, 'Salle Métropole', 4);
 INSERT INTO concert (nom, début, durée, nomlieu, idcréateur)
 VALUES ('ConcertE', '2022-04-09 20:00', 180, 'Stade de France', 4);
+ALTER TABLE concert ENABLE TRIGGER ALL;
 
 /* Concerts ayant déjà eu lieu (2021) */
 INSERT INTO utilisateur_concert (idconcert, idutilisateur)

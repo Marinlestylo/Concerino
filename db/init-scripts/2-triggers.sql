@@ -263,7 +263,7 @@ BEGIN
     PERFORM
     FROM Utilisateur_Concert
              INNER JOIN Concert ON Utilisateur_Concert.idConcert = Concert.id
-    WHERE Concert.nom = NEW.nom
+    WHERE Concert.nomLieu = NEW.nom
       AND idUtilisateur = NEW.idUtilisateur;
 
     IF NOT FOUND THEN
@@ -324,7 +324,7 @@ BEGIN
     WHERE idGroupe = NEW.idArtiste
       AND dateFin IS NULL;
 
-    IF NOT FOUND THEN
+    IF NOT FOUND AND NEW.idArtiste IN (SELECT id FROM Groupe) THEN
         RAISE EXCEPTION 'Aucun membre actif dans le groupe.';
     ELSE
         RETURN NEW;
