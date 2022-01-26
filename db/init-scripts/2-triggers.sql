@@ -202,3 +202,25 @@ CREATE TRIGGER check_concert_artiste_ordre
     FOR EACH ROW
 EXECUTE FUNCTION function_check_concert_artiste_ordre();
 /* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+-- Un concert ne peut pas être créé avec une date de début antérieure à la date courante.
+
+CREATE OR REPLACE FUNCTION function_check_concert_date_debut()
+    RETURNS TRIGGER AS
+$$
+BEGIN
+    IF NEW.début > NOW() THEN
+        RAISE EXCEPTION 'La date de début est dans le passé.';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_concert_date_debut
+    BEFORE INSERT
+    ON Concert
+    FOR EACH ROW
+EXECUTE FUNCTION function_check_concert_date_debut();
+/* ------------------------------------------------------------------ */
