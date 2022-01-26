@@ -360,3 +360,30 @@ CREATE TRIGGER check_date_membre
     FOR EACH ROW
 EXECUTE FUNCTION function_check_date_membre();
 /* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+-- Un artiste solo ne peut pas rejoindre un groupe dont il fait déjà partie.
+
+CREATE OR REPLACE FUNCTION function_check_membre_deja_groupe()
+    RETURNS TRIGGER AS
+$$
+BEGIN
+    PERFORM
+    FROM Membre
+    WHERE idGroupe = NEW.idGroupe
+      AND idArtisteSolo = NEW.idArtisteSolo;
+
+    IF FOUND THEN
+        RAISE EXCEPTION 'L''artiste fait déjà parti de ce groupe.';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_membre_deja_groupe
+    BEFORE INSERT
+    ON Membre
+    FOR EACH ROW
+EXECUTE FUNCTION function_check_membre_deja_groupe();
+/* ------------------------------------------------------------------ */
