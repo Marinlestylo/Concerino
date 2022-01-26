@@ -162,6 +162,18 @@ class QueryBuilder
         return $this->prepareExecute($query);
     }
 
+    /**
+     * Informe si l'utilisateur peut s'inscrire à un concert (Oui, s'il n'est pas déjà inscrit)
+     */
+    public function canUserSignUpForThisConcert($idUser, $idConcert){
+        $query = "SELECT * FROM utilisateur_concert WHERE idconcert = $idConcert AND idutilisateur = $idUser;";
+        $result = $this->prepareExecute($query);
+        if(count($result) == 0){
+            return true;
+        }
+        return false;
+    }
+
 
     /* ------------------------------- Querry concernant les Lieux ------------------------------- */
 

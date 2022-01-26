@@ -21,6 +21,7 @@ $router->get('concerts', 'ConcertsController@index'); // Afficher tous les conce
 $router->get('concert', 'ConcertsController@detail'); // Page pour 1 concert
 $router->get('createConcert', 'ConcertsController@createConcert'); // Page de création d'un concert (view)
 $router->post('createConcert', 'ConcertsController@store'); // Page de création d'un concert (creation dans la db)
+$router->post('signup', 'ConcertsController@signup');
 
 $router->get('rooms', 'RoomsController@index'); // Afficher toutes les salles
 $router->get('room', 'RoomsController@detail');// Page pour 1 salle

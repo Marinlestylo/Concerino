@@ -71,7 +71,21 @@
     </div>
 </div>
 
-<h1 class="mt-24 text-5xl text-center text-blue-400">Le créateur du concert est <?= $data['concert'][0]->prénom . ' ' . $data['concert'][0]->nomuser ?></h1>
+<?php if (isset($_SESSION['id']) && $data['signUp']) : ?>
+    <div class="flex justify-center text-center">
+        <form action="/signup" method="POST">
+            <input class="" value="<?= $_SESSION['id'] ?>" type="hidden" id="idUser" name="idUser" required>
+            <input class="" value="<?= $data['concert'][0]->id ?>" type="hidden" id="idConcert" name="idConcert" required>
+            <button type="submit" class="justify-center px-4 py-2 mt-6 ml-4 font-bold text-indigo-100 bg-blue-900 rounded shadow hover:shadow-xl focus:shadow-outline focus:outline-none">
+                S'inscrire au concert
+            </button>
+        </form>
+    </div>
+<?php elseif (!$data['signUp'] && isset($_SESSION['id'])) : ?>
+    <div class="mt-6 text-xl text-center text-blue-800">Vous êtes déjà inscrit à ce concert</div>
+<?php endif; ?>
+
+<h1 class="mt-16 text-5xl text-center text-blue-400">Le créateur du concert est <?= $data['concert'][0]->prénom . ' ' . $data['concert'][0]->nomuser ?></h1>
 <h1 class="mt-6 text-xl text-center text-blue-800 hover:underline"><a href="/user?id=<?= $data['concert'][0]->idcréateur ?>">Cliquez ici pour voir son profil</a></h1>
 
 <h1 class="mt-24 text-5xl text-center text-blue-400">Groupes et artistes</h1>
@@ -95,7 +109,7 @@
                         <?php foreach ($data['artists'] as $artist) : ?>
                             <tr class="hover:bg-gray-100">
                                 <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
-                                    <?= $artist->nomscène?>
+                                    <?= $artist->nomscène ?>
                                 </td>
                                 <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                     <?= $artist->numéropassage ?>

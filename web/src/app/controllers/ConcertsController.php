@@ -40,10 +40,15 @@ class ConcertsController
         }
         $artists = App::get('database')->SelectArtistsOfOneConcert($_GET['id']);
         $users = App::get('database')->SelecAttendeeOfOneConcert($_GET['id']);
+        $canSignup = false;
+        if(isset($_SESSION['id'])){
+            $canSignup = App::get('database')->canUserSignUpForThisConcert($_SESSION['id'], $_GET['id']);
+        }
         $data = [
             'concert' => $concert,
             'artists' => $artists,
-            'users' => $users
+            'users' => $users,
+            'signUp' => $canSignup
         ];
         // dd($data);
         return view('concertDetails', compact('data'));
@@ -89,4 +94,21 @@ class ConcertsController
 
         return redirect('concerts');
     }
+
+    /**
+     * Inscrit le user au concert
+     */
+
+     public function signup(){
+         $ids = [
+            'idconcert' => $_POST['idConcert'],
+            'idutilisateur' => $_POST['idUser']
+         ];
+         $error = App::get('database')->insert('utilisateur_concert', $ids);
+         if($error){
+            return view('error');
+        }
+
+        return redirect('');
+     }
 }
