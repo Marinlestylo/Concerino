@@ -197,7 +197,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER check_concert_artiste_ordre
-    BEFORE INSERT
+    BEFORE INSERT OR UPDATE
     ON Concert_Artiste
     FOR EACH ROW
 EXECUTE FUNCTION function_check_concert_artiste_ordre();
@@ -219,7 +219,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER check_concert_date_debut
-    BEFORE INSERT
+    BEFORE INSERT OR UPDATE
     ON Concert
     FOR EACH ROW
 EXECUTE FUNCTION function_check_concert_date_debut();
@@ -337,4 +337,26 @@ CREATE TRIGGER check_concert_groupe_actif
     ON Concert_Artiste
     FOR EACH ROW
 EXECUTE FUNCTION function_check_concert_groupe_actif();
+/* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+-- La date de début d’un membre doit être antérieure ou égale à la date de fin.
+
+CREATE OR REPLACE FUNCTION function_check_date_membre()
+    RETURNS TRIGGER AS
+$$
+BEGIN
+    IF NEW.dateDébut > NEW.dateFin THEN
+        RAISE EXCEPTION 'La date de début doit être antérieure ou égale à la date de fin.';
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_date_membre
+    BEFORE INSERT OR UPDATE
+    ON Membre
+    FOR EACH ROW
+EXECUTE FUNCTION function_check_date_membre();
 /* ------------------------------------------------------------------ */
