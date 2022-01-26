@@ -334,4 +334,51 @@ class QueryBuilder
         }
         return false;
     }
+
+
+    /**
+     * Transaction pour créer un groupe
+     */
+    public function createGroup($params1, $params2, $params3)
+    {
+        $query = "INSERT INTO artiste (nomscène) VALUES (?) RETURNING id;";
+        try {
+            $this->pdo->beginTransaction();
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute(array_values($params1));
+            $id =  $statement->fetchAll(PDO::FETCH_OBJ);
+            $id = $id[0]->id;
+            $data = [
+                'id' => $id,
+            ];
+            $this->insert('groupe', $data);
+            if (count($params2) != 0) {
+                $query2 = "INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (?, $id, ?)";
+                for($i = 1; $i < count($params2) / 2; $i++){
+                    $query2 = $query2 . ", (?, $id, ?)";
+                }
+                $statement = $this->pdo->prepare($query2);
+                $statement->execute(array_values($params2));
+            }
+            if (count($params3) != 0) {
+                $nb = count($params3);
+                $query3 = "INSERT INTO style_artiste (idartiste, nomstyle) VALUES ($id, ?)";
+                for ($i = 1; $i < $nb; $i++) {
+                    $query3 = $query3 . ", ($id, ?)";
+                }
+                $statement = $this->pdo->prepare($query3);
+                $statement->execute(array_values($params3));
+            }
+
+            $this->pdo->commit();
+        } catch (Exception $e) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollback();
+            }
+            die($e->getMessage());
+            return true;
+        }
+        return false;
+    }
 }

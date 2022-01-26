@@ -44,24 +44,24 @@ class ArtistsController
         return view('createArtist', compact('data'));
     }
 
-    public function storeArtist(){
+    public function storeArtist()
+    {
         $params1 = ['nomscène' => $_POST['Sname']];
         $params2 = ['id' => 0, 'nom' => $_POST['lName'], 'prénom' => $_POST['fName']];
         $params3 = [];
-        if($_POST['group'] != "None"){
+        if ($_POST['group'] != "None") {
             $params3 = ['idartistesolo' => 0, 'idgroupe' => $_POST['group'], 'datedébut' => $_POST['date']];
         }
         $params4 = [];
-        if(isset($_POST['styles'])){
+        if (isset($_POST['styles'])) {
             $params4 = $_POST['styles'];
         }
         $error = App::get('database')->createSoloArtiste($params1, $params2, $params3, $params4);
-        if($error){
+        if ($error) {
             return view('error');
         }
 
         return $this->index();
-        
     }
 
     public function createGroup()
@@ -75,19 +75,40 @@ class ArtistsController
             'styles' => $styles,
             'artists' => $artist
         ];
-        // dd($data);
         return view('createGroup', compact('data'));
     }
 
-    public function storeGroup(){
-        $members = $_POST['members'];
-        $dates = $_POST['dates'];
-        $dates = array_diff($dates, array(""));// On enlève tous les ""
-        if(count($dates) != count($members)){
+    public function storeGroup()
+    {
+        if (!isset($_POST['members'])) {
             return view('error');
         }
-        // TODO: créer transaction
-        
+        $members = $_POST['members'];
+        $dates = $_POST['dates'];
+        $dates = array_diff($dates, array("")); // On enlève tous les ""
+        if (count($dates) != count($members)) {
+            return view('error');
+        }
+        $params1 = ['nomscène' => $_POST['Sname']];
+
+        $params2 = [];
+        $i = 0;
+        foreach ($dates as $date) {
+            array_push($params2, $members[$i++]);
+            array_push($params2, $date);
+        }
+
+        $params3 = [];
+        if (isset($_POST['styles'])) {
+            $params3 = $_POST['styles'];
+        }
+
+        $error = App::get('database')->createGroup($params1, $params2, $params3);
+        if ($error) {
+            return view('error');
+        }
+
+        return $this->index();
     }
 
     /**

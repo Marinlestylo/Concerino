@@ -31,7 +31,7 @@
                     <legend class="pb-4 pr-4 mb-1 font-bold text-indigo-100 w-fullblock md:mb-0">Indiquez les membres du groupe et leur date d'entrée</legend>
                     <?php foreach ($data['artists'] as $artist) : ?>
                         <div class="block pr-4 mb-1 font-bold text-indigo-100">
-                            <input type="checkbox" id="<?= $artist->nomscène ?>" name="members[]" value="<?= $artist->nomscène ?>">
+                            <input type="checkbox" id="<?= $artist->nomscène ?>" name="members[]" value="<?= $artist->id ?>">
                             <label for="<?= $artist->nomscène ?>"><?= $artist->nomscène ?></label>
                             <input class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-blue-100 rounded appearance-none focus:outline-none focus:bg-white focus:border-blue-800" type="text" id="dates[]" name="dates[]" autocomplete="off" placeholder="aaaa-mm-jj">
                         </div>
