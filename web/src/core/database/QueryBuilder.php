@@ -174,6 +174,10 @@ class QueryBuilder
         return false;
     }
 
+    public function deleteConcert($idConcert){
+        $query = "DELETE FROM concert WHERE id = $idConcert;";
+        $this->prepareExecute($query);
+    }
 
     /* ------------------------------- Querry concernant les Lieux ------------------------------- */
 

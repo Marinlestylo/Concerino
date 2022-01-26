@@ -71,6 +71,17 @@
     </div>
 </div>
 
+<?php if (isset($_SESSION['id']) && ($_SESSION['id'] == $data['concert'][0]->idcréateur || $_SESSION['isAdmin'] == true)) : ?>
+    <div class="flex justify-center text-center">
+        <form action="/deleteConcert" method="POST">
+            <input class="" value="<?= $data['concert'][0]->id ?>" type="hidden" id="idConcert" name="idConcert" required>
+            <button type="submit" class="justify-center px-4 py-2 mt-6 ml-4 font-bold text-white bg-red-500 rounded shadow hover:shadow-xl focus:shadow-outline focus:outline-none">
+                Supprimer le concert
+            </button>
+        </form>
+    </div>
+<?php endif; ?>
+
 <?php if (isset($_SESSION['id']) && $data['signUp']) : ?>
     <div class="flex justify-center text-center">
         <form action="/signup" method="POST">

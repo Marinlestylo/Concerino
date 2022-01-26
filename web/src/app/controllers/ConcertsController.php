@@ -41,7 +41,7 @@ class ConcertsController
         $artists = App::get('database')->SelectArtistsOfOneConcert($_GET['id']);
         $users = App::get('database')->SelecAttendeeOfOneConcert($_GET['id']);
         $canSignup = false;
-        if(isset($_SESSION['id'])){
+        if (isset($_SESSION['id'])) {
             $canSignup = App::get('database')->canUserSignUpForThisConcert($_SESSION['id'], $_GET['id']);
         }
         $data = [
@@ -57,8 +57,9 @@ class ConcertsController
     /**
      * Affiche le formulaire de création de concert
      */
-    public function createConcert(){
-        if(!isset($_SESSION["login"])){
+    public function createConcert()
+    {
+        if (!isset($_SESSION["login"])) {
             return view('notLogged');
         }
         $lieux = App::get('database')->selectNomFromLieu();
@@ -74,9 +75,10 @@ class ConcertsController
     /**
      * Ajoute un concert dans la DB
      */
-    public function store(){
+    public function store()
+    {
         // Si un des champs est vide, on renvoie à la view de création
-        if(!isset($_POST['name']) || !isset($_POST['date']) || !isset($_POST['hour']) || !isset($_POST['duration']) || !isset($_POST['place'])){
+        if (!isset($_POST['name']) || !isset($_POST['date']) || !isset($_POST['hour']) || !isset($_POST['duration']) || !isset($_POST['place'])) {
             return $this->createConcert();
         }
 
@@ -88,7 +90,7 @@ class ConcertsController
             'idcréateur' => $_SESSION['id']
         ];
         $error = App::get('database')->insert('concert', $concert);
-        if($error){
+        if ($error) {
             return view('error');
         }
 
@@ -99,16 +101,30 @@ class ConcertsController
      * Inscrit le user au concert
      */
 
-     public function signup(){
-         $ids = [
+    public function signup()
+    {
+        $ids = [
             'idconcert' => $_POST['idConcert'],
             'idutilisateur' => $_POST['idUser']
-         ];
-         $error = App::get('database')->insert('utilisateur_concert', $ids);
-         if($error){
+        ];
+        $error = App::get('database')->insert('utilisateur_concert', $ids);
+        if ($error) {
             return view('error');
         }
 
         return redirect('');
-     }
+    }
+
+    /**
+     * Supprimer un concert
+     */
+    public function delete()
+    {
+        $error = App::get('database')->deleteConcert($_POST['idConcert']);
+        if ($error) {
+            return view('error');
+        }
+
+        return redirect('');
+    }
 }

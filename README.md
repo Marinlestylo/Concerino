@@ -30,3 +30,4 @@ Comptes déjà créés :
 
 ### Bugs connus :
 * Si on va sur une page qui n'existe pas en étant co, on a le menu comme si on était pas co
+* Pas de check pour s'inscrire ni delete (on pourrait check juste avant de le faire mais flemme)
