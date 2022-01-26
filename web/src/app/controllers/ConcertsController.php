@@ -34,12 +34,19 @@ class ConcertsController
         }
         // Select l'utilisateur ayant l'id passé en paramètre
         $concert = App::get('database')->SelectOneConcertAndInfos($_GET['id']);
-        // dd($concert);
         // Si on en trouve aucun, redirect
         if (count($concert) == 0) {
             redirect('concerts');
         }
-        return view('concertDetails', compact('concert'));
+        $artists = App::get('database')->SelectArtistsOfOneConcert($_GET['id']);
+        $users = App::get('database')->SelecAttendeeOfOneConcert($_GET['id']);
+        $data = [
+            'concert' => $concert,
+            'artists' => $artists,
+            'users' => $users
+        ];
+        // dd($data);
+        return view('concertDetails', compact('data'));
     }
 
     /**

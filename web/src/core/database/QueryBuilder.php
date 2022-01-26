@@ -97,7 +97,7 @@ class QueryBuilder
     /* ------------------------------- Querry concernant les concerts ------------------------------- */
 
     /**
-     * Sélectionne les informations liées au concert, à l'utilisateur qui l'a créé et aux nombre de participant de chaque concert.
+     * Sélectionne les informations liées aux concerts, à l'utilisateur qui l'a créé et aux nombre de participant de chaque concert.
      */
     public function selectConcertsAndUser()
     {
@@ -117,11 +117,34 @@ class QueryBuilder
      * Select les infos de la table concert ainsi que des infos sur le créateur du concert
      * avec une condition where afin de n'en retourner que le concert qui nous intéresse.
      */
-    public function selectOneConcertAndUser($id)
+    public function SelectOneConcertAndInfos($id)
     {
-        $query = "SELECT concert.id, concert.nom, concert.début, concert.durée, concert.nomlieu, concert.idcréateur, utilisateur.nom AS \"nomUser\",
-                     utilisateur.prénom FROM concert INNER JOIN utilisateur ON concert.idcréateur = utilisateur.id WHERE concert.id = {$id};";
+        $query = "SELECT Concert.*, Utilisateur.nom AS nomUser, prénom, COUNT(Utilisateur_Concert.idConcert) AS nbParticipants, capacité AS nbMaxParticipants, AVG(note) AS moyenneNotes
+                    FROM Concert
+                    INNER JOIN Utilisateur ON Concert.idCréateur = Utilisateur.id
+                    INNER JOIN Lieu ON Concert.nomlieu = Lieu.nom
+                    LEFT JOIN Utilisateur_Concert ON Concert.id = Utilisateur_Concert.idconcert
+                    LEFT JOIN NoteConcert ON Concert.id = Noteconcert.idconcert
+                    WHERE Concert.id = $id
+                    GROUP BY Concert.id, Utilisateur.id, Lieu.nom;";
 
+        return $this->prepareExecute($query);
+    }
+
+    /**
+     * Sélectionne tous les groupes qui font partie d'un concert en particulier
+     */
+    public function SelectArtistsOfOneConcert($idConcert){
+        $query = "SELECT id, numéropassage, nomscène FROM concert_artiste INNER JOIN artiste ON concert_artiste.idartiste  = artiste.id 
+                    WHERE idconcert = $idConcert ORDER BY numéropassage;";
+        return $this->prepareExecute($query);
+    }
+
+    /**
+     * Sélectionne tous les gens inscrit à un concert en particulier
+     */
+    public function SelecAttendeeOfOneConcert($idConcert){
+        $query = "SELECT id, nom, prénom FROM utilisateur_concert INNER JOIN utilisateur ON utilisateur_concert.idutilisateur = utilisateur.id WHERE idconcert = $idConcert;";
         return $this->prepareExecute($query);
     }
 
