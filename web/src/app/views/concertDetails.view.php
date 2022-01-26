@@ -74,7 +74,7 @@
 <h1 class="mt-24 text-5xl text-center text-blue-400">Le créateur du concert est <?= $data['concert'][0]->prénom . ' ' . $data['concert'][0]->nomuser ?></h1>
 <h1 class="mt-6 text-xl text-center text-blue-800 hover:underline"><a href="/user?id=<?= $data['concert'][0]->idcréateur ?>">Cliquez ici pour voir son profil</a></h1>
 
-<h1 class="mt-24 text-5xl text-center text-blue-400">Groupes</h1>
+<h1 class="mt-24 text-5xl text-center text-blue-400">Groupes et artistes</h1>
 
 <div class="flex flex-col items-center mt-12">
     <div class="max-w-6xl -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -94,10 +94,10 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         <?php foreach ($data['artists'] as $artist) : ?>
                             <tr class="hover:bg-gray-100">
-                                <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap hover:underline hover:text-black">
-                                    <a href="/user?id=<?= $artist->id ?>"><?= $artist->nomscène?></a>
+                                <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
+                                    <?= $artist->nomscène?>
                                 </td>
-                                <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap hover:underline hover:text-black">
+                                <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                     <?= $artist->numéropassage ?>
                                 </td>
                             </tr>

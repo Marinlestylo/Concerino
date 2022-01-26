@@ -71,6 +71,17 @@ INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (4, 5, '2020-07-
 INSERT INTO membre (idartistesolo, idgroupe, datedébut, datefin) VALUES (4, 6, '2002-06-22', '2010-07-20');
 INSERT INTO membre (idartistesolo, idgroupe, datedébut, datefin) VALUES (4, 7, '2011-07-20', '2018-07-20');
 
+/* On affecte les artistes à leur concert */
+INSERT INTO concert_artiste (idconcert, idartiste, numéropassage) VALUES (1, 1, 1);
+INSERT INTO concert_artiste (idconcert, idartiste, numéropassage) VALUES (1, 2, 2);
+INSERT INTO concert_artiste (idconcert, idartiste, numéropassage) VALUES (2, 3, 1);
+INSERT INTO concert_artiste (idconcert, idartiste, numéropassage) VALUES (2, 4, 2);
+INSERT INTO concert_artiste (idconcert, idartiste, numéropassage) VALUES (3, 5, 1);
+INSERT INTO concert_artiste (idconcert, idartiste, numéropassage) VALUES (4, 1, 1);
+INSERT INTO concert_artiste (idconcert, idartiste, numéropassage) VALUES (4, 2, 2);
+INSERT INTO concert_artiste (idconcert, idartiste, numéropassage) VALUES (4, 3, 3);
+INSERT INTO concert_artiste (idconcert, idartiste, numéropassage) VALUES (5, 5, 1);
+
 /* style des artistes */
 INSERT INTO style_artiste (idartiste, nomstyle) VALUES (1, 'rock');
 INSERT INTO style_artiste (idartiste, nomstyle) VALUES (2, 'rock');
