@@ -33,7 +33,8 @@ class ConcertsController
             redirect('concerts');
         }
         // Select l'utilisateur ayant l'id passé en paramètre
-        $concert = App::get('database')->selectOneConcertAndUser($_GET['id']);
+        $concert = App::get('database')->SelectOneConcertAndInfos($_GET['id']);
+        // dd($concert);
         // Si on en trouve aucun, redirect
         if (count($concert) == 0) {
             redirect('concerts');
@@ -49,7 +50,12 @@ class ConcertsController
             return view('notLogged');
         }
         $lieux = App::get('database')->selectNomFromLieu();
-        return view('createConcert', compact('lieux'));
+        $artists = App::get('database')->selectAll();
+        $data = [
+            'lieux' => $lieux,
+            'artists' => $artists
+        ];
+        return view('createConcert', compact('data'));
     }
 
     /**
