@@ -172,3 +172,33 @@ CREATE TRIGGER check_utilisateur_concert_simultane
     FOR EACH ROW
 EXECUTE FUNCTION function_check_concert_simultane_utilisateur();
 /* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+-- Le numéro de passage est une suite (commençant à 1) continue de valeurs.
+
+CREATE OR REPLACE FUNCTION function_check_concert_artiste_ordre()
+    RETURNS TRIGGER AS
+$$
+DECLARE
+    dernierNo SMALLINT;
+BEGIN
+    SELECT numéroPassage
+    INTO dernierNo
+    FROM Concert_Artiste
+    WHERE idConcert = NEW.idConcert
+    ORDER BY numéropassage DESC
+        FETCH FIRST 1 ROW ONLY;
+    IF dernierNo + 1 != NEW.numéroPassage THEN
+        RAISE EXCEPTION 'Le numéro de passage doit être une suite continue de valeurs. Prochaine valeur : %', dernierNo + 1;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_concert_artiste_ordre
+    BEFORE INSERT
+    ON Concert_Artiste
+    FOR EACH ROW
+EXECUTE FUNCTION function_check_concert_artiste_ordre();
+/* ------------------------------------------------------------------ */
