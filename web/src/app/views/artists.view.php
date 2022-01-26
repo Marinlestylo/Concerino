@@ -4,7 +4,7 @@
 <h1 class="mt-24 text-5xl text-center text-blue-400">Voici la liste des artistes</h1>
 <div class="flex justify-center mb-12">
     <div class="flex flex-col items-center mr-48">
-        <div class="mt-10 text-2xl text-center text-blue-400 mb-4">Artistes</div>
+        <div class="mt-10 mb-4 text-2xl text-center text-blue-400">Artistes</div>
         <div class="max-w-2xl -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                 <div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
@@ -38,12 +38,13 @@
                         </tbody>
                     </table>
                 </div>
+                <a href="/createArtist" class="flex justify-center mt-10 mb-4 text-2xl text-center text-blue-400 hover:text-blue-800 hover:underline">Créer un artiste</a>
             </div>
         </div>
     </div>
 
     <div class="flex flex-col items-center ml-48">
-        <div class="mt-10 text-2xl text-center text-blue-400 mb-4">Groupes</div>
+        <div class="mt-10 mb-4 text-2xl text-center text-blue-400">Groupes</div>
         <div class="max-w-2xl -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                 <div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
@@ -65,6 +66,7 @@
                         </tbody>
                     </table>
                 </div>
+                <a href="/createGroup" class="flex justify-center mt-10 mb-4 text-2xl text-center text-blue-400 hover:text-blue-800 hover:underline">Créer un groupe</a>
             </div>
         </div>
     </div>

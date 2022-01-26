@@ -115,6 +115,9 @@ class ConcertsController
         return redirect('');
     }
 
+    /**
+     * Désinscription d'un concert
+     */
     public function unsign(){
         $ids = [
             'idconcert' => $_POST['idConcert'],
