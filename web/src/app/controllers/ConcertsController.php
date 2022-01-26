@@ -50,11 +50,12 @@ class ConcertsController
             return view('notLogged');
         }
         $lieux = App::get('database')->selectNomFromLieu();
-        $artists = App::get('database')->selectAll();
+        $artists = App::get('database')->selectAll('artiste');
         $data = [
             'lieux' => $lieux,
             'artists' => $artists
         ];
+        // dd($data);
         return view('createConcert', compact('data'));
     }
 
