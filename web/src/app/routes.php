@@ -33,3 +33,7 @@ $router->post('createRoom', 'RoomsController@store');// Page pour créer une sal
 $router->get('artists', 'ArtistsController@index'); // Affiche tous les artistes
 $router->get('artist', 'ArtistsController@detailArtist'); // Affiche les infos de 1 artistesolo
 $router->get('group', 'ArtistsController@detailGroup'); // Affiche les infos de 1 groupe
+$router->get('createArtist', 'ArtistsController@createArtist'); // Créer un artist (formulaire)
+$router->post('createArtist', 'ArtistsController@storeArtist'); // Créer un artist solo
+$router->get('createGroup', 'ArtistsController@createGroup'); // Créer un groupe (formulaire)
+$router->post('createGroup', 'ArtistsController@storeGroup'); // Créer un groupe
