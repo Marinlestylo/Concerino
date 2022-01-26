@@ -75,7 +75,7 @@
                                 class="w-full px-4 py-2 leading-tight text-gray-900 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-blue-800"
                                 type="number" id="time" name="time" required>
                             <?php foreach ($data['lieux'] as $lieu) : ?>
-                                <option value="<?= $lieu->nom ?>"><?= $lieu->nom ?></option>
+                                <option value="<?= $lieu->id ?>"><?= $lieu->nom ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -95,7 +95,6 @@
                                     border-2
                                                 border-gray-200 rounded appearance-none focus:outline-none
                                                 focus:bg-white focus:border-blue-800 synced-list" required>
-                                        <option value=""></option>
                                         <?php foreach ($data['artists'] as $artiste) : ?>
                                             <option value="<?= $artiste->nomscène ?>"><?= $artiste->nomscène ?></option>
                                         <?php endforeach; ?>
@@ -129,16 +128,21 @@
     <script>
         function syncLists() {
             let vals = [];
+            let optionsLength;
+
             $('.synced-list').each(function () {
                 const val = $(this).val();
                 if (val !== "") {
                     vals.push(val);
                 }
-                $(this).find('option').show();
+                let options = $(this).find('option');
+                options.show();
+                optionsLength = options.length;
                 for (let i = 0; i < vals.length; i++) {
                     $('option[value="' + vals[i] + '"]').hide();
                 }
             });
+            $('button[data-role="add"]').prop('disabled', vals.length === optionsLength);
         }
 
         $(function () {
@@ -146,16 +150,20 @@
 
             $(document).on('click', 'button[data-role="remove"]', function () {
                 $(this).closest('.artist-row').remove();
+                syncLists();
             });
             $(document).on('click', 'button[data-role="add"]', function () {
                 const row = $(this).closest('.artist-row').clone();
                 artists.append(row);
+                row.find('option:visible').first().prop('selected', true);
+                syncLists();
             });
             $(document).on('change', '.synced-list', function () {
                 syncLists();
             });
 
             artists.sortable();
+            syncLists();
         });
     </script>
     <style>
