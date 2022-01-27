@@ -4,7 +4,7 @@ Le but du projet Concer'ino est de réaliser une application complète de base d
 permet de lister différents concerts dans toute la Suisse avec la possibilité d’indiquer sa présence. Ce projet a été
 réalisé dans le cadre du cours BDR, par Jonathan Friedli, Stéphane Marengo et Loris Marzullo.
 
-## Mode d'emploi:
+## Mode d'emploi
 
 L'ensemble de l'infrastructure a été dockerisée et se configure dans le
 fichier [docker-compose.yaml](docker-compose.yml).
