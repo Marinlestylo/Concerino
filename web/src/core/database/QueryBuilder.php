@@ -423,7 +423,6 @@ class QueryBuilder
             if ($this->pdo->inTransaction()) {
                 $this->pdo->rollback();
             }
-            die($e->getMessage());
             return true;
         }
         return false;
