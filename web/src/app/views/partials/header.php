@@ -14,7 +14,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"
             integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../../../public/js/datepicker-fr-CH.js"></script>
     <script src="../../../public/js/custom.js"></script>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="../../../public/css/custom.css">
     <link rel="icon" href="../../../public/images/ino.ico" type="image/x-icon">
     <title>Concerino</title>

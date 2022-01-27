@@ -195,6 +195,39 @@ class QueryBuilder
         $this->prepareExecute($query);
     }
 
+    /**
+     * Transaction pour créer un concert
+     */
+    public function createConcert($concert, $artistes)
+    {
+        $query = "INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES (?, ?, ?, ?, ?) RETURNING id;";
+        try {
+            $this->pdo->beginTransaction();
+
+            $statement = $this->pdo->prepare($query);
+            $statement->execute(array_values($concert));
+            $idConcert = $statement->fetch();
+            $idConcert = $idConcert[0];
+
+            foreach ($artistes as $i => $idArtist) {
+                $this->insert('concert_artiste', [
+                    'idConcert' => $idConcert,
+                    'idArtiste' => $idArtist,
+                    'numéroPassage' => $i + 1
+                ]);
+            }
+
+            $this->pdo->commit();
+        } catch (Exception $e) {
+            if ($this->pdo->inTransaction()) {
+                $this->pdo->rollback();
+            }
+            $e->getMessage();
+            return true;
+        }
+        return false;
+    }
+
     /* ------------------------------- Querry concernant les Lieux ------------------------------- */
 
     /**
@@ -207,7 +240,7 @@ class QueryBuilder
     }
 
     /**
-     * Sélectionne toutes les valeurs possible de l'énum type lieu 
+     * Sélectionne toutes les valeurs possible de l'énum type lieu
      */
     public function getTypeLieu()
     {
@@ -303,7 +336,7 @@ class QueryBuilder
 
             $statement = $this->pdo->prepare($query);
             $statement->execute(array_values($params1));
-            $id =  $statement->fetchAll(PDO::FETCH_OBJ);
+            $id = $statement->fetchAll(PDO::FETCH_OBJ);
             $id = $id[0]->id;
             $data = [
                 'id' => $id,
@@ -347,7 +380,7 @@ class QueryBuilder
 
             $statement = $this->pdo->prepare($query);
             $statement->execute(array_values($params1));
-            $id =  $statement->fetchAll(PDO::FETCH_OBJ);
+            $id = $statement->fetchAll(PDO::FETCH_OBJ);
             $id = $id[0]->id;
             $data = [
                 'id' => $id,
@@ -355,7 +388,7 @@ class QueryBuilder
             $this->insert('groupe', $data);
             if (count($params2) != 0) {
                 $query2 = "INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (?, $id, ?)";
-                for($i = 1; $i < count($params2) / 2; $i++){
+                for ($i = 1; $i < count($params2) / 2; $i++) {
                     $query2 = $query2 . ", (?, $id, ?)";
                 }
                 $statement = $this->pdo->prepare($query2);

@@ -14,7 +14,7 @@ use App\Core\App;
 
 class ConcertsController
 {
-    /**  
+    /**
      * Affiche toutes les infos du concert et quelques infos de son créateur
      */
     public function index()
@@ -78,18 +78,20 @@ class ConcertsController
     public function store()
     {
         // Si un des champs est vide, on renvoie à la view de création
-        if (!isset($_POST['name']) || !isset($_POST['date']) || !isset($_POST['hour']) || !isset($_POST['duration']) || !isset($_POST['place'])) {
+        if (!isset($_POST['name']) || !isset($_POST['date']) || !isset($_POST['hour']) || !isset($_POST['duration'])
+            || !isset($_POST['place']) || !isset($_POST['artists'])) {
+            d($_POST);
             return $this->createConcert();
         }
-
         $concert = [
             'nom' => $_POST['name'],
             'début' => $_POST['date'] . ' ' . $_POST['hour'],
             'durée' => $_POST['duration'],
-            'nomlieu' => $_POST["place"],
+            'nomlieu' => $_POST['place'],
             'idcréateur' => $_SESSION['id']
         ];
-        $error = App::get('database')->insert('concert', $concert);
+
+        $error = App::get('database')->createConcert($concert, $_POST['artists']);
         if ($error) {
             return view('error');
         }
@@ -118,7 +120,8 @@ class ConcertsController
     /**
      * Désinscription d'un concert
      */
-    public function unsign(){
+    public function unsign()
+    {
         $ids = [
             'idconcert' => $_POST['idConcert'],
             'idutilisateur' => $_POST['idUser']

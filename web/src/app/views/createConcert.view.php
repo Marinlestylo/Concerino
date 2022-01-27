@@ -34,8 +34,11 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <input class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-blue-100 rounded appearance-none focus:outline-none focus:bg-white focus:border-blue-800"
-                               type="text" id="date" name="date" required autocomplete="off" placeholder="yyyy-mm-dd">
+                        <input class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2
+                        border-blue-100 rounded appearance-none focus:outline-none focus:bg-white
+                        focus:border-blue-800 datepicker"
+                               type="text" id="date" required autocomplete="off" placeholder="dd.mm.yyyy">
+                        <input class="hidden" name="date" id="hiddenDate">
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -47,7 +50,8 @@
                     </div>
                     <div class="md:w-2/3">
                         <input class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-blue-800"
-                               type="text" id="hour" name="hour" required autocomplete="off" placeholder="17:30">
+                               type="text" id="hour" name="hour" required autocomplete="off"
+                               placeholder="17:30">
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -73,9 +77,9 @@
                     <div class="md:w-2/3">
                         <select name="place" id="place"
                                 class="w-full px-4 py-2 leading-tight text-gray-900 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-blue-800"
-                                type="number" id="time" name="time" required>
+                                required>
                             <?php foreach ($data['lieux'] as $lieu) : ?>
-                                <option value="<?= $lieu->id ?>"><?= $lieu->nom ?></option>
+                                <option value="<?= $lieu->nom ?>"><?= $lieu->nom ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -96,7 +100,7 @@
                                                 border-gray-200 rounded appearance-none focus:outline-none
                                                 focus:bg-white focus:border-blue-800 synced-list" required>
                                         <?php foreach ($data['artists'] as $artiste) : ?>
-                                            <option value="<?= $artiste->nomscène ?>"><?= $artiste->nomscène ?></option>
+                                            <option value="<?= $artiste->id ?>"><?= $artiste->nomscène ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                     <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4
@@ -148,11 +152,13 @@
         $(function () {
             const artists = $('#artists');
 
-            $(document).on('click', 'button[data-role="remove"]', function () {
+            $(document).on('click', 'button[data-role="remove"]', function (e) {
+                e.preventDefault();
                 $(this).closest('.artist-row').remove();
                 syncLists();
             });
-            $(document).on('click', 'button[data-role="add"]', function () {
+            $(document).on('click', 'button[data-role="add"]', function (e) {
+                e.preventDefault();
                 const row = $(this).closest('.artist-row').clone();
                 artists.append(row);
                 row.find('option:visible').first().prop('selected', true);
