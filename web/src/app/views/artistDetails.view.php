@@ -182,6 +182,10 @@
                                 class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
                                 Style(s) de musique
                             </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                Groupe?
+                            </th>
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -195,6 +199,9 @@
                             </td>
                             <td scope="col" class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
                                 <?= $artist->styles ?>
+                            </td>
+                            <td scope="col" class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
+                                <?= $artist->estgroupe ? 'oui' : 'non' ?>
                             </td>
                             <?php endforeach; ?>
                         </tr>
