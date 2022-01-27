@@ -46,7 +46,7 @@ class UsersController
     {
         $acc = App::get('database')->selectWhereCondition('utilisateur', 'login', $_POST['email']);
 
-        if (count($acc) < 0) {
+        if (count($acc) == 0) {
             redirect('login');
         }
         if (password_verify($_POST['password'], $acc[0]->motdepasse)) {
@@ -76,7 +76,7 @@ class UsersController
             redirect('users');
         }
 
-        $concerts =  App::get('database')->selectWhereCondition('concert', 'idcréateur', $_GET['id']);
+        $concerts = App::get('database')->selectWhereCondition('concert', 'idcréateur', $_GET['id']);
         $data = [
             'user' => $user,
             'concerts' => $concerts
