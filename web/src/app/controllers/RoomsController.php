@@ -87,7 +87,7 @@ class RoomsController
             $data = ['nom' => $_POST['nomSAlle'], 'idutilisateur' => $_POST['idUser'], 'note' => $_POST['note']];
             $error = App::get('database')->insert('notelieu', $data);
             if(!$error){
-                $room = App::get('database')->selectWhereCondition('lieu', 'nom', $_POST['nomSAlle']);
+                $room = App::get('database')->selectRoom($_POST['nomSAlle']);
                 return view('roomDetails', compact('room'));
             }
         }

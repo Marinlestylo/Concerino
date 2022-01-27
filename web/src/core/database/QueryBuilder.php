@@ -64,7 +64,6 @@ class QueryBuilder
 
             $statement->execute(array_values($params));
         } catch (Exception $e) {
-            die($e->getMessage());
             return true;
         }
         return false;
