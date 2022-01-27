@@ -40,6 +40,14 @@ class QueryBuilder
     }
 
     /**
+     * Fonction pour obtenir une moyenne de note
+     */
+    public function getAVGFromTable($tableName, $colName, $val){
+        $query = "SELECT avg(note) AS moyenne FROM $tableName WHERE $colName = $val;";
+        return $this->prepareExecute($query);
+    }
+
+    /**
      * Insert des données dans la db en fonction des paramètres passé.
      * $params est un tableau
      * TODO: Enlever le commentaire

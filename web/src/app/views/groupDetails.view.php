@@ -11,6 +11,16 @@
     }
     ?>
 </h1>
+<div class="mt-12 text-5xl text-center text-blue-400">
+    <?php
+    if ($data['moyenne'][0]->moyenne == NULL) {
+        echo ('Ce groupe n\'a pas encore de note');
+    } else {
+        echo ("Ce groupe à une moyenne de note à " . number_format($data['moyenne'][0]->moyenne, 2) . " / 5");
+    }
+    ?>
+</div>
+
 <?php if (isset($_SESSION['id'])) : ?>
     <div class="flex justify-center mt-10 text-center">
         <form action="/noteArtist" method="POST">

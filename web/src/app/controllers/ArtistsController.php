@@ -127,9 +127,11 @@ class ArtistsController
 
         // Select tous les groupes dont l'artiste à fait partie
         $groups = App::get('database')->getAllGroupsWhereIdSoloArtist($_GET['id']);
+        $moyenne = App::get('database')->getAVGFromTable('noteartiste', 'idartiste', $_GET['id']);
         $data = [
             'artist' => $artist,
-            'groups' => $groups
+            'groups' => $groups,
+            'moyenne' => $moyenne
         ];
         return view('artistDetails', compact('data'));
     }
@@ -150,10 +152,13 @@ class ArtistsController
 
         $members = App::get('database')->getAllMembersOfOneGroup($_GET['id']);
         $styles = App::get('database')->getAllStylesForGroup($_GET['id']);
+        $moyenne = App::get('database')->getAVGFromTable('noteartiste', 'idartiste', $_GET['id']);
         $data = [
             'info' => $styles,
-            'members' => $members
+            'members' => $members,
+            'moyenne' => $moyenne
         ];
+        // dd($data);
         return view('groupDetails', compact('data'));
     }
 

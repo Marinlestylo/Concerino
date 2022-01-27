@@ -22,6 +22,9 @@
                                 Style(s) de musique de l'artiste
                             </th>
                             <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
+                                Moyenne de l'artiste
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-blue-100 uppercase">
                                 Groupe actuel
                             </th>
                         </tr>
@@ -41,6 +44,13 @@
                                 <?= $data['artist'][0]->styles ?>
                             <?php else : ?>
                                 Aucun
+                            <?php endif; ?>
+                        </td>
+                        <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
+                            <?php if (isset($data['moyenne'][0]->moyenne)) : ?>
+                                <?= number_format($data['moyenne'][0]->moyenne, 2) ?> / 5
+                            <?php else : ?>
+                                -
                             <?php endif; ?>
                         </td>
                         <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap">
