@@ -100,6 +100,25 @@ class QueryBuilder
         return $this->prepareExecute($query);
     }
 
+    public function selectEveryConcertUserWentTo($idUser){
+        $query = "SELECT id, nom, début, durée, nomlieu FROM utilisateur_concert INNER JOIN concert ON utilisateur_concert.idconcert = concert.id WHERE idutilisateur = $idUser;";
+        return $this->prepareExecute($query);
+    }
+
+    public function showVotes($idUser){
+        $queryNoteArtist = "SELECT idArtiste, note, nomscène FROM noteartiste INNER JOIN artiste ON noteartiste.idartiste = artiste.id WHERE idutilisateur = $idUser;";
+        $queryNoteConcert = "SELECT idconcert, note, nom FROM noteconcert INNER JOIN concert ON noteconcert.idconcert = concert.id WHERE idutilisateur = $idUser;";
+        $queryNoteLieu = "SELECT nom, note FROM notelieu WHERE idutilisateur = $idUser;";
+        $artist = $this->prepareExecute($queryNoteArtist);
+        $concerts = $this->prepareExecute($queryNoteConcert);
+        $lieux = $this->prepareExecute($queryNoteLieu);
+        return[
+            'artists' => $artist,
+            'concerts' => $concerts,
+            'lieux' => $lieux
+        ];
+    }
+
     /* ------------------------------- Querry concernant les salles ------------------------------- */
 
     /**

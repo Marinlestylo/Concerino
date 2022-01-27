@@ -77,11 +77,14 @@ class UsersController
         }
 
         $concerts = App::get('database')->selectWhereCondition('concert', 'idcréateur', $_GET['id']);
+        $concertsSeen = App::get('database')->selectEveryConcertUserWentTo($_GET['id']);
+        $votes = App::get('database')->showVotes($_GET['id']);
         $data = [
             'user' => $user,
-            'concerts' => $concerts
+            'concerts' => $concerts,
+            'seen' => $concertsSeen,
+            'votes' => $votes
         ];
-
         return view('userDetails', compact('data'));
     }
 
