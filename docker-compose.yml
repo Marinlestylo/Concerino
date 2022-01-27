@@ -10,12 +10,11 @@ services:
     depends_on:
       - db
     environment:
-      - PORT=8082
       - DB_HOST=concerino-postgres
       - DB_CONNECTION=pgsql
+      - DB_NAME=concerino
       - DB_USER=postgres
       - DB_PASSWORD=admin
-      - DB_NAME=concerino
   db:
     image: postgres:14.0
     container_name: concerino-postgres
@@ -28,7 +27,5 @@ services:
       - POSTGRES_DB=concerino
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
-      #- POSTGRES_INITDB_ARGS='--encoding=UTF-8'
-
 volumes:
   pgdata:
