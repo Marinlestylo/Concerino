@@ -34,7 +34,7 @@ class RoomsController
             redirect('rooms');
         }
         // Select l'utilisateur ayant l'id passé en paramètre
-        $room = App::get('database')->selectWhereCondition('lieu', 'nom', $_GET['nom']);
+        $room = App::get('database')->selectRoom($_GET['nom']);
         // Si on en trouve aucun, redirect
         if (count($room) == 0) {
             redirect('rooms');
@@ -53,6 +53,9 @@ class RoomsController
         return view('createRoom', compact('typeLieu'));
     }
 
+    /**
+     * On ajoute une salle
+     */
     public function store(){
         // Si un des champs est vide, on renvoie à la view de création
         if(!isset($_POST['name']) || !isset($_POST['capacity']) || !isset($_POST['streetName']) || !isset($_POST['streetNumber']) || !isset($_POST['npa']) || !isset($_POST['city'])|| !isset($_POST['type'])){
@@ -74,5 +77,20 @@ class RoomsController
         }
 
         return redirect('rooms');
+    }
+
+    /**
+     * Noter une salle de concert
+     */
+    public function note(){
+        if(is_numeric($_POST['note']) && $_POST['note'] < 6 && $_POST['note'] > -1){
+            $data = ['nom' => $_POST['nomSAlle'], 'idutilisateur' => $_POST['idUser'], 'note' => $_POST['note']];
+            $error = App::get('database')->insert('notelieu', $data);
+            if(!$error){
+                $room = App::get('database')->selectWhereCondition('lieu', 'nom', $_POST['nomSAlle']);
+                return view('roomDetails', compact('room'));
+            }
+        }
+        return view('error');
     }
 }

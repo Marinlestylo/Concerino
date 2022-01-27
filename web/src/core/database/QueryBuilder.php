@@ -64,7 +64,7 @@ class QueryBuilder
 
             $statement->execute(array_values($params));
         } catch (Exception $e) {
-            //die($e->getMessage());
+            die($e->getMessage());
             return true;
         }
         return false;
@@ -90,6 +90,20 @@ class QueryBuilder
     public function selectUserInfo($id)
     {
         $query = "SELECT id, login, nom, prénom, estmodérateur FROM utilisateur WHERE id = $id;";
+        return $this->prepareExecute($query);
+    }
+
+    /* ------------------------------- Querry concernant les salles ------------------------------- */
+
+    /**
+     * Sélectionne toutes les informations, concernant l'utilisateur, que l'on va afficher à l'écran.
+     * $id est l'id de l'utilisateur en question
+     */
+    public function selectRoom($nom){
+        $query = "SELECT lieu.*, avg(note) FROM lieu
+                    LEFT JOIN notelieu ON lieu.nom = notelieu.nom
+                    WHERE lieu.nom = '$nom'
+                    GROUP BY lieu.nom;";
         return $this->prepareExecute($query);
     }
 
