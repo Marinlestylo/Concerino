@@ -119,6 +119,14 @@ class QueryBuilder
         ];
     }
 
+    /**
+     * Promouvoir un user en admin
+     */
+    public function promoteAdmin($id){
+        $query = "UPDATE utilisateur SET estmodérateur = TRUE WHERE id = $id;";
+        return $this->prepareExecute($query);
+    }
+
     /* ------------------------------- Querry concernant les salles ------------------------------- */
 
     /**

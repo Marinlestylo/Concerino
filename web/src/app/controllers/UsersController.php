@@ -96,4 +96,12 @@ class UsersController
         session_destroy();
         redirect('');
     }
+
+    /**
+     * Promouvoir un utilisateur en modo
+     */
+    public function promote(){
+        App::get('database')->promoteAdmin($_POST['idUser']);
+        redirect('users');
+    }
 }

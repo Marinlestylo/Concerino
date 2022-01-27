@@ -16,6 +16,7 @@ $router->get('user', 'UsersController@detail'); // Page pour 1 user
 $router->post('users', 'UsersController@store'); // Créer un utilisateur
 $router->post('login', 'UsersController@login'); // S'identifier
 $router->get('logout', 'UsersController@logout'); // Se logout
+$router->post('promote', 'UsersController@promote'); // Promouvoir un utilisateur en modo
 
 $router->get('concerts', 'ConcertsController@index'); // Afficher tous les concerts
 $router->get('concert', 'ConcertsController@detail'); // Page pour 1 concert

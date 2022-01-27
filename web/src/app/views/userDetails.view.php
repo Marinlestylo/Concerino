@@ -53,6 +53,17 @@
     </div>
 </div>
 
+<?php if (isset($_SESSION['id']) && $_SESSION['isAdmin'] && !$data['user'][0]->estmodérateur) : ?>
+    <div class="flex justify-center text-center">
+        <form action="/promote" method="POST">
+            <input class="" value="<?= $_GET['id'] ?>" type="hidden" id="idUser" name="idUser" required>
+            <button type="submit" class="justify-center px-4 py-2 mt-2 ml-4 font-bold text-white bg-red-700 rounded shadow hover:shadow-xl focus:shadow-outline focus:outline-none">
+                Promouvoir en tant qu'admin
+            </button>
+        </form>
+    </div>
+<?php endif; ?>
+
 <h1 class="mt-24 text-5xl text-center text-blue-400">Voici les concerts auxquels
     <?= $data['user'][0]->prénom . ' ' . $data['user'][0]->nom; ?> a et va participé
 </h1>
