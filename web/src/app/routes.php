@@ -39,3 +39,4 @@ $router->get('createArtist', 'ArtistsController@createArtist'); // Créer un art
 $router->post('createArtist', 'ArtistsController@storeArtist'); // Créer un artist solo
 $router->get('createGroup', 'ArtistsController@createGroup'); // Créer un groupe (formulaire)
 $router->post('createGroup', 'ArtistsController@storeGroup'); // Créer un groupe
+$router->post('noteArtist', 'ArtistsController@note'); // Noter un artiste solo ou un groupe

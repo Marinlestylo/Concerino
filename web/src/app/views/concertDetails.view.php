@@ -75,7 +75,7 @@
         <form action="/noteConcert" method="POST">
             <input class="" value="<?= $data['concert'][0]->id ?>" type="hidden" id="idConcert" name="idConcert" required>
             <input class="" value="<?= $_SESSION['id'] ?>" type="hidden" id="idUser" name="idUser" required>
-            <label for="note" class="block pr-4 font-bold text-center text-indigo-500 md:text-right md:mb-0">Une notre doit être un entier compris entre 0 et 5</label>
+            <label for="note" class="block pr-4 font-bold text-center text-indigo-500 md:text-right md:mb-0">Une note doit être un entier compris entre 0 et 5</label>
             <input class="px-4 py-2 leading-tight text-gray-900 border-2 border-gray-200 rounded appearance-none w-md focus:outline-none focus:bg-white focus:border-blue-800" type="number" id="note" name="note" required>
             <button type="submit" class="justify-center px-4 py-2 mt-2 ml-4 font-bold text-white bg-blue-500 rounded shadow hover:shadow-xl focus:shadow-outline focus:outline-none">
                 Noter le concert

@@ -156,4 +156,18 @@ class ArtistsController
         ];
         return view('groupDetails', compact('data'));
     }
+
+    /**
+     * Noter un artist
+     */
+    public function note(){
+        if(is_numeric($_POST['note']) && $_POST['note'] < 6 && $_POST['note'] > -1){
+            $data = ['idartiste' => $_POST['idArtist'], 'idutilisateur' => $_POST['idUser'], 'note' => $_POST['note']];
+            $error = App::get('database')->insert('noteartiste', $data);
+            if(!$error){
+                return $this->index();
+            }
+        }
+        return view('error');
+    }
 }
