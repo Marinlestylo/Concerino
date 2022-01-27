@@ -128,10 +128,13 @@ class ArtistsController
         // Select tous les groupes dont l'artiste à fait partie
         $groups = App::get('database')->getAllGroupsWhereIdSoloArtist($_GET['id']);
         $moyenne = App::get('database')->getAVGFromTable('noteartiste', 'idartiste', $_GET['id']);
+        $suggestions = App::get('database')->getSuggestionsFromArtist($_GET['id']);
+        
         $data = [
             'artist' => $artist,
             'groups' => $groups,
-            'moyenne' => $moyenne
+            'moyenne' => $moyenne,
+            'suggestions' => $suggestions
         ];
         return view('artistDetails', compact('data'));
     }
@@ -153,10 +156,13 @@ class ArtistsController
         $members = App::get('database')->getAllMembersOfOneGroup($_GET['id']);
         $styles = App::get('database')->getAllStylesForGroup($_GET['id']);
         $moyenne = App::get('database')->getAVGFromTable('noteartiste', 'idartiste', $_GET['id']);
+        $suggestions = App::get('database')->getSuggestionsFromArtist($_GET['id']);
+
         $data = [
             'info' => $styles,
             'members' => $members,
-            'moyenne' => $moyenne
+            'moyenne' => $moyenne,
+            'suggestions' => $suggestions
         ];
         // dd($data);
         return view('groupDetails', compact('data'));
@@ -165,11 +171,12 @@ class ArtistsController
     /**
      * Noter un artist
      */
-    public function note(){
-        if(is_numeric($_POST['note']) && $_POST['note'] < 6 && $_POST['note'] > -1){
+    public function note()
+    {
+        if (is_numeric($_POST['note']) && $_POST['note'] < 6 && $_POST['note'] > -1) {
             $data = ['idartiste' => $_POST['idArtist'], 'idutilisateur' => $_POST['idUser'], 'note' => $_POST['note']];
             $error = App::get('database')->insert('noteartiste', $data);
-            if(!$error){
+            if (!$error) {
                 return $this->index();
             }
         }

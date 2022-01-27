@@ -42,7 +42,8 @@ class QueryBuilder
     /**
      * Fonction pour obtenir une moyenne de note
      */
-    public function getAVGFromTable($tableName, $colName, $val){
+    public function getAVGFromTable($tableName, $colName, $val)
+    {
         $query = "SELECT avg(note) AS moyenne FROM $tableName WHERE $colName = $val;";
         return $this->prepareExecute($query);
     }
@@ -100,19 +101,21 @@ class QueryBuilder
         return $this->prepareExecute($query);
     }
 
-    public function selectEveryConcertUserWentTo($idUser){
+    public function selectEveryConcertUserWentTo($idUser)
+    {
         $query = "SELECT id, nom, début, durée, nomlieu FROM utilisateur_concert INNER JOIN concert ON utilisateur_concert.idconcert = concert.id WHERE idutilisateur = $idUser;";
         return $this->prepareExecute($query);
     }
 
-    public function showVotes($idUser){
+    public function showVotes($idUser)
+    {
         $queryNoteArtist = "SELECT idArtiste, note, nomscène FROM noteartiste INNER JOIN artiste ON noteartiste.idartiste = artiste.id WHERE idutilisateur = $idUser;";
         $queryNoteConcert = "SELECT idconcert, note, nom FROM noteconcert INNER JOIN concert ON noteconcert.idconcert = concert.id WHERE idutilisateur = $idUser;";
         $queryNoteLieu = "SELECT nom, note FROM notelieu WHERE idutilisateur = $idUser;";
         $artist = $this->prepareExecute($queryNoteArtist);
         $concerts = $this->prepareExecute($queryNoteConcert);
         $lieux = $this->prepareExecute($queryNoteLieu);
-        return[
+        return [
             'artists' => $artist,
             'concerts' => $concerts,
             'lieux' => $lieux
@@ -122,7 +125,8 @@ class QueryBuilder
     /**
      * Promouvoir un user en admin
      */
-    public function promoteAdmin($id){
+    public function promoteAdmin($id)
+    {
         $query = "UPDATE utilisateur SET estmodérateur = TRUE WHERE id = $id;";
         return $this->prepareExecute($query);
     }
@@ -133,7 +137,8 @@ class QueryBuilder
      * Sélectionne toutes les informations, concernant l'utilisateur, que l'on va afficher à l'écran.
      * $id est l'id de l'utilisateur en question
      */
-    public function selectRoom($nom){
+    public function selectRoom($nom)
+    {
         $query = "SELECT lieu.*, avg(note) FROM lieu
                     LEFT JOIN notelieu ON lieu.nom = notelieu.nom
                     WHERE lieu.nom = '$nom'
@@ -370,6 +375,30 @@ class QueryBuilder
                     LEFT JOIN style_artiste ON groupe.id = style_artiste.idartiste
                     WHERE groupe.id = $id
                     GROUP BY groupe.id, artiste.nomscène;";
+        return $this->prepareExecute($query);
+    }
+
+    /**
+     * Sélectionne 5 artistes de même style que celui passé en paramètre.
+     */
+    public function getSuggestionsFromArtist($id)
+    {
+        $query = "SELECT *
+                    FROM (SELECT DISTINCT Artiste.id,
+                                          nomscène,
+                                          STRING_AGG(nomstyle, ', ') AS styles,
+                                          Groupe.id IS NOT NULL AS estGroupe
+                          FROM Artiste
+                                   LEFT JOIN Style_Artiste ON Artiste.id = Style_Artiste.idArtiste
+                                   LEFT JOIN Groupe ON Artiste.id = Groupe.id
+                          WHERE EXISTS(SELECT 1
+                                       FROM Style_Artiste
+                                       WHERE idArtiste != $id
+                                         AND artiste.id = idArtiste)
+                          GROUP BY Artiste.id, Groupe.id
+                         ) t
+                    ORDER BY RANDOM()
+                    LIMIT 5;";
         return $this->prepareExecute($query);
     }
 
