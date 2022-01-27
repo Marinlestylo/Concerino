@@ -232,16 +232,19 @@ CREATE OR REPLACE FUNCTION function_check_note_concert()
     RETURNS TRIGGER AS
 $$
 BEGIN
+    NEW.date = CURRENT_DATE;
+
     PERFORM
     FROM Utilisateur_Concert
+             INNER JOIN Concert ON Utilisateur_Concert.idConcert = Concert.id
     WHERE idConcert = NEW.idConcert
-      AND idUtilisateur = NEW.idUtilisateur;
+      AND idUtilisateur = NEW.idUtilisateur
+      AND début < NEW.date;
 
     IF NOT FOUND THEN
         RAISE EXCEPTION 'L''utilisateur n''a pas assisté à ce concert --> %', NEW.idConcert;
     END IF;
 
-    NEW.date = CURRENT_DATE;
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -260,17 +263,19 @@ CREATE OR REPLACE FUNCTION function_check_note_lieu()
     RETURNS TRIGGER AS
 $$
 BEGIN
+    NEW.date = CURRENT_DATE;
+
     PERFORM
     FROM Utilisateur_Concert
              INNER JOIN Concert ON Utilisateur_Concert.idConcert = Concert.id
     WHERE Concert.nomLieu = NEW.nom
-      AND idUtilisateur = NEW.idUtilisateur;
+      AND idUtilisateur = NEW.idUtilisateur
+      AND Concert.début < NEW.date;
 
     IF NOT FOUND THEN
         RAISE EXCEPTION 'L''utilisateur n''a pas assisté à des concerts dans cette salle.';
     END IF;
 
-    NEW.date = CURRENT_DATE;
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -289,18 +294,20 @@ CREATE OR REPLACE FUNCTION function_check_note_artiste()
     RETURNS TRIGGER AS
 $$
 BEGIN
+    NEW.date = CURRENT_DATE;
+
     PERFORM
     FROM Utilisateur_Concert
              INNER JOIN Concert ON Utilisateur_Concert.idConcert = Concert.id
              INNER JOIN Concert_Artiste ON Concert.id = Concert_Artiste.idConcert
     WHERE idUtilisateur = NEW.idUtilisateur
-      AND idArtiste = NEW.idArtiste;
+      AND idArtiste = NEW.idArtiste
+      AND Concert.début < NEW.date;
 
     IF NOT FOUND THEN
         RAISE EXCEPTION 'L''utilisateur n''a pas assisté à des concerts de cet artiste.';
     END IF;
 
-    NEW.date = CURRENT_DATE;
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
