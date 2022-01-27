@@ -241,7 +241,7 @@ ALTER TABLE NoteLieu
             ON DELETE CASCADE
             ON UPDATE CASCADE,
     ADD CONSTRAINT CK_NoteLieu_note
-        CHECK (note BETWEEN 1 AND 5);
+        CHECK (note BETWEEN 0 AND 5);
 
 ALTER TABLE NoteConcert
     ADD CONSTRAINT FK_NoteConcert_idConcert
@@ -255,7 +255,7 @@ ALTER TABLE NoteConcert
             ON DELETE CASCADE
             ON UPDATE CASCADE,
     ADD CONSTRAINT CK_NoteConcert_note
-        CHECK (note BETWEEN 1 AND 5);
+        CHECK (note BETWEEN 0 AND 5);
 
 ALTER TABLE NoteArtiste
     ADD CONSTRAINT FK_NoteArtiste_idArtiste
@@ -269,7 +269,7 @@ ALTER TABLE NoteArtiste
             ON DELETE CASCADE
             ON UPDATE CASCADE,
     ADD CONSTRAINT CK_NoteArtiste_note
-        CHECK (note BETWEEN 1 AND 5);
+        CHECK (note BETWEEN 0 AND 5);
 
 CREATE INDEX IDX_FK_Concert_nomLieu ON Concert (nomLieu ASC);
 CREATE INDEX IDX_FK_Concert_idCréateur ON Concert (idCréateur ASC);

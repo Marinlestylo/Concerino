@@ -158,7 +158,7 @@ VALUES (5, 'blues');
 
 /* Les notes doivent correspondre à des concerts auquels l'utilisateur a déjà assisté */
 INSERT INTO notelieu (nom, idutilisateur, note)
-VALUES ('Paleo', 1, 3);
+VALUES ('Paleo', 1, 0);
 INSERT INTO notelieu (nom, idutilisateur, note)
 VALUES ('Paleo', 2, 4);
 
