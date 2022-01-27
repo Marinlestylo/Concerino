@@ -114,7 +114,7 @@ CREATE TABLE NoteLieu
     idUtilisateur SMALLSERIAL,
     date          DATE DEFAULT CURRENT_DATE,
     note          SMALLINT NOT NULL,
-    CONSTRAINT PK_NoteLieu PRIMARY KEY (nom, idUtilisateur, date)
+    CONSTRAINT PK_NoteLieu PRIMARY KEY (nom, idUtilisateur)
 );
 
 DROP TABLE IF EXISTS NoteConcert CASCADE;
@@ -124,7 +124,7 @@ CREATE TABLE NoteConcert
     idUtilisateur SMALLSERIAL,
     date          DATE DEFAULT CURRENT_DATE,
     note          SMALLINT NOT NULL,
-    CONSTRAINT PK_NoteConcert PRIMARY KEY (idConcert, idUtilisateur, date)
+    CONSTRAINT PK_NoteConcert PRIMARY KEY (idConcert, idUtilisateur)
 );
 
 DROP TABLE IF EXISTS NoteArtiste CASCADE;
@@ -134,7 +134,7 @@ CREATE TABLE NoteArtiste
     idUtilisateur SMALLSERIAL,
     date          DATE DEFAULT CURRENT_DATE,
     note          SMALLINT NOT NULL,
-    CONSTRAINT PK_NoteArtiste PRIMARY KEY (idArtiste, idUtilisateur, date)
+    CONSTRAINT PK_NoteArtiste PRIMARY KEY (idArtiste, idUtilisateur)
 );
 
 ALTER TABLE Concert
@@ -145,8 +145,7 @@ ALTER TABLE Concert
     ADD CONSTRAINT FK_Concert_idCréateur
         FOREIGN KEY (idCréateur)
             REFERENCES Utilisateur (id)
-            ON
-                UPDATE CASCADE,
+            ON UPDATE CASCADE,
     ADD CONSTRAINT CK_Concert_durée
         CHECK (durée > 0);
 
@@ -221,11 +220,8 @@ ALTER TABLE Membre
     ADD CONSTRAINT FK_Membre_idGroupe
         FOREIGN KEY (idGroupe)
             REFERENCES Groupe (id)
-            ON
-                DELETE
-                CASCADE
-            ON
-                UPDATE CASCADE,
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
     ADD CONSTRAINT CK_Membre_dateFin
         CHECK (dateFin >= dateDébut);
 
