@@ -43,7 +43,7 @@
                                     <a href="/concert?id=<?= $concert->id ?>"><?= $concert->nom; ?></a>
                                 </td>
                                 <td class="px-6 py-4 text-center text-gray-500 whitespace-nowrap"
-                                    data-text="<?php echo $concert->début; ?>">
+                                    data-text="<?= $concert->début ?>">
                                     <?php
                                     $array = explode(' ', $concert->début);
                                     $date = explode('-', $array[0]);
