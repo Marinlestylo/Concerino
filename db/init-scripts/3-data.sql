@@ -13,7 +13,7 @@ VALUES ('d@gmail.com', 'Marengo', 'Stéphane',
 INSERT INTO Utilisateur (login, nom, prénom, motDePasse, estModérateur)
 VALUES ('e@gmail.com', 'Marzullo', 'Loris',
         '$2y$10$Tf6jDPjOEIhJKA6H6jyn6Oahpdhy7U97uJjYQF7MI07jdVMeWNMQi', TRUE);
-        INSERT INTO utilisateur (login, nom, prénom, motdepasse, estmodérateur)
+INSERT INTO Utilisateur (login, nom, prénom, motDePasse, estModérateur)
 VALUES ('f@gmail.com', 'Peter', 'Parker',
         '$2y$10$Tf6jDPjOEIhJKA6H6jyn6Oahpdhy7U97uJjYQF7MI07jdVMeWNMQi', FALSE);
 
@@ -38,38 +38,38 @@ INSERT INTO Concert (nom, début, durée, nomLieu, idCréateur)
 VALUES ('ConcertD', '2022-03-23 19:00', 60, 'Salle Métropole', 4);
 INSERT INTO Concert (nom, début, durée, nomLieu, idCréateur)
 VALUES ('ConcertE', '2022-04-09 20:00', 180, 'Stade de France', 4);
-INSERT INTO concert (nom, début, durée, nomlieu, idcréateur)
+INSERT INTO Concert (nom, début, durée, nomLieu, idCréateur)
 VALUES ('ConcertF', '2021-04-09 20:00', 210, 'Paleo', 6);
-INSERT INTO concert (nom, début, durée, nomlieu, idcréateur)
+INSERT INTO Concert (nom, début, durée, nomLieu, idCréateur)
 VALUES ('ConcertG', '2021-05-09 20:00', 210, 'Amalgame', 6);
-INSERT INTO concert (nom, début, durée, nomlieu, idcréateur)
+INSERT INTO Concert (nom, début, durée, nomLieu, idCréateur)
 VALUES ('ConcertH', '2021-06-09 20:00', 210, 'Salle Métropole', 6);
-INSERT INTO concert (nom, début, durée, nomlieu, idcréateur)
+INSERT INTO Concert (nom, début, durée, nomLieu, idCréateur)
 VALUES ('ConcertI', '2021-07-09 20:00', 210, 'Stade de France', 6);
-ALTER TABLE concert ENABLE TRIGGER ALL;
+ALTER TABLE Concert ENABLE TRIGGER ALL;
 
 /* Concerts ayant déjà eu Lieu (2021) */
 INSERT INTO Utilisateur_Concert (idConcert, idUtilisateur)
 VALUES (1, 1);
 INSERT INTO Utilisateur_Concert (idConcert, idUtilisateur)
 VALUES (1, 2);
-INSERT INTO utilisateur_concert (idconcert, idutilisateur)
+INSERT INTO utilisateur_concert (idConcert, idUtilisateur)
 VALUES (1, 6);
-INSERT INTO utilisateur_concert (idconcert, idutilisateur)
+INSERT INTO utilisateur_concert (idConcert, idUtilisateur)
 VALUES (2, 3);
 INSERT INTO Utilisateur_Concert (idConcert, idUtilisateur)
 VALUES (2, 4);
 INSERT INTO Utilisateur_Concert (idConcert, idUtilisateur)
 VALUES (2, 5);
-INSERT INTO utilisateur_concert (idconcert, idutilisateur)
+INSERT INTO utilisateur_concert (idConcert, idUtilisateur)
 VALUES (2, 6);
-INSERT INTO utilisateur_concert (idconcert, idutilisateur)
+INSERT INTO utilisateur_concert (idConcert, idUtilisateur)
 VALUES (6, 6);
-INSERT INTO utilisateur_concert (idconcert, idutilisateur)
+INSERT INTO utilisateur_concert (idConcert, idUtilisateur)
 VALUES (7, 6);
-INSERT INTO utilisateur_concert (idconcert, idutilisateur)
+INSERT INTO utilisateur_concert (idConcert, idUtilisateur)
 VALUES (8, 6);
-INSERT INTO utilisateur_concert (idconcert, idutilisateur)
+INSERT INTO utilisateur_concert (idConcert, idUtilisateur)
 VALUES (9, 6);
 /* Concerts à venir (2022) */
 INSERT INTO Utilisateur_Concert (idConcert, idUtilisateur)
@@ -87,19 +87,19 @@ VALUES (5, 2);
 INSERT INTO Utilisateur_Concert (idConcert, idUtilisateur)
 VALUES (5, 4);
 
-INSERT INTO style (nom)
+INSERT INTO Style (nom)
 VALUES ('classique');
-INSERT INTO style (nom)
+INSERT INTO Style (nom)
 VALUES ('jazz');
-INSERT INTO style (nom)
+INSERT INTO Style (nom)
 VALUES ('rock');
-INSERT INTO style (nom)
+INSERT INTO Style (nom)
 VALUES ('blues');
-INSERT INTO style (nom)
+INSERT INTO Style (nom)
 VALUES ('pop');
-INSERT INTO style (nom)
+INSERT INTO Style (nom)
 VALUES ('métal');
-INSERT INTO style (nom)
+INSERT INTO Style (nom)
 VALUES ('rap');
 
 /* On crée tous les Artistes (solo et groupe) */
@@ -113,15 +113,15 @@ INSERT INTO Artiste (nomscène)
 VALUES ('George Harrisson');
 INSERT INTO Artiste (nomscène)
 VALUES ('Les Beatles');
-INSERT INTO artiste (nomscène)
+INSERT INTO Artiste (nomscène)
 VALUES ('Chester Bennington');
-INSERT INTO artiste (nomscène)
+INSERT INTO Artiste (nomscène)
 VALUES ('Mike Shindoa');
-INSERT INTO artiste (nomscène)
+INSERT INTO Artiste (nomscène)
 VALUES ('Joe Hahn');
-INSERT INTO artiste (nomscène)
+INSERT INTO Artiste (nomscène)
 VALUES ('Big Jay');
-INSERT INTO artiste (nomscène)
+INSERT INTO Artiste (nomscène)
 VALUES ('Linkin Park');
 
 /* On crée tous les Artistes solo et on les binds sur un Artiste */
@@ -131,21 +131,21 @@ INSERT INTO ArtisteSolo (id, nom, prénom)
 VALUES (2, 'Ringo', 'Star');
 INSERT INTO ArtisteSolo (id, nom, prénom)
 VALUES (3, 'McCartney', 'Paulo');
-INSERT INTO artistesolo (id, nom, prénom)
+INSERT INTO ArtisteSolo (id, nom, prénom)
 VALUES (4, 'Stéphane', 'Marengo');
-INSERT INTO artistesolo (id, nom, prénom)
+INSERT INTO ArtisteSolo (id, nom, prénom)
 VALUES (6, 'Chester', 'Bennington');
-INSERT INTO artistesolo (id, nom, prénom)
+INSERT INTO ArtisteSolo (id, nom, prénom)
 VALUES (7, 'Mike', 'Shindoa');
-INSERT INTO artistesolo (id, nom, prénom)
+INSERT INTO ArtisteSolo (id, nom, prénom)
 VALUES (8, 'Joe', 'Hahn');
-INSERT INTO artistesolo (id, nom, prénom)
+INSERT INTO ArtisteSolo (id, nom, prénom)
 VALUES (9, 'Big', 'Jay');
 
 /* On crée tous le groupe et on le bind sur l'Artiste */
 INSERT INTO Groupe (id)
 VALUES (5);
-INSERT INTO groupe (id)
+INSERT INTO Groupe (id)
 VALUES (10);
 
 /* On ajoute les Artistes dans le groupe */
@@ -157,13 +157,13 @@ INSERT INTO Membre (idArtisteSolo, idGroupe, dateDébut)
 VALUES (3, 5, '2020-07-20');
 INSERT INTO Membre (idArtisteSolo, idGroupe, dateDébut)
 VALUES (4, 5, '2020-07-20');
-INSERT INTO membre (idartistesolo, idgroupe, datedébut)
+INSERT INTO Membre (idartistesolo, idgroupe, datedébut)
 VALUES (6, 10, '1997-11-14');
-INSERT INTO membre (idartistesolo, idgroupe, datedébut)
+INSERT INTO Membre (idartistesolo, idgroupe, datedébut)
 VALUES (7, 10, '1997-11-14');
-INSERT INTO membre (idartistesolo, idgroupe, datedébut)
+INSERT INTO Membre (idartistesolo, idgroupe, datedébut)
 VALUES (8, 10, '1997-11-14');
-INSERT INTO membre (idartistesolo, idgroupe, datedébut)
+INSERT INTO Membre (idartistesolo, idgroupe, datedébut)
 VALUES (9, 10, '1997-11-14');
 
 /* On affecte les Artistes à leur Concert */
@@ -185,19 +185,19 @@ INSERT INTO Concert_Artiste (idConcert, idArtiste, numéroPassage)
 VALUES (4, 3, 3);
 INSERT INTO Concert_Artiste (idConcert, idArtiste, numéroPassage)
 VALUES (5, 5, 1);
-INSERT INTO concert_artiste (idconcert, idartiste, numéropassage)
+INSERT INTO Concert_Artiste (idConcert, idArtiste, numéroPassage)
 VALUES (6, 10, 1);
-INSERT INTO concert_artiste (idconcert, idartiste, numéropassage)
+INSERT INTO Concert_Artiste (idConcert, idArtiste, numéroPassage)
 VALUES (7, 10, 1);
-INSERT INTO concert_artiste (idconcert, idartiste, numéropassage)
+INSERT INTO Concert_Artiste (idConcert, idArtiste, numéroPassage)
 VALUES (8, 10, 1);
-INSERT INTO concert_artiste (idconcert, idartiste, numéropassage)
+INSERT INTO Concert_Artiste (idConcert, idArtiste, numéroPassage)
 VALUES (9, 6, 1);
-INSERT INTO concert_artiste (idconcert, idartiste, numéropassage)
+INSERT INTO Concert_Artiste (idConcert, idArtiste, numéroPassage)
 VALUES (9, 7, 2);
-INSERT INTO concert_artiste (idconcert, idartiste, numéropassage)
+INSERT INTO Concert_Artiste (idConcert, idArtiste, numéroPassage)
 VALUES (9, 8, 3);
-INSERT INTO concert_artiste (idconcert, idartiste, numéropassage)
+INSERT INTO Concert_Artiste (idConcert, idArtiste, numéroPassage)
 VALUES (9, 9, 4);
 
 /* Style des Artistes */
@@ -221,25 +221,25 @@ INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (4, 'blues');
 INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (5, 'blues');
-INSERT INTO style_artiste (idartiste, nomstyle)
+INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (6, 'rock');
-INSERT INTO style_artiste (idartiste, nomstyle)
+INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (7, 'rock');
-INSERT INTO style_artiste (idartiste, nomstyle)
+INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (8, 'rock');
-INSERT INTO style_artiste (idartiste, nomstyle)
+INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (9, 'rock');
-INSERT INTO style_artiste (idartiste, nomstyle)
+INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (10, 'rock');
-INSERT INTO style_artiste (idartiste, nomstyle)
+INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (6, 'métal');
-INSERT INTO style_artiste (idartiste, nomstyle)
+INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (7, 'métal');
-INSERT INTO style_artiste (idartiste, nomstyle)
+INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (8, 'métal');
-INSERT INTO style_artiste (idartiste, nomstyle)
+INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (9, 'métal');
-INSERT INTO style_artiste (idartiste, nomstyle)
+INSERT INTO Style_Artiste (idArtiste, nomStyle)
 VALUES (10, 'métal');
 
 /* Les notes doivent correspondre à des Concerts auquels l'Utilisateur a déjà assisté */
