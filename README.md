@@ -64,8 +64,10 @@ Les comptes disponibles sont les suivants :
 | c@gmail.com    | admin        | oui        |
 | d@gmail.com    | admin        | oui        |
 | e@gmail.com    | admin        | oui        |
+| f@gmail.com    | admin        | non        |
+
+Le compte ayant pour login f@gmail.com a assisté à tous les concerts, il peut donc noter tous les concerts, artistes et salles.
 
 ## Bugs connus
 
-* Si on va sur une page qui n'existe pas en étant co, on a le menu comme si on était pas co
-* Pas de check pour s'inscrire ni delete (on pourrait check juste avant de le faire mais flemme)
+* Si on va sur une page qui n'existe pas en étant connecté à un compte, on a le menu comme si on était pas connecté.
