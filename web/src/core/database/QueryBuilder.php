@@ -478,7 +478,7 @@ class QueryBuilder
             ];
             $this->insert('ArtisteSolo', $data);
             if (count($params3) != 0) {
-                $params3['idArtisteSolo'] = $id;
+                $params3['idartistesolo'] = $id;
                 $this->insert('Membre', $params3);
             }
             if (count($params4) != 0) {
