@@ -61,7 +61,7 @@ BEGIN
     INTO concertExistant
     FROM Concert
     WHERE Concert.id != NEW.id
-      AND Concert.nomLieu = NEW.nomlieu
+      AND Concert.nomLieu = NEW.nomLieu
       AND NEW.début BETWEEN Concert.début AND (Concert.début + INTERVAL '1' MINUTE * Concert.durée);
     IF FOUND THEN
         RAISE EXCEPTION 'Un concert se déroule en même temps --> %', concertExistant
