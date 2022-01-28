@@ -16,6 +16,9 @@ use App\Core\App;
 class UsersController
 {
 
+    /**
+     * Fonction pour afficher tous utilisateurs
+     */
     public function index()
     {
         $users = App::get('database')->selectAll('utilisateur');

@@ -30,6 +30,9 @@ class ArtistsController
         return view('artists', compact('data'));
     }
 
+    /**
+     * Renvoie le formulaire pour la création d'un artiste
+     */
     public function createArtist()
     {
         if (!isset($_SESSION["login"])) {
@@ -44,6 +47,9 @@ class ArtistsController
         return view('createArtist', compact('data'));
     }
 
+    /**
+     * Permet de stocker un nouvel artiste
+     */
     public function storeArtist()
     {
         $params1 = ['nomscène' => $_POST['Sname']];
@@ -64,6 +70,9 @@ class ArtistsController
         return $this->index();
     }
 
+    /**
+     * Renvoie le formulaire pour créer un groupe
+     */
     public function createGroup()
     {
         if (!isset($_SESSION["login"])) {
@@ -78,6 +87,9 @@ class ArtistsController
         return view('createGroup', compact('data'));
     }
 
+    /**
+     * Permet de stocker un nouveau groupe
+     */
     public function storeGroup()
     {
         if (!isset($_POST['members'])) {
@@ -129,7 +141,7 @@ class ArtistsController
         $groups = App::get('database')->getAllGroupsWhereIdSoloArtist($_GET['id']);
         $moyenne = App::get('database')->getAVGFromTable('noteartiste', 'idartiste', $_GET['id']);
         $suggestions = App::get('database')->getSuggestionsFromArtist($_GET['id']);
-        
+
         $data = [
             'artist' => $artist,
             'groups' => $groups,
@@ -164,7 +176,6 @@ class ArtistsController
             'moyenne' => $moyenne,
             'suggestions' => $suggestions
         ];
-        // dd($data);
         return view('groupDetails', compact('data'));
     }
 
