@@ -1,8 +1,10 @@
 <?php require('app/views/partials/header.php'); ?>
 <?php require('app/views/partials/nav.php'); ?>
 
-    <h1 class="mt-24 text-5xl text-center text-blue-400">Bienvenu sur Concer'ino !</h1>
-    <div class="mt-6 text-2xl text-center text-blue-400">Voici la liste des 5 prochains concerts</div>
+    <h1 class="mt-24 text-5xl text-center text-blue-400">Bienvenue sur Concer'ino !</h1>
+    <div class="mt-6 text-2xl text-center text-blue-400">Voici la liste des <?= count($concerts) ?> prochains
+        concerts
+    </div>
 
 <?php if (count($concerts) == 0) : ?>
     <h1 class="mt-24 text-4xl text-center text-blue-400">Il n'y a pas encore de concert prévu</h1>
