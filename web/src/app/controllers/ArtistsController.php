@@ -107,7 +107,7 @@ class ArtistsController
         $i = 0;
         foreach ($dates as $date) {
             array_push($params2, $members[$i++]);
-            array_push($params2, $date);
+            array_push($params2, date("Y-m-d", strtotime($date)));
         }
 
         $params3 = [];
