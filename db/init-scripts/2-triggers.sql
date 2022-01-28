@@ -168,7 +168,7 @@ CREATE TRIGGER check_concert_groupe_actif
 EXECUTE FUNCTION function_check_concert_groupe_actif();
 
 CREATE TRIGGER check_concert_artiste_ordre
-    BEFORE INSERT OR UPDATE --TODO DELETE
+    BEFORE INSERT OR UPDATE
     ON Concert_Artiste
     FOR EACH ROW
 EXECUTE FUNCTION function_check_concert_artiste_ordre();

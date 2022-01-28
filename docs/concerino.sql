@@ -459,7 +459,7 @@ CREATE TRIGGER check_concert_groupe_actif
 EXECUTE FUNCTION function_check_concert_groupe_actif();
 
 CREATE TRIGGER check_concert_artiste_ordre
-    BEFORE INSERT OR UPDATE --TODO DELETE
+    BEFORE INSERT OR UPDATE
     ON Concert_Artiste
     FOR EACH ROW
 EXECUTE FUNCTION function_check_concert_artiste_ordre();
@@ -732,7 +732,8 @@ INSERT INTO Lieu (nom, capacité, nomRue, noRue, npa, localité, typeLieu)
 VALUES ('Stade de France', 81000, 'Saint-Denis', 7, 9300, 'Paris', 'Extérieur');
 
 -- Désactivation des triggers pour faire des insertions dans le passé
-ALTER TABLE Concert DISABLE TRIGGER ALL;
+ALTER TABLE Concert
+    DISABLE TRIGGER ALL;
 INSERT INTO Concert (nom, début, durée, nomLieu, idCréateur)
 VALUES ('ConcertA', '2021-10-11 22:30', 130, 'Paleo', 1);
 INSERT INTO Concert (nom, début, durée, nomLieu, idCréateur)
@@ -751,7 +752,8 @@ INSERT INTO Concert (nom, début, durée, nomLieu, idCréateur)
 VALUES ('ConcertH', '2021-06-09 20:00', 210, 'Salle Métropole', 6);
 INSERT INTO Concert (nom, début, durée, nomLieu, idCréateur)
 VALUES ('ConcertI', '2021-07-09 20:00', 210, 'Stade de France', 6);
-ALTER TABLE Concert ENABLE TRIGGER ALL;
+ALTER TABLE Concert
+    ENABLE TRIGGER ALL;
 
 /* Concerts ayant déjà eu Lieu (2021) */
 INSERT INTO Utilisateur_Concert (idConcert, idUtilisateur)
