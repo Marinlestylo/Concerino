@@ -38,7 +38,7 @@
                         border-blue-100 rounded appearance-none focus:outline-none focus:bg-white
                         focus:border-blue-800 datepicker"
                                type="text" id="date" required autocomplete="off" placeholder="dd.mm.yyyy">
-                        <input class="hidden" name="date" id="hiddenDate">
+                        <input class="hidden hiddenDate" name="date">
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
