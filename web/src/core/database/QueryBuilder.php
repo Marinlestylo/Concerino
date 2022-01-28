@@ -44,7 +44,7 @@ class QueryBuilder
      */
     public function getAVGFromTable($tableName, $colName, $val)
     {
-        $query = "SELECT avg(note) AS moyenne FROM $tableName WHERE $colName = $val;";
+        $query = "SELECT AVG(note) AS moyenne FROM $tableName WHERE $colName = $val;";
         return $this->prepareExecute($query);
     }
 
@@ -62,7 +62,7 @@ class QueryBuilder
         }
 
         $sql = sprintf(
-            'insert into %s (%s) values (%s)',
+            'INSERT INTO %s (%s) VALUES (%s)',
             $table,
             implode(', ', array_keys($params)),
             $placeholder
@@ -97,21 +97,34 @@ class QueryBuilder
      */
     public function selectUserInfo($id)
     {
-        $query = "SELECT id, login, nom, prénom, estmodérateur FROM utilisateur WHERE id = $id;";
+        $query = "SELECT id, login, nom, prénom, estModérateur 
+                    FROM Utilisateur 
+                    WHERE id = $id;";
         return $this->prepareExecute($query);
     }
 
     public function selectEveryConcertUserWentTo($idUser)
     {
-        $query = "SELECT id, nom, début, durée, nomlieu FROM utilisateur_concert INNER JOIN concert ON utilisateur_concert.idconcert = concert.id WHERE idutilisateur = $idUser;";
+        $query = "SELECT id, nom, début, durée, nomLieu 
+                    FROM Utilisateur_Concert 
+                    INNER JOIN Concert ON Utilisateur_Concert.idConcert = Concert.id 
+                    WHERE idUtilisateur = $idUser;";
         return $this->prepareExecute($query);
     }
 
     public function showVotes($idUser)
     {
-        $queryNoteArtist = "SELECT idArtiste, note, nomscène FROM noteartiste INNER JOIN artiste ON noteartiste.idartiste = artiste.id WHERE idutilisateur = $idUser;";
-        $queryNoteConcert = "SELECT idconcert, note, nom FROM noteconcert INNER JOIN concert ON noteconcert.idconcert = concert.id WHERE idutilisateur = $idUser;";
-        $queryNoteLieu = "SELECT nom, note FROM notelieu WHERE idutilisateur = $idUser;";
+        $queryNoteArtist = "SELECT idArtiste, note, nomScène 
+                                FROM NoteArtiste 
+                                INNER JOIN Artiste ON NoteArtiste.idArtiste = Artiste.id 
+                                WHERE idUtilisateur = $idUser;";
+        $queryNoteConcert = "SELECT idConcert, note, nom 
+                                FROM NoteConcert 
+                                INNER JOIN Concert ON NoteConcert.idConcert = Concert.id
+                                WHERE idUtilisateur = $idUser;";
+        $queryNoteLieu = "SELECT nom, note 
+                            FROM NoteLieu 
+                            WHERE idUtilisateur = $idUser;";
         $artist = $this->prepareExecute($queryNoteArtist);
         $concerts = $this->prepareExecute($queryNoteConcert);
         $lieux = $this->prepareExecute($queryNoteLieu);
@@ -127,7 +140,9 @@ class QueryBuilder
      */
     public function promoteAdmin($id)
     {
-        $query = "UPDATE utilisateur SET estmodérateur = TRUE WHERE id = $id;";
+        $query = "UPDATE Utilisateur 
+                    SET estModérateur = TRUE
+                    WHERE id = $id;";
         return $this->prepareExecute($query);
     }
 
@@ -139,10 +154,11 @@ class QueryBuilder
      */
     public function selectRoom($nom)
     {
-        $query = "SELECT lieu.*, avg(note) FROM lieu
-                    LEFT JOIN notelieu ON lieu.nom = notelieu.nom
-                    WHERE lieu.nom = '$nom'
-                    GROUP BY lieu.nom;";
+        $query = "SELECT Lieu.*, AVG(note) 
+                    FROM Lieu
+                    LEFT JOIN NoteLieu ON Lieu.nom = NoteLieu.nom
+                    WHERE Lieu.nom = '$nom'
+                    GROUP BY Lieu.nom;";
         return $this->prepareExecute($query);
     }
 
@@ -154,13 +170,21 @@ class QueryBuilder
      */
     public function selectConcertsAndUser()
     {
-        $query = "SELECT concert.id, concert.nom, concert.début, concert.durée, concert.nomlieu, concert.idcréateur, 
-        utilisateur.nom AS \"nomUser\", utilisateur.prénom, count(utilisateur_concert.idutilisateur) AS nbParticipant, lieu.capacité AS nbMaxParticipant
-        FROM concert 
-        INNER JOIN utilisateur ON concert.idcréateur = utilisateur.id
-        INNER JOIN lieu ON concert.nomlieu = lieu.nom 
-        LEFT JOIN utilisateur_concert ON concert.id = utilisateur_concert.idconcert
-        GROUP BY concert.id, utilisateur.nom, utilisateur.prénom, lieu.capacité
+        $query = "SELECT Concert.id,
+                        Concert.nom, 
+                        Concert.début, 
+                        Concert.durée, 
+                        Concert.nomLieu, 
+                        Concert.idCréateur, 
+                        Utilisateur.nom AS \"nomUser\", 
+                        Utilisateur.prénom, 
+                        COUNT(Utilisateur_Concert.idUtilisateur) AS nbParticipant, 
+                        Lieu.capacité AS nbMaxParticipant
+        FROM Concert 
+        INNER JOIN Utilisateur ON Concert.idCréateur = Utilisateur.id
+        INNER JOIN Lieu ON Concert.nomLieu = Lieu.nom 
+        LEFT JOIN Utilisateur_Concert ON Concert.id = Utilisateur_Concert.idConcert
+        GROUP BY Concert.id, Utilisateur.nom, Utilisateur.prénom, Lieu.capacité
         ORDER BY début;";
 
         return $this->prepareExecute($query);
@@ -172,12 +196,17 @@ class QueryBuilder
      */
     public function SelectOneConcertAndInfos($id)
     {
-        $query = "SELECT Concert.*, Utilisateur.nom AS nomUser, prénom, COUNT(Utilisateur_Concert.idConcert) AS nbParticipants, capacité AS nbMaxParticipants, AVG(note) AS moyenneNotes
+        $query = "SELECT Concert.*, 
+                        Utilisateur.nom AS nomUser, 
+                        prénom, 
+                        COUNT(Utilisateur_Concert.idConcert) AS nbParticipants, 
+                        capacité AS nbMaxParticipants, 
+                        AVG(note) AS moyenneNotes
                     FROM Concert
                     INNER JOIN Utilisateur ON Concert.idCréateur = Utilisateur.id
-                    INNER JOIN Lieu ON Concert.nomlieu = Lieu.nom
-                    LEFT JOIN Utilisateur_Concert ON Concert.id = Utilisateur_Concert.idconcert
-                    LEFT JOIN NoteConcert ON Concert.id = Noteconcert.idconcert
+                    INNER JOIN Lieu ON Concert.nomLieu = Lieu.nom
+                    LEFT JOIN Utilisateur_Concert ON Concert.id = Utilisateur_Concert.idConcert
+                    LEFT JOIN NoteConcert ON Concert.id = NoteConcert.idConcert
                     WHERE Concert.id = $id
                     GROUP BY Concert.id, Utilisateur.id, Lieu.nom;";
 
@@ -189,8 +218,11 @@ class QueryBuilder
      */
     public function SelectArtistsOfOneConcert($idConcert)
     {
-        $query = "SELECT id, numéropassage, nomscène FROM concert_artiste INNER JOIN artiste ON concert_artiste.idartiste  = artiste.id 
-                    WHERE idconcert = $idConcert ORDER BY numéropassage;";
+        $query = "SELECT id, numéroPassage, nomScène 
+                    FROM Concert_Artiste 
+                    INNER JOIN Artiste ON Concert_Artiste.idArtiste  = Artiste.id 
+                    WHERE idConcert = $idConcert 
+                    ORDER BY numéroPassage;";
         return $this->prepareExecute($query);
     }
 
@@ -199,7 +231,10 @@ class QueryBuilder
      */
     public function SelecAttendeeOfOneConcert($idConcert)
     {
-        $query = "SELECT id, nom, prénom FROM utilisateur_concert INNER JOIN utilisateur ON utilisateur_concert.idutilisateur = utilisateur.id WHERE idconcert = $idConcert;";
+        $query = "SELECT id, nom, prénom 
+                    FROM Utilisateur_Concert 
+                    INNER JOIN Utilisateur ON Utilisateur_Concert.idUtilisateur = Utilisateur.id 
+                    WHERE idConcert = $idConcert;";
         return $this->prepareExecute($query);
     }
 
@@ -208,9 +243,16 @@ class QueryBuilder
      */
     public function getFiveNextConcerts()
     {
-        $query = "SELECT concert.id, concert.nom, concert.début, concert.durée, concert.nomlieu, concert.idcréateur, utilisateur.nom AS \"nomUser\", utilisateur.prénom 
-                    FROM concert 
-                    INNER JOIN utilisateur ON concert.idcréateur = utilisateur.id 
+        $query = "SELECT Concert.id,
+                        Concert.nom,
+                        Concert.début,
+                        Concert.durée,
+                        Concert.nomLieu,
+                        Concert.idCréateur,
+                        Utilisateur.nom AS \"nomUser\",
+                        Utilisateur.prénom 
+                    FROM Concert 
+                    INNER JOIN Utilisateur ON Concert.idCréateur = Utilisateur.id 
                     WHERE début > now() 
                     ORDER BY début 
                     LIMIT 5;";
@@ -222,12 +264,12 @@ class QueryBuilder
      */
     public function canUserSignUpForThisConcert($idUser, $idConcert)
     {
-        $query = "SELECT * FROM utilisateur_concert WHERE idconcert = $idConcert AND idutilisateur = $idUser;";
+        $query = "SELECT * 
+                    FROM Utilisateur_Concert 
+                    WHERE idConcert = $idConcert 
+                        AND idUtilisateur = $idUser;";
         $result = $this->prepareExecute($query);
-        if (count($result) == 0) {
-            return true;
-        }
-        return false;
+        return count($result) == 0;
     }
 
     /**
@@ -235,7 +277,7 @@ class QueryBuilder
      */
     public function deleteConcert($idConcert)
     {
-        $query = "DELETE FROM concert WHERE id = $idConcert;";
+        $query = "DELETE FROM Concert WHERE id = $idConcert;";
         $this->prepareExecute($query);
     }
 
@@ -244,7 +286,7 @@ class QueryBuilder
      */
     public function unsignUserFromConcert($idUser, $idConcert)
     {
-        $query = "DELETE FROM utilisateur_concert WHERE idutilisateur = $idUser AND idconcert = $idConcert;";
+        $query = "DELETE FROM Utilisateur_Concert WHERE idUtilisateur = $idUser AND idConcert = $idConcert;";
         $this->prepareExecute($query);
     }
 
@@ -253,7 +295,7 @@ class QueryBuilder
      */
     public function createConcert($concert, $artistes)
     {
-        $query = "INSERT INTO concert (nom, début, durée, nomlieu, idcréateur) VALUES (?, ?, ?, ?, ?) RETURNING id;";
+        $query = "INSERT INTO concert (nom, début, durée, nomLieu, idCréateur) VALUES (?, ?, ?, ?, ?) RETURNING id;";
         try {
             $this->pdo->beginTransaction();
 
@@ -263,7 +305,7 @@ class QueryBuilder
             $idConcert = $idConcert[0];
 
             foreach ($artistes as $i => $idArtist) {
-                $this->insert('concert_artiste', [
+                $this->insert('Concert_Artiste', [
                     'idConcert' => $idConcert,
                     'idArtiste' => $idArtist,
                     'numéroPassage' => $i + 1
@@ -275,7 +317,6 @@ class QueryBuilder
             if ($this->pdo->inTransaction()) {
                 $this->pdo->rollback();
             }
-            $e->getMessage();
             return true;
         }
         return false;
@@ -288,7 +329,7 @@ class QueryBuilder
      */
     public function selectNomFromLieu()
     {
-        $query = "SELECT nom FROM lieu;";
+        $query = "SELECT nom FROM Lieu;";
         return $this->prepareExecute($query);
     }
 
@@ -308,8 +349,9 @@ class QueryBuilder
      */
     public function getAllArtistsSolo()
     {
-        $query = "SELECT artistesolo.id, artistesolo.nom, artistesolo.prénom, artiste.nomscène 
-                    FROM artistesolo INNER JOIN artiste ON artistesolo.id = artiste.id;";
+        $query = "SELECT ArtisteSolo.id, ArtisteSolo.nom, ArtisteSolo.prénom, Artiste.nomScène 
+                    FROM ArtisteSolo 
+                        INNER JOIN Artiste ON ArtisteSolo.id = Artiste.id;";
         return $this->prepareExecute($query);
     }
 
@@ -318,7 +360,9 @@ class QueryBuilder
      */
     public function getAllGroups()
     {
-        $query = "SELECT groupe.id, artiste.nomscène FROM groupe INNER JOIN artiste ON groupe.id = artiste.id;";
+        $query = "SELECT Groupe.id, Artiste.nomScène 
+                    FROM Groupe 
+                        INNER JOIN Artiste ON Groupe.id = Artiste.id;";
         return $this->prepareExecute($query);
     }
 
@@ -328,13 +372,17 @@ class QueryBuilder
     public function getAllGroupsWhereIdSoloArtist($id)
     {
 
-        $query = "SELECT artiste.nomscène, artiste.id, string_agg(style_artiste.nomstyle::text, ', ') AS styles, membre.dateDébut, membre.datefin 
-                    FROM membre 
-                    INNER JOIN artiste ON Membre.idGroupe = artiste.id 
-                    LEFT JOIN style_artiste ON membre.idGroupe = style_artiste.idartiste
-                    WHERE membre.idArtisteSolo = $id
-                    GROUP BY artiste.nomscène, artiste.id, membre.dateDébut, membre.dateFin 
-                    ORDER BY membre.dateDébut DESC;";
+        $query = "SELECT Artiste.nomScène, 
+                        Artiste.id, 
+                        STRING_AGG(Style_Artiste.nomStyle::text, ', ') AS styles,
+                        Membre.dateDébut,
+                        Membre.dateFin 
+                    FROM Membre 
+                    INNER JOIN Artiste ON Membre.idGroupe = Artiste.id 
+                    LEFT JOIN Style_Artiste ON Membre.idGroupe = Style_Artiste.idArtiste
+                    WHERE Membre.idArtisteSolo = $id
+                    GROUP BY Artiste.nomScène, Artiste.id, Membre.dateDébut, Membre.dateFin 
+                    ORDER BY Membre.dateDébut DESC;";
         return $this->prepareExecute($query);
     }
 
@@ -343,14 +391,20 @@ class QueryBuilder
      */
     public function getInfoArtistSolo($id)
     {
-        $query = "SELECT artiste.nomscène as nomScène, nom, prénom, STRING_AGG(nomstyle::TEXT, ', ') as styles, artisteGroupe.nomscène as nomGroupe, artisteGroupe.id
-                    FROM artiste
-                    INNER JOIN artistesolo ON artiste.id = artistesolo.id
-                    LEFT JOIN style_artiste ON artiste.id = style_artiste.idartiste
-                    LEFT JOIN membre ON artistesolo.id = membre.idartistesolo AND (membre.datefin IS NULL OR membre.datefin > CURRENT_DATE)
-                    LEFT JOIN artiste artisteGroupe ON artisteGroupe.id = membre.idgroupe
-                    WHERE artiste.id = $id
-                    GROUP BY artiste.id, artistesolo.id, artisteGroupe.id;";
+        $query = "SELECT Artiste.nomScène as nomScène,
+                        nom,
+                        prénom,
+                        STRING_AGG(nomStyle::TEXT, ', ') AS styles, 
+                        ArtisteGroupe.nomScène AS nomGroupe, 
+                        ArtisteGroupe.id
+                    FROM Artiste
+                    INNER JOIN ArtisteSolo ON artiste.id = artistesolo.id
+                    LEFT JOIN Style_Artiste ON artiste.id = Style_Artiste.idArtiste
+                    LEFT JOIN Membre ON ArtisteSolo.id = Membre.idArtisteSolo 
+                                            AND (Membre.dateFin IS NULL OR Membre.dateFin > CURRENT_DATE)
+                    LEFT JOIN Artiste ArtisteGroupe ON ArtisteGroupe.id = Membre.idGroupe
+                    WHERE Artiste.id = $id
+                    GROUP BY Artiste.id, ArtisteSolo.id, ArtisteGroupe.id;";
         return $this->prepareExecute($query);
     }
 
@@ -359,9 +413,10 @@ class QueryBuilder
      */
     public function getAllMembersOfOneGroup($id)
     {
-        $query = "SELECT membre.idartistesolo, artiste.nomscène, membre.datedébut, membre.datefin FROM membre 
-                    INNER JOIN artiste ON membre.idartistesolo = artiste.id 
-                    WHERE membre.idgroupe = $id;";
+        $query = "SELECT Membre.idArtisteSolo, Artiste.nomScène, Membre.dateDébut, Membre.dateFin
+                    FROM Membre 
+                    INNER JOIN Artiste ON Membre.idArtisteSolo = Artiste.id 
+                    WHERE Membre.idGroupe = $id;";
         return $this->prepareExecute($query);
     }
 
@@ -370,11 +425,12 @@ class QueryBuilder
      */
     public function getAllStylesForGroup($id)
     {
-        $query = "SELECT artiste.nomscène, STRING_AGG(style_artiste.nomstyle::TEXT, ', ') as styles FROM groupe
-                    INNER JOIN artiste ON groupe.id = artiste.id
-                    LEFT JOIN style_artiste ON groupe.id = style_artiste.idartiste
-                    WHERE groupe.id = $id
-                    GROUP BY groupe.id, artiste.nomscène;";
+        $query = "SELECT Artiste.nomScène, STRING_AGG(Style_Artiste.nomStyle::TEXT, ', ') as styles
+                    FROM Groupe
+                    INNER JOIN Artiste ON groupe.id = Artiste.id
+                    LEFT JOIN Style_Artiste ON Groupe.id = Style_Artiste.idArtiste
+                    WHERE Groupe.id = $id
+                    GROUP BY Groupe.id, Artiste.nomScène;";
         return $this->prepareExecute($query);
     }
 
@@ -385,8 +441,8 @@ class QueryBuilder
     {
         $query = "SELECT *
                     FROM (SELECT DISTINCT Artiste.id,
-                                          nomscène,
-                                          STRING_AGG(nomstyle, ', ') AS styles,
+                                          nomScène,
+                                          STRING_AGG(nomStyle, ', ') AS styles,
                                           Groupe.id IS NOT NULL AS estGroupe
                           FROM Artiste
                                    LEFT JOIN Style_Artiste ON Artiste.id = Style_Artiste.idArtiste
@@ -394,7 +450,7 @@ class QueryBuilder
                           WHERE EXISTS(SELECT 1
                                        FROM Style_Artiste
                                        WHERE idArtiste != $id
-                                         AND artiste.id = idArtiste)
+                                         AND Artiste.id = idArtiste)
                           GROUP BY Artiste.id, Groupe.id
                          ) t
                     ORDER BY RANDOM()
@@ -407,7 +463,7 @@ class QueryBuilder
      */
     public function createSoloArtiste($params1, $params2, $params3 = [], $params4 = [])
     {
-        $query = "INSERT INTO artiste (nomscène) VALUES (?) RETURNING id;";
+        $query = "INSERT INTO Artiste (nomScène) VALUES (?) RETURNING id;";
         try {
             $this->pdo->beginTransaction();
 
@@ -420,14 +476,14 @@ class QueryBuilder
                 'nom' => $params2['nom'],
                 'prénom' => $params2['prénom']
             ];
-            $this->insert('artistesolo', $data);
+            $this->insert('ArtisteSolo', $data);
             if (count($params3) != 0) {
-                $params3['idartistesolo'] = $id;
-                $this->insert('membre', $params3);
+                $params3['idArtisteSolo'] = $id;
+                $this->insert('Membre', $params3);
             }
             if (count($params4) != 0) {
                 $nb = count($params4);
-                $query2 = "INSERT INTO style_artiste (idartiste, nomstyle) VALUES ($id, ?)";
+                $query2 = "INSERT INTO Style_Artiste (idArtiste, nomStyle) VALUES ($id, ?)";
                 for ($i = 1; $i < $nb; $i++) {
                     $query2 = $query2 . ", ($id, ?)";
                 }
@@ -451,7 +507,7 @@ class QueryBuilder
      */
     public function createGroup($params1, $params2, $params3)
     {
-        $query = "INSERT INTO artiste (nomscène) VALUES (?) RETURNING id;";
+        $query = "INSERT INTO Artiste (nomScène) VALUES (?) RETURNING id;";
         try {
             $this->pdo->beginTransaction();
 
@@ -462,9 +518,9 @@ class QueryBuilder
             $data = [
                 'id' => $id,
             ];
-            $this->insert('groupe', $data);
+            $this->insert('Groupe', $data);
             if (count($params2) != 0) {
-                $query2 = "INSERT INTO membre (idartistesolo, idgroupe, datedébut) VALUES (?, $id, ?)";
+                $query2 = "INSERT INTO Membre (idArtisteSolo, idGroupe, dateDébut) VALUES (?, $id, ?)";
                 for ($i = 1; $i < count($params2) / 2; $i++) {
                     $query2 = $query2 . ", (?, $id, ?)";
                 }
@@ -473,7 +529,7 @@ class QueryBuilder
             }
             if (count($params3) != 0) {
                 $nb = count($params3);
-                $query3 = "INSERT INTO style_artiste (idartiste, nomstyle) VALUES ($id, ?)";
+                $query3 = "INSERT INTO Style_Artiste (idArtiste, nomStyle) VALUES ($id, ?)";
                 for ($i = 1; $i < $nb; $i++) {
                     $query3 = $query3 . ", ($id, ?)";
                 }

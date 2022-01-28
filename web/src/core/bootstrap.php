@@ -34,13 +34,15 @@ function redirect($path)
 /**
  * Fonction de debug, permettant d'afficher le contenu d'une variable et ensuite de stoper l'execution de l'application
  */
-
 function dd($val)
 {
     die(var_dump($val));
 }
 
-function d($d)
+/**
+ * Même chose que dd avec un pretty print.
+ */
+function dd2($d)
 {
     highlight_string("<?php\n " . var_export($d, true) . "?>");
     echo '<script>document.getElementsByTagName("code")[0].getElementsByTagName("span")[1].remove() ;document.getElementsByTagName("code")[0].getElementsByTagName("span")[document.getElementsByTagName("code")[0].getElementsByTagName("span").length - 1].remove() ; </script>';

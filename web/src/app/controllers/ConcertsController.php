@@ -80,7 +80,6 @@ class ConcertsController
         // Si un des champs est vide, on renvoie à la view de création
         if (!isset($_POST['name']) || !isset($_POST['date']) || !isset($_POST['hour']) || !isset($_POST['duration'])
             || !isset($_POST['place']) || !isset($_POST['artists'])) {
-            d($_POST);
             return $this->createConcert();
         }
         $concert = [
@@ -150,11 +149,12 @@ class ConcertsController
     /**
      * Noter un concert
      */
-    public function note(){
-        if(is_numeric($_POST['note']) && $_POST['note'] < 6 && $_POST['note'] > -1){
+    public function note()
+    {
+        if (is_numeric($_POST['note']) && $_POST['note'] < 6 && $_POST['note'] > -1) {
             $data = ['idConcert' => $_POST['idConcert'], 'idutilisateur' => $_POST['idUser'], 'note' => $_POST['note']];
             $error = App::get('database')->insert('noteconcert', $data);
-            if(!$error){
+            if (!$error) {
                 return $this->index();
             }
         }
